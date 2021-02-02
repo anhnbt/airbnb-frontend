@@ -1,1 +1,39 @@
-<p>hosts-upload works!</p>
+<section class="content">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Create New</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+              <i class="fas fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <form enctype="multipart/form-data">
+            <div class="row form-group">
+              <label for="image">Image</label>
+              <input type="file" multiple id="image" accept="image/*" class="form-control" (change)="showPreview($event)">
+              <div>{{ uploadPercent | async }}</div>
+              <div *ngFor="let img of imageSrc">
+                <img [src]="img" width="50">
+              </div>
+              <img [src]="downloadURL | async" />
+              <a [href]="downloadURL | async">{{ downloadURL | async }}</a>
+            </div>
+            <div class="row form-group">
+              <div class="col-12">
+                <a href="#" class="btn btn-secondary">Cancel</a>
+                <input type="submit" value="Create new" class="btn btn-success float-right">
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</section>

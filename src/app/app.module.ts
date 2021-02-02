@@ -19,6 +19,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {environment} from '../environments/environment.prod';
 import { HostsUploadComponent } from './views/hosts-upload/hosts-upload.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { HostsUploadComponent } from './views/hosts-upload/hosts-upload.componen
     MatListModule,
     RouterModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
