@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-fire-ba00e": {
+      "hosting": {
+        "airbnb-frontend": [
+          "angular-fire-ba00e"
+        ]
+      }
+    }
+  }
+}
