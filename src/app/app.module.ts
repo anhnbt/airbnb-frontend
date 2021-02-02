@@ -18,11 +18,13 @@ import {RouterModule} from '@angular/router';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {environment} from '../environments/environment.prod';
+import { HostsUploadComponent } from './views/hosts-upload/hosts-upload.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent
+    LayoutComponent,
+    HostsUploadComponent
   ],
   imports: [
     BrowserModule,
