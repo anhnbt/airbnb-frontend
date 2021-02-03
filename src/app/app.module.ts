@@ -36,6 +36,8 @@ import { TreeComponent } from './tree/tree.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CreatePostComponent } from './views/create-post/create-post.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AddressFormComponent,
     TableComponent,
     DashboardComponent,
-    TreeComponent
+    TreeComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatMenuModule,
     MatTreeModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

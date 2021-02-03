@@ -1,0 +1,83 @@
+<form [formGroup]="createPost" (ngSubmit)="submitPost()">
+  <div class="row">
+    <div class="col-4">
+      image
+    </div>
+    <div class="col-8">
+      <mat-form-field class="example-full-width">
+        <mat-label>Tên nhà</mat-label>
+        <input formControlName="name" #name matInput placeholder="Tên nhà" maxlength="100">
+        <mat-hint align="end">{{name.value.length}} / 100</mat-hint>
+        <mat-error *ngIf="createPost.get('name').hasError('required')">
+          *Xin hãy nhập tên cho ngôi nhà của bạn
+        </mat-error>
+      </mat-form-field>
+
+<!--      <div class="row" cellspacing="0">-->
+<!--        <div class="col-6">-->
+<!--          <mat-form-field class="example-full-width">-->
+<!--            <mat-label>Thành phố</mat-label>-->
+<!--            <input formControlName="city" matInput placeholder="Thành phố">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div class="col-6">-->
+<!--          <mat-form-field class="example-full-width">-->
+<!--            <mat-label>Quốc gia</mat-label>-->
+<!--            <input matInput placeholder="Quốc gia">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field class="example-full-width">
+            <mat-label>Số phòng ngủ</mat-label>
+            <input formControlName="numBedrooms" type="number" matInput placeholder="Số phòng ngủ">
+            <mat-error *ngIf="createPost.get('numBedrooms').hasError('required')">
+              *Số lượng phòng ngủ là bắt buộc
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="example-full-width">
+            <mat-label>Số phòng tắm</mat-label>
+            <input formControlName="numBathrooms" type="number" matInput placeholder="Số phòng tắm">
+            <mat-error *ngIf="createPost.get('numBathrooms').hasError('required')">
+              *Số lượng phòng tắm là bắt buộc
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+<!--      <mat-form-field class="example-full-width">-->
+<!--        <mat-label>Loại phòng</mat-label>-->
+<!--        <input formControlName="roomtype" type="text" matInput placeholder="Loại phòng">-->
+<!--      </mat-form-field>-->
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Giá 1 đêm</mat-label>
+        <input formControlName="pricePerNight" type="number" matInput placeholder="Giá 1 đêm">
+        <mat-error *ngIf="createPost.get('pricePerNight').hasError('required')">
+          *Nhập giá qua đêm cho ngôi nhà của bạn
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Địa chỉ</mat-label>
+        <textarea formControlName="address" #address maxlength="250" matInput placeholder="Địa chỉ" rows="5"></textarea>
+        <mat-hint align="end">{{address.value.length}} / 250</mat-hint>
+        <mat-error *ngIf="createPost.get('address').hasError('required')">
+          *Địa chỉ là bắt buộc
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Mô tả</mat-label>
+        <textarea formControlName="description" #description maxlength="500" matInput placeholder="Mô tả (có thể để trống)" rows="5"></textarea>
+        <mat-hint align="end">{{description.value.length}} / 500</mat-hint>
+      </mat-form-field>
+    </div><!-- /.col-8 -->
+  </div><!-- /.row -->
+
+  <button class="float-right" type="submit" [disabled]="!createPost.valid" mat-raised-button color="warn">ĐĂNG BÀI</button>
+</form>
