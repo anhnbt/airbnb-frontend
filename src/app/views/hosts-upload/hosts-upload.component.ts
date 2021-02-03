@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-hosts-upload',
@@ -9,18 +10,28 @@ import {finalize} from 'rxjs/operators';
   styleUrls: ['./hosts-upload.component.css']
 })
 export class HostsUploadComponent implements OnInit {
+
+  myGroup = this.fb.group({
+    city: [null, Validators.required],
+    images: [null, Validators.required]
+  });
   selectedImage: File;
   imageSrc: string[] = [];
 
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
 
-  constructor(private storage: AngularFireStorage) {
+  constructor(
+    private fb: FormBuilder,
+    private storage: AngularFireStorage) {
     // const ref = this.storage.ref('images/no-image.jpg');
     // this.downloadURL = ref.getDownloadURL();
   }
 
   ngOnInit(): void {
+  }
+  get images(): AbstractControl {
+    return this.myGroup.get('images');
   }
 
   uploadFile(event): void {

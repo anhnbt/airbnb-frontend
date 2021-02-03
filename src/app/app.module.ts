@@ -20,12 +20,32 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {environment} from '../environments/environment.prod';
 import { HostsUploadComponent } from './views/hosts-upload/hosts-upload.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AddressFormComponent } from './address-form/address-form.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+import { TableComponent } from './table/table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+import { TreeComponent } from './tree/tree.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    HostsUploadComponent
+    HostsUploadComponent,
+    AddressFormComponent,
+    TableComponent,
+    DashboardComponent,
+    TreeComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +59,19 @@ import { AppRoutingModule } from './app-routing.module';
     RouterModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatGridListModule,
+    MatMenuModule,
+    MatTreeModule,
+    ReactiveFormsModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
