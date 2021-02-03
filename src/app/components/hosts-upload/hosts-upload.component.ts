@@ -5,7 +5,7 @@ import {finalize} from 'rxjs/operators';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogContentComponent} from '../../layout/dialog-content/dialog-content.component';
+import {DialogContentComponent} from '../layout/dialog-content/dialog-content.component';
 
 @Component({
   selector: 'app-hosts-upload',
