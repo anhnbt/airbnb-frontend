@@ -6,20 +6,18 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="col">
-        <mat-form-field appearance="outline" class="full-width">
+        <mat-form-field appearance="outline">
           <input matInput placeholder="City" formControlName="city">
           <mat-error *ngIf="myGroup.controls['city'].hasError('required')">
             City is <strong>required</strong>
           </mat-error>
         </mat-form-field>
-      </div>
-      <div class="col">
         <label>Image</label>
         <input formControlName="images" accept="image/*" type="file" multiple (change)="showPreview($event)">
-        <div *ngIf="images.errors.required">
-          Image is required.
-        </div>
+        <div *ngIf="images.invalid && (images.dirty || images.touched)">
+          <mat-error *ngIf="images.errors.required">
+            Image is <strong>required</strong>.
+          </mat-error>
         <div>{{ uploadPercent | async }}</div>
         <div *ngFor="let img of imageSrc">
           <img [src]="img" width="50">
