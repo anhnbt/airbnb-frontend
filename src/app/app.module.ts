@@ -36,6 +36,7 @@ import { TreeComponent } from './tree/tree.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ListHomeComponent } from './views/list-home/list-home.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AddressFormComponent,
     TableComponent,
     DashboardComponent,
-    TreeComponent
+    TreeComponent,
+    ListHomeComponent
   ],
   imports: [
     BrowserModule,
