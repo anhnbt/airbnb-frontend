@@ -36,6 +36,7 @@ import { TreeComponent } from './tree/tree.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {ListHomeComponent} from './views/list-home/list-home.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogContentComponent } from './layout/dialog-content/dialog-content.component';
@@ -48,6 +49,8 @@ import { DialogContentComponent } from './layout/dialog-content/dialog-content.c
     AddressFormComponent,
     TableComponent,
     DashboardComponent,
+    TreeComponent,
+    ListHomeComponent,
     TreeComponent,
     DialogContentComponent
   ],
