@@ -40,6 +40,7 @@ import {ListHomeComponent} from './components/list-home/list-home.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogContentComponent } from './components/layout/dialog-content/dialog-content.component';
+import { RoomDetailsComponent } from './components/room-details/room-details.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { DialogContentComponent } from './components/layout/dialog-content/dialo
     TreeComponent,
     ListHomeComponent,
     TreeComponent,
-    DialogContentComponent
+    DialogContentComponent,
+    RoomDetailsComponent
   ],
   imports: [
     BrowserModule,
