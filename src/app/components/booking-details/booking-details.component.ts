@@ -12,7 +12,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class BookingDetailsComponent implements OnInit {
 
   myForm = this.fb.group({
-    cancelReservationDate: ['', Validators.required]
+    cancelReservationDate: [new Date(), Validators.required],
   });
 
   constructor(
@@ -26,12 +26,18 @@ export class BookingDetailsComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Submit');
+    console.log(this.myForm.value);
+    const timestamp = new Date(this.cancelReservationDate.value);
+    console.log(timestamp);
     this.openConfirmDialog();
   }
 
   get cancelReservationDate(): AbstractControl {
     return this.myForm.get('cancelReservationDate');
+  }
+
+  getTimeFromDate(timestamp: Date): Date {
+    return new Date(timestamp);
   }
 
   openConfirmDialog(): void {
