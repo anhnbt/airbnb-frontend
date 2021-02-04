@@ -9,10 +9,11 @@
   <div class="col-2 text-center">
     <img src="https://www.w3schools.com/howto/img_avatar.png" height="100" width="100" class="rounded-circle"
          alt="avatar">
+    <button class="mt-3" mat-raised-button color="primary">Xửa thông tin</button>
   </div>
   <div class="col-10">
     <h2>{{user.name}}</h2>
-    <mat-hint>Tham gia vào {{user.createdAt}}</mat-hint>
+    <mat-hint>Tham gia vào {{user.createdAt | date: 'dd/MM/yyyy'}}</mat-hint>
     <p>Email: {{user.email}}</p>
     <p>Phone: {{user.phone}}</p>
     <hr>
@@ -23,7 +24,7 @@
         <div class="card-body p-0">
           <h2 class="card-title m-0">{{room.name}}</h2>
           <p>{{room.totalOfBedroom}} Phòng ngủ - {{room.totalOfBathroom}} Phòng tắm</p>
-          <p><strong>{{room.pricePerNight}}₫/đêm</strong></p>
+          <p><strong>{{room.pricePerNight | currency: "VND"}}/đêm</strong></p>
           <p class="card-title">{{room.address}} - {{room.province.name}} - {{room.province.country.name}}</p>
         </div>
       </div>
