@@ -47,11 +47,11 @@
   </div>
   <div class="col-md-4">
     <strong>{{room.pricePerNight}}₫</strong>/đêm
-    <form action="#">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <mat-form-field appearance="fill" class="col-6">
           <mat-label>Nhận phòng</mat-label>
-          <input matInput [matDatepicker]="picker1" [formControl]="date">
+          <input matInput [matDatepicker]="picker1" formControlName="startDate">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1>
             <mat-datepicker-actions>
@@ -63,7 +63,7 @@
         <mat-form-field appearance="fill" class="col-6">
           <mat-label>Trả phòng</mat-label>
           <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker2"
-                 [formControl]="serializedDate">
+                 formControlName="endDate">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2>
             <mat-datepicker-actions>
@@ -80,5 +80,6 @@
       </div>
       <button mat-raised-button color="accent" type="submit">Đặt ngay</button>
     </form>
+    <div *ngIf="totalAmount && (endDate.dirty || endDate.touched)">Total: {{totalAmount}}</div>
   </div>
 </div>
