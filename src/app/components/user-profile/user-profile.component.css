@@ -9,3 +9,8 @@ p {
 .card-body * {
   padding: 2px;
 }
+
+a {
+  text-decoration:none;
+  color: black;
+}
