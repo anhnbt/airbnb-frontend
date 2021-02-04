@@ -11,7 +11,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {RouterModule} from '@angular/router';
-
+import {HttpClientModule} from '@angular/common/http';
 /**
  * Config cho firebase
  */
@@ -34,8 +34,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { TreeComponent } from './tree/tree.component';
 import { MatTreeModule } from '@angular/material/tree';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { LayoutLoginComponent } from './layout-login/layout-login.component';
+import { LoginComponent } from './layout-login/login/login.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AddressFormComponent,
     TableComponent,
     DashboardComponent,
-    TreeComponent
+    TreeComponent,
+    LayoutLoginComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatMenuModule,
     MatTreeModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
