@@ -11,7 +11,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {RouterModule} from '@angular/router';
-
+import {LayoutLoginComponent} from './components/layout-login/layout-login.component';
+import {LoginComponent} from './components/layout-login/login/login.component';
 /**
  * Config cho firebase
  */
@@ -58,6 +59,9 @@ import {CreatePostComponent} from './components/create-post/create-post.componen
     ListHomeComponent,
     TreeComponent,
     DialogContentComponent,
+    RoomDetailsComponent,
+    LayoutLoginComponent,
+    LoginComponent,
     RoomDetailsComponent,
     CreatePostComponent
   ],

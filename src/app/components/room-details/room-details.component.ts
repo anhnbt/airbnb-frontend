@@ -3,7 +3,6 @@ import {FormControl} from '@angular/forms';
 import {RoomService} from '../../services/room.service';
 import {Room} from '../../models/room';
 import {ActivatedRoute} from '@angular/router';
-import {Response} from '../../models/response';
 
 @Component({
   selector: 'app-room-details',
