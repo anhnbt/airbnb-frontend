@@ -40,6 +40,8 @@ import {ListHomeComponent} from './components/list-home/list-home.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogContentComponent } from './components/layout/dialog-content/dialog-content.component';
+import {HttpClientModule} from '@angular/common/http';
+import {HomeListService} from './src/app/services/home-list.service';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { DialogContentComponent } from './components/layout/dialog-content/dialo
     DialogContentComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
@@ -82,7 +85,7 @@ import { DialogContentComponent } from './components/layout/dialog-content/dialo
     MatSnackBarModule,
     MatDialogModule
   ],
-  providers: [],
+  providers: [HomeListService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

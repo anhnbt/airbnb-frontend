@@ -28,65 +28,22 @@
   </mat-card-subtitle>
 </mat-grid-list>
 <mat-grid-list cols="3" rowHeight="0.70:1">
-  <mat-grid-tile>
+  <mat-grid-tile *ngFor="let r of rooms">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Name place</mat-card-title>
-        <mat-card-subtitle>ratting</mat-card-subtitle>
+        <mat-card-title>{{r.name}}</mat-card-title>
+        <mat-card-subtitle>rating</mat-card-subtitle>
       </mat-card-header>
       <img mat-card-image src="https://achi.vn/wp-content/uploads/2020/04/Mau-thiet-ke-nha-biet-thu-15-tang-dep-tai-ha-noi-achi-11032-01.jpg">
       <mat-card-content> Content </mat-card-content>
       <mat-card-actions>
-        <button mat-button color="primary">Thue</button>
+        <button mat-button color="primary">home</button>
         <button mat-button color="primary">Info</button>
-        <a mat-button color="primary">Price</a>
+        <a mat-button color="primary">{{r.pricePerNight}}$</a>
         <div class="flex-spacer"></div>
         <button mat-icon-button ><mat-icon>share</mat-icon></button>
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>
-
-  <mat-grid-tile><mat-card>
-    <mat-card-header>
-      <mat-card-title>Name place</mat-card-title>
-      <mat-card-subtitle>ratting</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://achi.vn/wp-content/uploads/2020/04/Mau-thiet-ke-nha-biet-thu-15-tang-dep-tai-ha-noi-achi-11032-01.jpg">
-    <mat-card-content> Content </mat-card-content>
-    <mat-card-actions>
-      <button mat-button color="primary">LIKE</button>
-      <button mat-button color="primary">Info</button>
-      <div class="flex-spacer"></div>
-      <button mat-icon-button ><mat-icon>share</mat-icon></button>
-    </mat-card-actions>
-  </mat-card></mat-grid-tile>
-  <mat-grid-tile><mat-card>
-    <mat-card-header>
-      <mat-card-title>Name place</mat-card-title>
-      <mat-card-subtitle>ratting</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://achi.vn/wp-content/uploads/2020/04/Mau-thiet-ke-nha-biet-thu-15-tang-dep-tai-ha-noi-achi-11032-01.jpg">
-    <mat-card-content> Content </mat-card-content>
-    <mat-card-actions>
-      <button mat-button color="primary">LIKE</button>
-      <button mat-button color="primary">Info</button>
-      <div class="flex-spacer"></div>
-      <button mat-icon-button ><mat-icon>share</mat-icon></button>
-    </mat-card-actions>
-  </mat-card></mat-grid-tile>
-  <mat-grid-tile><mat-card>
-    <mat-card-header>
-      <mat-card-title>Name place</mat-card-title>
-      <mat-card-subtitle>ratting</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://achi.vn/wp-content/uploads/2020/04/Mau-thiet-ke-nha-biet-thu-15-tang-dep-tai-ha-noi-achi-11032-01.jpg">
-    <mat-card-content> Content </mat-card-content>
-    <mat-card-actions>
-      <button mat-button color="primary">LIKE</button>
-      <button mat-button color="primary">Info</button>
-      <div class="flex-spacer"></div>
-      <button mat-icon-button ><mat-icon>share</mat-icon></button>
-    </mat-card-actions>
-  </mat-card></mat-grid-tile>
 </mat-grid-list>
 </mat-card>
