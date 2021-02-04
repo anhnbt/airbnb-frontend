@@ -11,7 +11,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {RouterModule} from '@angular/router';
-
+import {LayoutLoginComponent} from './components/layout-login/layout-login.component';
+import {LoginComponent} from './components/layout-login/login/login.component';
 /**
  * Config cho firebase
  */
@@ -57,7 +58,9 @@ import { HttpClientModule } from '@angular/common/http';
     ListHomeComponent,
     TreeComponent,
     DialogContentComponent,
-    RoomDetailsComponent
+    RoomDetailsComponent,
+    LayoutLoginComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
