@@ -5,6 +5,7 @@ import {HostsUploadComponent} from './components/hosts-upload/hosts-upload.compo
 import {ListHomeComponent} from './components/list-home/list-home.component';
 import {RoomDetailsComponent} from './components/room-details/room-details.component';
 import {CreatePostComponent} from './components/create-post/create-post.component';
+import {BookingDetailsComponent} from './components/booking-details/booking-details.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'rooms/:id', component: RoomDetailsComponent },
   { path: 'upload', component: HostsUploadComponent },
   { path: 'create-post', component: CreatePostComponent },
+  { path: 'booking-detail/:id', component: BookingDetailsComponent },
   { path: 'profile', component: UserProfileComponent }
 ];
 
