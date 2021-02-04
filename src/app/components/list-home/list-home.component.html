@@ -1,7 +1,7 @@
 <mat-card style="max-width: 1080px">
   <mat-grid-list cols="15">
     <mat-card-title>
-        <form class="example-form">
+        <form class="example-form" >
           <mat-form-field class="example-full-width">
             <mat-label>Search Places <mat-icon>search</mat-icon></mat-label>
 
@@ -17,13 +17,14 @@
             <!-- #docregion mat-autocomplete -->
 
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option  *ngFor="let option of places" [value]="option.name">
+              <mat-option (click)="search(option.id)" *ngFor="let option of places" [value]="option.name">
                 {{option.name}}-{{option.country.name}} <mat-icon>add_location</mat-icon>
               </mat-option>
             </mat-autocomplete>
             <!-- #enddocregion mat-autocomplete -->
           </mat-form-field>
         </form>
+      <a routerLink="/listhome" (click)="getAllHome()">{{back}}</a>
     </mat-card-title>
 
   </mat-grid-list>
