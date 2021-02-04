@@ -47,6 +47,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import {CreatePostComponent} from './components/create-post/create-post.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { SliderModule } from 'angular-image-slider';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    HttpClientModule
+    HttpClientModule,
+    SliderModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

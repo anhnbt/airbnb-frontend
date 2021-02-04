@@ -5,12 +5,14 @@ import {HostsUploadComponent} from './components/hosts-upload/hosts-upload.compo
 import {ListHomeComponent} from './components/list-home/list-home.component';
 import {RoomDetailsComponent} from './components/room-details/room-details.component';
 import {CreatePostComponent} from './components/create-post/create-post.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: 'listhome', component: ListHomeComponent },
   { path: 'rooms/:id', component: RoomDetailsComponent },
   { path: 'upload', component: HostsUploadComponent },
-  { path: 'create-post', component: CreatePostComponent }
+  { path: 'create-post', component: CreatePostComponent },
+  { path: 'profile', component: UserProfileComponent }
 ];
 
 @NgModule({
