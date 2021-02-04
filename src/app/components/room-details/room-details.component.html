@@ -1,1 +1,84 @@
-<p>room-details works!</p>
+<div class="row">
+  <div class="col-md-8">
+    <mat-card>
+      <mat-card-header>
+        <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+             alt="Photo of a Shiba Inu">
+        <mat-card-title>{{room.name}}</mat-card-title>
+        <mat-card-subtitle><strong>4.78</strong> (23) · <span class="material-icons">location_on</span> {{room.province.name}}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="100px">
+          <mat-grid-tile rowspan="2">
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                 alt="Photo of a Shiba Inu">
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                 alt="Photo of a Shiba Inu">
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                 alt="Photo of a Shiba Inu">
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                 alt="Photo of a Shiba Inu">
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                 alt="Photo of a Shiba Inu">
+          </mat-grid-tile>
+        </mat-grid-list>
+        <ul>
+          <li><strong>Loại phòng</strong>: {{room.propertyType.name}}</li>
+          <li><strong>Địa chỉ</strong>: {{room.address}}</li>
+          <li><strong>Số lượng phòng ngủ</strong>: {{room.totalOfBedroom}}</li>
+          <li><strong>Số lượng phòng tắm</strong>: {{room.totalOfBathroom}}</li>
+          <li><strong>Giá tiền theo ngày (VNĐ)</strong>:  <strong>{{room.pricePerNight}}₫</strong>/đêm</li>
+        </ul>
+        <div>
+          <h2>Mô tả chung</h2>
+          {{room.description}}
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-4">
+    <strong>{{room.pricePerNight}}₫</strong>/đêm
+    <form action="#">
+      <div class="row">
+        <mat-form-field appearance="fill" class="col-6">
+          <mat-label>Nhận phòng</mat-label>
+          <input matInput [matDatepicker]="picker1" [formControl]="date">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="col-6">
+          <mat-label>Trả phòng</mat-label>
+          <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker2"
+                 [formControl]="serializedDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          Khach
+        </div>
+      </div>
+      <button mat-raised-button color="accent" type="submit">Đặt ngay</button>
+    </form>
+  </div>
+</div>
