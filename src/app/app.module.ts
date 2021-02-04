@@ -47,6 +47,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import {CreatePostComponent} from './components/create-post/create-post.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { BookingListComponent } from './components/booking-list/booking-list.component';
+import { BookingDetailsComponent } from './components/booking-details/booking-details.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     LoginComponent,
     RoomDetailsComponent,
     CreatePostComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    BookingListComponent,
+    BookingDetailsComponent
   ],
   imports: [
     BrowserModule,
