@@ -45,6 +45,7 @@ import { RoomDetailsComponent } from './components/room-details/room-details.com
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
+import {CreatePostComponent} from './components/create-post/create-post.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,9 @@ import { HttpClientModule } from '@angular/common/http';
     DialogContentComponent,
     RoomDetailsComponent,
     LayoutLoginComponent,
-    LoginComponent
+    LoginComponent,
+    RoomDetailsComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import {catchError, tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class RoomService {
+  private URL = 'http://localhost:8080/api/v1/rooms';
 
   constructor(private http: HttpClient) {
   }
@@ -39,5 +40,13 @@ export class RoomService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+  getAll(): any {
+    return this.http.get(this.URL);
+  }
+
+  save(product: any): any {
+    return this.http.post(this.URL, product);
   }
 }
