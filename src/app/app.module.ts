@@ -49,6 +49,7 @@ import {CreatePostComponent} from './components/create-post/create-post.componen
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { BookingListComponent } from './components/booking-list/booking-list.component';
 import { BookingDetailsComponent } from './components/booking-details/booking-details.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { BookingDetailsComponent } from './components/booking-details/booking-de
     BookingDetailsComponent
   ],
   imports: [
+    MatAutocompleteModule,
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
