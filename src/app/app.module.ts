@@ -50,6 +50,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { BookingListComponent } from './components/booking-list/booking-list.component';
 import { BookingDetailsComponent } from './components/booking-details/booking-details.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {ReviewComponent} from './components/review/review.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     CreatePostComponent,
     UserProfileComponent,
     BookingListComponent,
-    BookingDetailsComponent
+    BookingDetailsComponent,
+    ReviewComponent
   ],
   imports: [
     MatAutocompleteModule,
