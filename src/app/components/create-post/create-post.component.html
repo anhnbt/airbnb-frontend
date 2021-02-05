@@ -1,136 +1,169 @@
-<form [formGroup]="createPost" (ngSubmit)="submitPost()">
-  <div class="row">
-    <div class="col-4">
+<mat-horizontal-stepper [linear]="false" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Bước 1: Thông tin chỗ nghỉ</ng-template>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Thông tin cơ bản</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Tên nhà</mat-label>
+            <input formControlName="name" #name matInput maxlength="100">
+            <mat-hint align="end">{{name.value.length}} / 100</mat-hint>
+            <mat-error *ngIf="firstFormGroup.get('name').hasError('required')">
+              *Xin hãy nhập tên cho ngôi nhà của bạn
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.get('name').hasError('minlength')">
+              *Độ dài tên nhà từ 2 - 100 ký tự
+            </mat-error>
+          </mat-form-field>
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Thành phố</mat-label>
+                <mat-select formControlName="province">
+                  <mat-option *ngFor="let province of provinceList" [value]="province">{{province.name}}
+                    - {{province.country.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Trạng thái</mat-label>
+                <mat-select formControlName="status">
+                  <mat-option [value]="true">Còn trống</mat-option>
+                  <mat-option [value]="false">Hết phòng</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button mat-raised-button color="accent" (click)="uploadImage.click()"><span class="material-icons">upload_file</span>
-            Chọn ảnh tải lên
-          </button>
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Số phòng ngủ</mat-label>
+                <!--            <input formControlName="totalOfBedroom" type="number" matInput placeholder="Số phòng ngủ">-->
+                <mat-select formControlName="totalOfBedroom">
+                  <mat-option [value]="1">1</mat-option>
+                  <mat-option [value]="2">2</mat-option>
+                  <mat-option [value]="3">3</mat-option>
+                  <mat-option [value]="4">4</mat-option>
+                  <mat-option [value]="5">5</mat-option>
+                </mat-select>
+                <mat-error *ngIf="firstFormGroup.get('totalOfBedroom').hasError('required')">
+                  *Số lượng phòng ngủ là bắt buộc
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Số phòng tắm</mat-label>
+                <!--            <input formControlName="totalOfBathroom" type="number" matInput placeholder="Số phòng tắm">-->
+                <mat-select formControlName="totalOfBathroom">
+                  <mat-option [value]="1">1</mat-option>
+                  <mat-option [value]="2">2</mat-option>
+                  <mat-option [value]="3">3</mat-option>
+                  <mat-option [value]="4">4</mat-option>
+                  <mat-option [value]="5">5</mat-option>
+                </mat-select>
+                <mat-error *ngIf="firstFormGroup.get('totalOfBathroom').hasError('required')">
+                  *Số lượng phòng tắm là bắt buộc
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Loại phòng</mat-label>
+            <mat-select formControlName="propertyType">
+              <mat-option *ngFor="let propertyType of propertyTypeList"
+                          [value]="propertyType">{{propertyType.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Giá 1 đêm</mat-label>
+            <input formControlName="pricePerNight" type="number" matInput>
+            <mat-error *ngIf="firstFormGroup.get('pricePerNight').hasError('required')">
+              *Nhập giá qua đêm cho ngôi nhà của bạn
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Địa chỉ</mat-label>
+            <textarea formControlName="address" #address maxlength="250" matInput rows="5"></textarea>
+            <mat-hint align="end">{{address.value.length}} / 250</mat-hint>
+            <mat-error *ngIf="firstFormGroup.get('address').hasError('required')">
+              *Địa chỉ là bắt buộc
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Mô tả (có thể để trống)</mat-label>
+            <textarea formControlName="description" #description maxlength="500" matInput
+                      rows="5"></textarea>
+            <mat-hint align="end">{{description.value.length}} / 500</mat-hint>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" label="Bước 2: Hình ảnh chỗ nghỉ">
+    <form [formGroup]="secondFormGroup">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Hình ảnh chỗ nghỉ</mat-card-title>
+          <mat-card-subtitle>Một vài tấm ảnh đẹp sẽ giúp khách hàng có nhiều thiện cảm hơn về chỗ nghỉ của bạn.
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
           <input #uploadImage class="d-none" formControlName="images" accept="image/*" type="file" multiple
                  (change)="showPreview($event)">
-        </div>
-        <div class="col-12">
-          <mat-hint>Một vài tấm ảnh đẹp sẽ giúp khách hàng có nhiều thiện cảm hơn về chỗ nghỉ của bạn.</mat-hint>
-        </div>
-      </div>
-      <!-- show list images -->
-      <div class="row row-cols-2 row-cols-md-4">
-        <div *ngFor="let img of imageSrc; index as idx" class="col mb-4 position-relative">
-          <div class="position-absolute">
-            <button (click)="openConfirmDialog(idx)" mat-raised-button color="warn"><span
-              class="material-icons">delete</span>
-            </button>
+          <!-- show list images -->
+          <div class="row row-cols-2 row-cols-md-3">
+            <div *ngFor="let img of imageSrc; index as idx" class="col mb-4">
+              <div class="card h-100 position-relative">
+                <div class="position-absolute">
+                  <button (click)="openConfirmDialog(idx)" mat-raised-button color="warn"><span
+                    class="material-icons">delete</span>
+                  </button>
+                </div>
+                <img [src]="img" class="rounded img-fluid h-100">
+              </div>
+            </div>
+            <div class="col mb-4">
+              <div class="card h-100">
+                <div class="card-body border border-primary d-flex align-items-center justify-content-center">
+                  <button mat-raised-button color="accent" (click)="uploadImage.click()"><span class="material-icons">add</span>
+                    Chọn ảnh tải lên
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <img [src]="img" class="rounded img-fluid">
-        </div>
-      </div>
-      <!--      <app-hosts-upload></app-hosts-upload>-->
-    </div>
-    <div class="col-8">
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Tên nhà</mat-label>
-        <input formControlName="name" #name matInput maxlength="100">
-        <mat-hint align="end">{{name.value.length}} / 100</mat-hint>
-        <mat-error *ngIf="createPost.get('name').hasError('required')">
-          *Xin hãy nhập tên cho ngôi nhà của bạn
-        </mat-error>
-        <mat-error *ngIf="createPost.get('name').hasError('minlength')">
-          *Độ dài tên nhà từ 2 - 100 ký tự
-        </mat-error>
-      </mat-form-field>
-
-      <div class="row">
-        <div class="col-6">
-          <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Thành phố</mat-label>
-            <mat-select formControlName="province">
-              <mat-option *ngFor="let province of provinceList" [value]="province">{{province.name}}
-                - {{province.country.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-6">
-          <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Trạng thái</mat-label>
-            <mat-select formControlName="status">
-              <mat-option [value]="true">Còn trống</mat-option>
-              <mat-option [value]="false">Hết phòng</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-6">
-          <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Số phòng ngủ</mat-label>
-            <!--            <input formControlName="totalOfBedroom" type="number" matInput placeholder="Số phòng ngủ">-->
-            <mat-select formControlName="totalOfBedroom">
-              <mat-option [value]="1">1</mat-option>
-              <mat-option [value]="2">2</mat-option>
-              <mat-option [value]="3">3</mat-option>
-              <mat-option [value]="4">4</mat-option>
-              <mat-option [value]="5">5</mat-option>
-            </mat-select>
-            <mat-error *ngIf="createPost.get('totalOfBedroom').hasError('required')">
-              *Số lượng phòng ngủ là bắt buộc
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-6">
-          <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Số phòng tắm</mat-label>
-            <!--            <input formControlName="totalOfBathroom" type="number" matInput placeholder="Số phòng tắm">-->
-            <mat-select formControlName="totalOfBathroom">
-              <mat-option [value]="1">1</mat-option>
-              <mat-option [value]="2">2</mat-option>
-              <mat-option [value]="3">3</mat-option>
-              <mat-option [value]="4">4</mat-option>
-              <mat-option [value]="5">5</mat-option>
-            </mat-select>
-            <mat-error *ngIf="createPost.get('totalOfBathroom').hasError('required')">
-              *Số lượng phòng tắm là bắt buộc
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Loại phòng</mat-label>
-        <mat-select formControlName="propertyType">
-          <mat-option *ngFor="let propertyType of propertyTypeList"
-                      [value]="propertyType">{{propertyType.name}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Giá 1 đêm</mat-label>
-        <input formControlName="pricePerNight" type="number" matInput>
-        <mat-error *ngIf="createPost.get('pricePerNight').hasError('required')">
-          *Nhập giá qua đêm cho ngôi nhà của bạn
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Địa chỉ</mat-label>
-        <textarea formControlName="address" #address maxlength="250" matInput rows="5"></textarea>
-        <mat-hint align="end">{{address.value.length}} / 250</mat-hint>
-        <mat-error *ngIf="createPost.get('address').hasError('required')">
-          *Địa chỉ là bắt buộc
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Mô tả (có thể để trống)</mat-label>
-        <textarea formControlName="description" #description maxlength="500" matInput
-                  rows="5"></textarea>
-        <mat-hint align="end">{{description.value.length}} / 500</mat-hint>
-      </mat-form-field>
-    </div><!-- /.col-8 -->
-  </div><!-- /.row -->
-
-  <button class="float-right" type="submit" [disabled]="!createPost.valid" mat-raised-button color="warn">
-    ĐĂNG BÀI
-  </button>
-</form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <mat-card>
+      <mat-card-content><p>You are now done.</p></mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button type="submit" [disabled]="!firstFormGroup.valid" mat-raised-button color="warn">
+          ĐĂNG BÀI
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+</mat-horizontal-stepper>

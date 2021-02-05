@@ -23,7 +23,7 @@ export class CreatePostComponent implements OnInit {
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
 
-  createPost: FormGroup = new FormGroup({
+  firstFormGroup: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]),
     pricePerNight: new FormControl('', [Validators.required]),
     propertyType: new FormControl('', [Validators.required]),
@@ -34,6 +34,10 @@ export class CreatePostComponent implements OnInit {
     totalOfBathroom: new FormControl('', [Validators.required, Validators.min(1)]),
     images: new FormControl(),
     description: new FormControl(),
+  });
+
+  secondFormGroup = this.fb.group({
+    images: [null, Validators.required]
   });
 
   constructor(
@@ -60,8 +64,8 @@ export class CreatePostComponent implements OnInit {
   }
 
   submitPost(): any {
-    console.log(this.createPost.value);
-    this.roomService.save(this.createPost.value).subscribe((res: any) => {
+    console.log(this.firstFormGroup.value);
+    this.roomService.save(this.firstFormGroup.value).subscribe((res: any) => {
       console.log(res.data);
     });
   }
