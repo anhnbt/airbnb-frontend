@@ -23,6 +23,7 @@ export class ListHomeComponent implements OnInit {
   places: any;
    rooms: any;
   myControl = new FormControl();
+  back: any;
   constructor(private serviceHome: ListHomeService, private serviceCity: ListCityService) { }
 
   ngOnInit(): void {
@@ -30,5 +31,13 @@ export class ListHomeComponent implements OnInit {
     this.serviceCity.getAllCity().subscribe((res: any) => {this.places = res.data;console.log(this.places); });
   }
 
+  search(id: number) {
+    this.serviceHome.findAllByCityId(id).subscribe((res: any) => {this.rooms = res.data;console.log(id +' search'); })
+    this.back = 'Xem Tất Cả Phòng'
+  }
 
+  getAllHome() {
+    this.serviceHome.getAll().subscribe((res: any) => {this.rooms = res.data;console.log(this.rooms); });
+
+  }
 }
