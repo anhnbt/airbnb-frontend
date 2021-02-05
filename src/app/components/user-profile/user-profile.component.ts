@@ -21,10 +21,10 @@ export class UserProfileComponent implements OnInit {
     createdAt: null,
     updatedAt: null,
   };
-  roomsOfHost: Room[] = [];
+  // user: any;
+  roomsOfHost = [];
   bookings = [];
-  totalMoney = [];
-  money: number;
+
   imagesUrl = [];
 
   constructor(private userService: UserService) {
@@ -33,13 +33,15 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getOne(1).subscribe((res: any) => {
       this.user = res.data;
-      this.roomsOfHost = res.data.rooms;
-      this.bookings = res.data.bookings;
-
-      // for (const b of this.bookings) {
-      //   this.money = b.endDate.getDate() - b.startDate.getDate();
-      //   console.log(this.money);
-      // }
+      console.log(res.data);
+      this.userService.getRoomsOfHost(1).subscribe((res: any) => {
+        this.roomsOfHost = res.data;
+        console.log(this.roomsOfHost);
+        this.userService.getBookingsOfUser(1).subscribe((res: any) => {
+          this.bookings = res.data;
+          console.log(this.bookings);
+        });
+      });
     });
   }
 

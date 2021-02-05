@@ -19,4 +19,12 @@ export class UserService {
   getOne(id: number): Observable<any> {
     return this.http.get(this.url + '/' + id);
   }
+
+  getRoomsOfHost(id: number): Observable<any> {
+    return this.http.get(this.url + '/' + id + '/rooms');
+  }
+
+  getBookingsOfUser(id: number): Observable<any> {
+    return this.http.get(this.url + '/' + id + '/bookings');
+  }
 }

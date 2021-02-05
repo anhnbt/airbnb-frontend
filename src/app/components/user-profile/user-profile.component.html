@@ -58,18 +58,6 @@
             <td>{{booking.endDate}}</td>
             <td>{{booking.status}}</td>
             <td>{{booking.numNights * booking.room.pricePerNight | currency:"VND"}}</td>
-
-            <div id="detailRoomHidden" class="card m-0 p-2">
-                <img class="card-img-top p-0"
-                     src="https://cdn.jhmrad.com/wp-content/uploads/amazing-modern-architecture-beautiful-house-design_194954-670x400.jpg"
-                     alt="house">
-              <div class="card-body p-0">
-                <h2 class="card-title m-0">{{booking.room.name}}</h2>
-                <p>{{booking.room.totalOfBedroom}} Phòng ngủ - {{booking.room.totalOfBathroom}} Phòng tắm</p>
-                <p><strong>{{booking.room.pricePerNight | currency: "VND": "symbol":'1.0-0'}}/đêm</strong></p>
-                <p class="card-title">{{booking.room.address}} - {{booking.room.province.name}} - {{booking.room.province.country.name}}</p>
-              </div>
-            </div>
           </tr>
           </tbody>
         </table>
