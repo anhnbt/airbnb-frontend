@@ -52,6 +52,8 @@ import {BookingDetailsComponent} from './components/booking-details/booking-deta
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatStepperModule} from '@angular/material/stepper';
 import {ReviewComponent} from './components/review/review.component';
+import {SliderModule} from 'angular-image-slider';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -106,7 +108,9 @@ import {ReviewComponent} from './components/review/review.component';
     MatDatepickerModule,
     MatNativeDateModule,
     HttpClientModule,
-    MatStepperModule
+    HttpClientModule,
+    SliderModule,
+    MatTabsModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

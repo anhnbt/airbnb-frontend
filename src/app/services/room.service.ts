@@ -53,4 +53,9 @@ export class RoomService {
   uploadMultiImage(formData: FormData): Observable<any> {
     return this.http.post('http://localhost:8080/upload', formData);
   }
+
+  changeStatus(id: number): any {
+    // @ts-ignore
+    return this.http.put(this.URL + '/' + id + '/status');
+  }
 }
