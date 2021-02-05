@@ -1,0 +1,15 @@
+.mat-card-avatar {
+  background-size: cover;
+}
+
+.mat-card-action {
+  display: flex;
+}
+
+.mat-card-action.flex-spacer {
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
