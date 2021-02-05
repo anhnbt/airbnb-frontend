@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit {
     this.serviceHome.getAll().subscribe((res: any) => {
       this.rooms = res.data;
       console.log(this.rooms);
+      this.back= '';
     });
 
   }
