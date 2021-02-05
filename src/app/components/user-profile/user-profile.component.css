@@ -1,5 +1,5 @@
 p {
- margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .card {
@@ -11,6 +11,14 @@ p {
 }
 
 a {
-  text-decoration:none;
+  text-decoration: none;
   color: black;
+}
+
+#detailRoomHidden {
+  display: none;
+}
+
+#roomDetail:hover + #detailRoomHidden {
+  display: block;
 }
