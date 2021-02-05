@@ -25,20 +25,18 @@
     <a routerLink="/" (click)="getAllHome()">{{back}}</a>
     <mat-grid-list cols="3" rowHeight="0.70:1" *ngIf="rooms.length > 0 else nodata">
       <mat-grid-tile *ngFor="let r of rooms">
-        <mat-card>
+        <mat-card class="border">
           <mat-card-header>
             <mat-card-title><a routerLink="/rooms/1">{{r.name}}</a></mat-card-title>
             <mat-card-subtitle>rating</mat-card-subtitle>
           </mat-card-header>
-          <img mat-card-image
-               src="https://achi.vn/wp-content/uploads/2020/04/Mau-thiet-ke-nha-biet-thu-15-tang-dep-tai-ha-noi-achi-11032-01.jpg">
-          <mat-card-content> Content</mat-card-content>
-          <mat-card-actions>
-            <button mat-button color="primary">home</button>
-            <button mat-button color="primary">Info</button>
-            <a mat-button color="primary">{{r.pricePerNight}}$</a>
-            <div class="flex-spacer"></div>
-            <button mat-icon-button>
+          <a routerLink="/rooms/1">
+            <img mat-card-image src="https://achi.vn/wp-content/uploads/2020/04/Mau-thiet-ke-nha-biet-thu-15-tang-dep-tai-ha-noi-achi-11032-01.jpg">
+          </a>
+          <mat-card-content>{{r.description}}</mat-card-content>
+          <mat-card-actions class="clearfix">
+            <div class="float-left"><strong>{{r.pricePerNight | currency:'VND'}}</strong>/đêm</div>
+            <button mat-icon-button class="float-right">
               <mat-icon>share</mat-icon>
             </button>
           </mat-card-actions>
