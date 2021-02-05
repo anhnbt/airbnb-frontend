@@ -110,7 +110,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     HttpClientModule,
     HttpClientModule,
     SliderModule,
-    MatTabsModule
+    MatTabsModule,
+    MatStepperModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
