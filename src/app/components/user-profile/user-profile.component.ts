@@ -3,6 +3,7 @@ import {UserService} from '../../services/user.service';
 import {User} from '../../models/user';
 import {Timestamp} from 'rxjs';
 import {Room} from '../../models/room';
+import {RoomService} from '../../services/room.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -27,22 +28,25 @@ export class UserProfileComponent implements OnInit {
 
   imagesUrl = [];
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private roomService: RoomService) {
   }
 
   ngOnInit(): void {
     this.userService.getOne(1).subscribe((res: any) => {
       this.user = res.data;
-      console.log(res.data);
       this.userService.getRoomsOfHost(1).subscribe((res: any) => {
         this.roomsOfHost = res.data;
-        console.log(this.roomsOfHost);
         this.userService.getBookingsOfUser(1).subscribe((res: any) => {
           this.bookings = res.data;
-          console.log(this.bookings);
         });
       });
     });
   }
 
+  changeStatus(id: number): any {
+    this.roomService.changeStatus(id).subscribe(res => {
+      this.ngOnInit();
+    });
+  }
 }

@@ -34,6 +34,11 @@
               <p>{{room.totalOfBedroom}} Phòng ngủ - {{room.totalOfBathroom}} Phòng tắm</p>
               <p><strong>{{room.pricePerNight | currency: "VND": "symbol":'1.0-0'}}/đêm</strong></p>
               <p class="card-title">{{room.address}} - {{room.province.name}} - {{room.province.country.name}}</p>
+
+              <div class="m-0">
+                <button [disabled]="room.status" (click)="changeStatus(room.id)" mat-raised-button color="primary">Còn trống</button>
+                <button [disabled]="!room.status" (click)="changeStatus(room.id)" mat-raised-button color="warn" class="float-right"> Hết phòng</button>
+              </div>
             </div>
           </div>
         </div>
@@ -65,8 +70,6 @@
     </mat-tab-group>
 
     <hr>
-    <div id="myDIV">Hover over me.</div>
-    <div id="hide">I am shown when someone hovers over the div above.</div>
     <h1>Đánh giá</h1>
   </div>
 </div>

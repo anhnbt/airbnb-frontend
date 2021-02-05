@@ -49,4 +49,9 @@ export class RoomService {
   save(product: any): any {
     return this.http.post(this.URL, product);
   }
+
+  changeStatus(id: number): any {
+    // @ts-ignore
+    return this.http.put(this.URL + '/' + id + '/status');
+  }
 }
