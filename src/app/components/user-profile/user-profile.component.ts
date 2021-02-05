@@ -26,7 +26,13 @@ export class UserProfileComponent implements OnInit {
   roomsOfHost = [];
   bookings = [];
 
-  imagesUrl = [];
+  imagesUrl = [
+    'https://albailassan.com/jquery/img/landscape/05.jpg',
+    'https://albailassan.com/jquery/img/landscape/05.jpg',
+    'https://albailassan.com/jquery/img/landscape/05.jpg',
+    'https://albailassan.com/jquery/img/landscape/05.jpg',
+    'https://albailassan.com/jquery/img/landscape/05.jpg'
+  ];
 
   constructor(private userService: UserService,
               private roomService: RoomService) {

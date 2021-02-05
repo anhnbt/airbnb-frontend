@@ -1,0 +1,50 @@
+<mat-card>
+  <mat-card-content>
+    <form class="example-form">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Search Places
+          <mat-icon>search</mat-icon>
+        </mat-label>
+
+        <!-- #docregion input -->
+        <input type="text"
+               placeholder="where do you want to go ?"
+               aria-label="Places"
+               matInput
+               [formControl]="myControl"
+               [matAutocomplete]="auto">
+
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option (click)="search(option.id)" *ngFor="let option of places" [value]="option.name">
+            {{option.name}}-{{option.country.name}}
+            <mat-icon>add_location</mat-icon>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <a routerLink="/" (click)="getAllHome()">{{back}}</a>
+    <mat-grid-list cols="3" rowHeight="0.70:1" *ngIf="rooms.length > 0 else nodata">
+      <mat-grid-tile *ngFor="let r of rooms">
+        <mat-card class="border">
+          <mat-card-header>
+            <mat-card-title><a routerLink="/rooms/1">{{r.name}}</a></mat-card-title>
+            <mat-card-subtitle>rating</mat-card-subtitle>
+          </mat-card-header>
+          <a routerLink="/rooms/1">
+            <img mat-card-image src="https://achi.vn/wp-content/uploads/2020/04/Mau-thiet-ke-nha-biet-thu-15-tang-dep-tai-ha-noi-achi-11032-01.jpg">
+          </a>
+          <mat-card-content>{{r.description}}</mat-card-content>
+          <mat-card-actions class="clearfix">
+            <div class="float-left"><strong>{{r.pricePerNight | currency:'VND'}}</strong>/đêm</div>
+            <button mat-icon-button class="float-right">
+              <mat-icon>share</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <ng-template #nodata>
+      Chưa có dữ liệu.
+    </ng-template>
+  </mat-card-content>
+</mat-card>
