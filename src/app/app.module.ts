@@ -45,6 +45,11 @@ import { RoomDetailsComponent } from './components/room-details/room-details.com
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
+import {CreatePostComponent} from './components/create-post/create-post.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { BookingListComponent } from './components/booking-list/booking-list.component';
+import { BookingDetailsComponent } from './components/booking-details/booking-details.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {ReviewComponent} from './components/review/review.component';
 
 @NgModule({
@@ -62,9 +67,15 @@ import {ReviewComponent} from './components/review/review.component';
     RoomDetailsComponent,
     LayoutLoginComponent,
     LoginComponent,
+    RoomDetailsComponent,
+    CreatePostComponent,
+    UserProfileComponent,
+    BookingListComponent,
+    BookingDetailsComponent,
     ReviewComponent
   ],
   imports: [
+    MatAutocompleteModule,
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,

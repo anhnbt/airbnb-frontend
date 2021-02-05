@@ -10,4 +10,7 @@ export class ListHomeService {
   getAll(){
     return this.http.get('http://localhost:8080/api/v1/rooms');
   }
+  findAllByCityId(id: number){
+    return this.http.get('http://localhost:8080/api/v1/rooms/city/'+id);
+  }
 }

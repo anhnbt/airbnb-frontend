@@ -1,31 +1,32 @@
 <mat-card style="max-width: 1080px">
-  <mat-grid-list cols="6">
-    <mat-card-subtitle>
-      <mat-form-field appearance="fill">
-        <mat-label>Country</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let c of country" [value]="c.id">
-            {{c.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Country</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let c of country" [value]="c.id">
-            {{c.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>City</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let c of country[0].city" [value]="c.id">
-            {{c.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-card-subtitle>
+  <mat-grid-list cols="15">
+    <mat-card-title>
+        <form class="example-form" >
+          <mat-form-field class="example-full-width">
+            <mat-label>Search Places <mat-icon>search</mat-icon></mat-label>
+
+            <!-- #docregion input -->
+            <input type="text"
+                   placeholder="where do you want to go ?"
+                   aria-label="Places"
+                   matInput
+                   [formControl]="myControl"
+                   [matAutocomplete]="auto">
+
+            <!-- #enddocregion input -->
+            <!-- #docregion mat-autocomplete -->
+
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option (click)="search(option.id)" *ngFor="let option of places" [value]="option.name">
+                {{option.name}}-{{option.country.name}} <mat-icon>add_location</mat-icon>
+              </mat-option>
+            </mat-autocomplete>
+            <!-- #enddocregion mat-autocomplete -->
+          </mat-form-field>
+        </form>
+      <a routerLink="/listhome" (click)="getAllHome()">{{back}}</a>
+    </mat-card-title>
+
   </mat-grid-list>
   <mat-grid-list cols="3" rowHeight="0.70:1">
     <mat-grid-tile *ngFor="let r of rooms">
