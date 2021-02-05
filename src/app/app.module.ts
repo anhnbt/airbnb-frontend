@@ -50,6 +50,8 @@ import {UserProfileComponent} from './components/user-profile/user-profile.compo
 import {BookingListComponent} from './components/booking-list/booking-list.component';
 import {BookingDetailsComponent} from './components/booking-details/booking-details.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatStepperModule} from '@angular/material/stepper';
+import {ReviewComponent} from './components/review/review.component';
 import {SliderModule} from 'angular-image-slider';
 import {MatTabsModule} from '@angular/material/tabs';
 
@@ -73,6 +75,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     UserProfileComponent,
     BookingListComponent,
     BookingDetailsComponent,
+    ReviewComponent
   ],
   imports: [
     MatAutocompleteModule,
@@ -104,6 +107,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    HttpClientModule,
     HttpClientModule,
     SliderModule,
     MatTabsModule
