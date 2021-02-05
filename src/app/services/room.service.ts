@@ -49,4 +49,8 @@ export class RoomService {
   save(product: any): any {
     return this.http.post(this.URL, product);
   }
+
+  uploadMultiImage(formData: FormData): Observable<any> {
+    return this.http.post('http://localhost:8080/upload', formData);
+  }
 }

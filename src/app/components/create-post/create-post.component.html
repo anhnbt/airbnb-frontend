@@ -43,7 +43,6 @@
             <div class="col-6">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Số phòng ngủ</mat-label>
-                <!--            <input formControlName="totalOfBedroom" type="number" matInput placeholder="Số phòng ngủ">-->
                 <mat-select formControlName="totalOfBedroom">
                   <mat-option [value]="1">1</mat-option>
                   <mat-option [value]="2">2</mat-option>
@@ -59,7 +58,6 @@
             <div class="col-6">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Số phòng tắm</mat-label>
-                <!--            <input formControlName="totalOfBathroom" type="number" matInput placeholder="Số phòng tắm">-->
                 <mat-select formControlName="totalOfBathroom">
                   <mat-option [value]="1">1</mat-option>
                   <mat-option [value]="2">2</mat-option>
@@ -121,24 +119,27 @@
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <input #uploadImage class="d-none" formControlName="images" accept="image/*" type="file" multiple
+          <input #inputImages class="d-none" formControlName="image" accept="image/*" type="file" multiple
                  (change)="showPreview($event)">
+          <div *ngIf="secondFormGroup.controls.image.touched && secondFormGroup.controls.image.invalid" class="alert alert-danger">
+            <div *ngIf="secondFormGroup.controls.image.errors.required">Image is <strong>required</strong>.</div>
+          </div>
           <!-- show list images -->
           <div class="row row-cols-2 row-cols-md-3">
-            <div *ngFor="let img of imageSrc; index as idx" class="col mb-4">
+            <div *ngFor="let image of images; index as idx" class="col mb-4">
               <div class="card h-100 position-relative">
                 <div class="position-absolute">
                   <button (click)="openConfirmDialog(idx)" mat-raised-button color="warn"><span
                     class="material-icons">delete</span>
                   </button>
                 </div>
-                <img [src]="img" class="rounded img-fluid h-100">
+                <img [src]="image" class="rounded img-fluid h-100">
               </div>
             </div>
             <div class="col mb-4">
               <div class="card h-100">
                 <div class="card-body border border-primary d-flex align-items-center justify-content-center">
-                  <button mat-raised-button color="accent" (click)="uploadImage.click()"><span class="material-icons">add</span>
+                  <button mat-raised-button color="accent" (click)="inputImages.click()"><span class="material-icons">add</span>
                     Chọn ảnh tải lên
                   </button>
                 </div>
@@ -160,9 +161,8 @@
       <mat-card-actions>
         <button mat-raised-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
-        <button type="submit" [disabled]="!firstFormGroup.valid" mat-raised-button color="warn">
-          ĐĂNG BÀI
-        </button>
+<!--        <button type="submit" [disabled]="!firstFormGroup.valid" mat-raised-button color="warn">ĐĂNG BÀI</button>-->
+        <button type="button" mat-raised-button color="primary" (click)="onSubmit()">ĐĂNG BÀI</button>
       </mat-card-actions>
     </mat-card>
   </mat-step>
