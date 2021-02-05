@@ -46,7 +46,7 @@
     </mat-card>
   </div>
   <div class="col-md-4">
-    <strong>{{room.pricePerNight}}₫</strong>/đêm
+    <strong>{{room.pricePerNight | currency:'VND'}}</strong>/đêm
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <mat-form-field appearance="fill" class="col-6">
