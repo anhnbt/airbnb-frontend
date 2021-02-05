@@ -51,6 +51,7 @@ import {BookingListComponent} from './components/booking-list/booking-list.compo
 import {BookingDetailsComponent} from './components/booking-details/booking-details.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatStepperModule} from '@angular/material/stepper';
+import {ReviewComponent} from './components/review/review.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     CreatePostComponent,
     UserProfileComponent,
     BookingListComponent,
-    BookingDetailsComponent
+    BookingDetailsComponent,
+    ReviewComponent
   ],
   imports: [
     MatAutocompleteModule,
