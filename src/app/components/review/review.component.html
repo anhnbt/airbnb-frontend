@@ -1,3 +1,17 @@
+<form [formGroup]="myForm" class="example-form">
+  <button mat-icon-button color="accent" *ngFor="let ratingId of ratingArr;index as i" (click)="onClick(i+1)">
+    <mat-icon>
+      {{showIcon(i+1)}}
+    </mat-icon>
+  </button>
+  <mat-form-field class="example-full-width">
+    <mat-label>Leave a comment</mat-label>
+    <!--    <input matInput placeholder="User Name" type="text" formControlName="name">-->
+    <textarea matInput placeholder="Ex. It makes me feel..." formControlName="reviewBody"></textarea>
+  </mat-form-field>
+  <button (click)="send()">send</button>
+</form>
+
 <div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -21,12 +35,3 @@
   <p></p>
   <p></p>
 </div>
-<form [formGroup]="myForm" class="example-form">
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Leave a comment</mat-label>
-<!--    <input matInput placeholder="User Name" type="text" formControlName="name">-->
-    <textarea matInput placeholder="Ex. It makes me feel..." formControlName="reviewBody"></textarea>
-  </mat-form-field>
-  <button (click)="send()">send</button>
-</form>
