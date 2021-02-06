@@ -10,15 +10,18 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 export class ReviewComponent implements OnInit {
   displayedColumns: string[] = ['rating', 'reviewBody'];
   dataSource: any;
+  ratingArr = [1, 2, 3, 4, 5];
   myForm: FormGroup = new FormGroup({
-    reviewBody: new FormControl('')
+    reviewBody: new FormControl(''),
+    rating: new FormControl('')
   });
   constructor(private reviewService: ReviewService,
               private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
-      reviewBody: ['']
+      reviewBody: [''],
+      rating: ['']
     });
     this.loadData();
   }
@@ -32,5 +35,19 @@ export class ReviewComponent implements OnInit {
   }
   loadData(): void{
     this.reviewService.getAll().subscribe( res => this.dataSource = res.data);
+  }
+  onClick(index: number): void{
+    this.myForm.patchValue({
+      rating: index /// vua nay dat ten sai
+      // sua ratings thanh rating thoi ma
+    });
+  }
+  showIcon(index: number): string {
+    if ( this.myForm.get('rating').value >= index) {
+      // Sua dong 46 nua, may thieu .value
+      return 'star';
+    } else {
+      return 'star_border';
+    }
   }
 }
