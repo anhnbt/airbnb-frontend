@@ -18,7 +18,14 @@ export class RoomDetailsComponent implements OnInit {
     endDate: [this.addDays(new Date(), 2), Validators.required],
   });
 
-  totalAmount: string;
+  totalAmount: number;
+  totalDay: number;
+  totalKhach = 1;
+  orderdetails: any = {
+    nguoilon: 1,
+    treem: 0,
+    embe: 0
+  };
 
   room: Room;
   date = new FormControl(new Date());
@@ -30,7 +37,7 @@ export class RoomDetailsComponent implements OnInit {
     console.log('currentDate: ' + currentDate);
     console.log('selectedDate: ' + selectedDate);
     return currentDate <= selectedDate;
-  }
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -63,8 +70,10 @@ export class RoomDetailsComponent implements OnInit {
     });
   }
 
-  sum(startDate: Date, endDate: Date): string {
-    return '$259';
+  sum(startDate: Date, endDate: Date): number {
+    console.log(endDate.getDate() - startDate.getDate());
+    this.totalDay = endDate.getDate() - startDate.getDate();
+    return this.totalDay * this.room.pricePerNight;
   }
 
   get startDate(): AbstractControl {
@@ -73,6 +82,14 @@ export class RoomDetailsComponent implements OnInit {
 
   get endDate(): AbstractControl {
     return this.myForm.get('endDate');
+  }
+
+  increment(input: number): void {
+    input++;
+  }
+
+  decrement(input: number): void {
+    input++;
   }
 
   onSubmit(): void {

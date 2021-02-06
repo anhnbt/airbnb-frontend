@@ -49,6 +49,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {ReviewComponent} from './components/review/review.component';
 import {SliderModule} from 'angular-image-slider';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     HttpClientModule,
     SliderModule,
     MatTabsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatExpansionModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
