@@ -19,50 +19,43 @@ import {LoginComponent} from './components/layout-login/login/login.component';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {environment} from '../environments/environment.prod';
-import { HostsUploadComponent } from './components/hosts-upload/hosts-upload.component';
-import { AppRoutingModule } from './app-routing.module';
-import { AddressFormComponent } from './components/address-form/address-form.component';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatCardModule } from '@angular/material/card';
-import { TableComponent } from './components/table/table.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatMenuModule } from '@angular/material/menu';
-import { TreeComponent } from './components/tree/tree.component';
-import { MatTreeModule } from '@angular/material/tree';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { ListHomeComponent } from './components/list-home/list-home.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatDialogModule } from '@angular/material/dialog';
-import { DialogContentComponent } from './components/layout/dialog-content/dialog-content.component';
-import { RoomDetailsComponent } from './components/room-details/room-details.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { HttpClientModule } from '@angular/common/http';
+import {AppRoutingModule} from './app-routing.module';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTreeModule} from '@angular/material/tree';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {HomeComponent} from './components/home/home.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import {DialogContentComponent} from './components/layout/dialog-content/dialog-content.component';
+import {RoomDetailsComponent} from './components/room-details/room-details.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {HttpClientModule} from '@angular/common/http';
 import {CreatePostComponent} from './components/create-post/create-post.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { BookingListComponent } from './components/booking-list/booking-list.component';
-import { BookingDetailsComponent } from './components/booking-details/booking-details.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import {BookingListComponent} from './components/booking-list/booking-list.component';
+import {BookingDetailsComponent} from './components/booking-details/booking-details.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatStepperModule} from '@angular/material/stepper';
 import {ReviewComponent} from './components/review/review.component';
+import {SliderModule} from 'angular-image-slider';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    HostsUploadComponent,
-    AddressFormComponent,
-    TableComponent,
-    DashboardComponent,
-    TreeComponent,
-    ListHomeComponent,
-    TreeComponent,
+    HomeComponent,
     DialogContentComponent,
     RoomDetailsComponent,
     LayoutLoginComponent,
@@ -104,7 +97,12 @@ import {ReviewComponent} from './components/review/review.component';
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpClientModule,
+    SliderModule,
+    MatTabsModule,
+    MatStepperModule,
+    MatExpansionModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

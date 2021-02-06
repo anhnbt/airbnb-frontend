@@ -1,0 +1,24 @@
+.mat-card-avatar {
+  background-size: cover;
+}
+
+.mat-card-action {
+  display: flex;
+}
+
+.mat-card-action.flex-spacer {
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+.mat-card{
+  max-width: 300px;
+}
+.size{
+  max-width: 1080px;
+}
+a{
+  color: #1b1e21;
+}

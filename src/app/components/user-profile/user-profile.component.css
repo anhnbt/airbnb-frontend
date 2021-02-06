@@ -1,0 +1,24 @@
+p {
+  margin-bottom: 0;
+}
+
+.card {
+  border: none;
+}
+
+.card-body * {
+  padding: 2px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#detailRoomHidden {
+  display: none;
+}
+
+#roomDetail:hover + #detailRoomHidden {
+  display: block;
+}
