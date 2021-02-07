@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {RoomImageService} from '../../services/room-image.service';
 
 @Component({
   selector: 'app-create-post',
@@ -20,6 +21,11 @@ export class CreatePostComponent implements OnInit {
   propertyTypeList: any;
 
   images: string[] = [];
+  imagesTung = {
+    imageUrl: ''
+  };
+
+  fileList: any;
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
 
@@ -33,6 +39,7 @@ export class CreatePostComponent implements OnInit {
     totalOfBedroom: new FormControl('', [Validators.required, Validators.min(1)]),
     totalOfBathroom: new FormControl('', [Validators.required, Validators.min(1)]),
     description: new FormControl(),
+    images: new FormControl(),
   });
 
   secondFormGroup = this.fb.group({
@@ -45,6 +52,7 @@ export class CreatePostComponent implements OnInit {
     private roomService: RoomService,
     private provinceService: ProvinceService,
     private propertyTypeService: PropertyTypeService,
+    private roomImageService: RoomImageService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private storage: AngularFireStorage,
@@ -86,18 +94,43 @@ export class CreatePostComponent implements OnInit {
   //     .subscribe();
   // }
 
+
+  uploadFile(file: File): void {
+    // const file = event.target.files[0];
+    const filePath = `${file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+    // const filePath = `${this.product.name}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+
+    // observe percentage changes
+    this.uploadPercent = task.percentageChanges();
+    // get notified when the download URL is available
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe(async url => {
+          this.imagesTung.imageUrl = url;
+          await this.roomImageService.save(this.imagesTung).subscribe();
+        });
+      })
+    )
+      .subscribe();
+  }
+
+
   showPreview(event: Event): void {
-    const fileList = (event.target as HTMLInputElement).files;
-    if (fileList && fileList.length) {
+    this.fileList = (event.target as HTMLInputElement).files;
+    // this.fileList = event.target.files;
+    console.log(this.fileList);
+    if (this.fileList && this.fileList.length) {
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < fileList.length; i++) {
-        const file: File = fileList.item(i);
+      for (let i = 0; i < this.fileList.length; i++) {
+        const file: File = this.fileList.item(i);
         // Kiểm tra nếu không phải là ảnh
         if (!file.type.startsWith('image/')) {
           continue;
         }
         // Kiểm tra nếu kích thước ảnh vượt quá 1Mb
-        if (file.size > 1024000) {
+        if (file.size > 1024000 * 5) {
           this.openSnackBar('Ảnh có kích thước không quá 1MB', 'Close');
           continue;
         }
@@ -131,7 +164,7 @@ export class CreatePostComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.images.splice(index, 1);
-
+        // this.fileList.splice(index, 1);
         // this.secondFormGroup.patchValue({
         //   fileSource: this.images
         // });
@@ -139,16 +172,24 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
+  // onSubmit(): void {
+  //   console.log('Submit');
+  //   console.log(this.secondFormGroup.get('image').value);
+  //   const formData: FormData = new FormData();
+  //   formData.append('image', 'Hello');
+  //   formData.append('imageSource', this.secondFormGroup.get('imageSource').value);
+  //   console.log(formData);
+  //   this.roomService.uploadMultiImage(formData).subscribe(
+  //     (response) => console.log(response),
+  //     (error) => console.warn(error)
+  //   );
+  // }
+
   onSubmit(): void {
-    console.log('Submit');
-    console.log(this.secondFormGroup.get('image').value);
-    const formData: FormData = new FormData();
-    formData.append('image', 'Hello');
-    formData.append('imageSource', this.secondFormGroup.get('imageSource').value);
-    console.log(formData);
-    this.roomService.uploadMultiImage(formData).subscribe(
-      (response) => console.log(response),
-      (error) => console.warn(error)
-    );
+    this.submitPost();
+    console.log(this.fileList);
+    for (const file of this.fileList) {
+      this.uploadFile(file);
+    }
   }
 }
