@@ -25,7 +25,7 @@
             <a [routerLink]="['/rooms', room.id]">
               <img class="card-img-top p-0"
                    *ngFor="let img of room.roomImages"
-                   [src]="img.imageUrl"
+                   [src]=img.imageUrl
                    alt="house">
             </a>
             <div class="card-body p-0">
