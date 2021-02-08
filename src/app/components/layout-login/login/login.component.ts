@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
+import {LocalStorageService} from '../../../services/localStorage.service';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +12,17 @@ import {UserService} from '../../../services/user.service';
 export class LoginComponent implements OnInit {
 
   myForm: FormGroup = new FormGroup({
-    name: new FormControl(''),
+    username: new FormControl(''),
     password: new FormControl('')
   });
   constructor(private fb: FormBuilder,
               private router: Router,
-              private userService: UserService) {}
+              private userService: UserService,
+              private localService: LocalStorageService) {}
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z]*[0-9]*$')]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z]*[0-9]*$')]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
@@ -31,8 +33,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void{
     this.userService.login(this.myForm.value).subscribe(res => {
-      console.log(res.data);
-      this.router.navigate(['']);
+      console.log(res);
+      this.localService.set(res.data.username, res.data.accessToken );
+      this.router.navigate(['/']);
     });
 
   }
