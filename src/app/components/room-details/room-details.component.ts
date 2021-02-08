@@ -16,26 +16,20 @@ export class RoomDetailsComponent implements OnInit {
   myForm = this.fb.group({
     startDate: [new Date(), Validators.required],
     endDate: [this.addDays(new Date(), 2), Validators.required],
+    numberOfGuests: [1, Validators.required],
+    numberOfChildren: [0, Validators.required],
+    numberOfInfants: [0, Validators.required],
   });
 
-  totalAmount: number;
-  totalDay: number;
-  totalKhach = 1;
-  orderdetails: any = {
-    nguoilon: 1,
-    treem: 0,
-    embe: 0
-  };
-
-  room: Room;
+  roomData: Room = {};
+  
+  numberOfDay: number = 0;
+  amount: number = 0;
   date = new FormControl(new Date());
   serializedDate = new FormControl((new Date()).toISOString());
   myFilter = (d: Date | null): boolean => {
     const currentDate = new Date();
     const selectedDate = d || this.date.value;
-    // const nextTwoDate = this.addDays(selectedDate, 2);
-    console.log('currentDate: ' + currentDate);
-    console.log('selectedDate: ' + selectedDate);
     return currentDate <= selectedDate;
   };
 
@@ -54,8 +48,7 @@ export class RoomDetailsComponent implements OnInit {
   getRoom(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.roomService.getRoom(id).subscribe((res: any) => {
-      this.room = res.data;
-      console.log(res);
+      this.roomData = res.data;
     });
   }
 
@@ -70,12 +63,6 @@ export class RoomDetailsComponent implements OnInit {
     });
   }
 
-  sum(startDate: Date, endDate: Date): number {
-    console.log(endDate.getDate() - startDate.getDate());
-    this.totalDay = endDate.getDate() - startDate.getDate();
-    return this.totalDay * this.room.pricePerNight;
-  }
-
   get startDate(): AbstractControl {
     return this.myForm.get('startDate');
   }
@@ -84,18 +71,39 @@ export class RoomDetailsComponent implements OnInit {
     return this.myForm.get('endDate');
   }
 
-  increment(input: number): void {
-    input++;
+  get numberOfGuests(): AbstractControl {
+    return this.myForm.get('numberOfGuests');
   }
 
-  decrement(input: number): void {
-    input++;
+  get numberOfChildren(): AbstractControl {
+    return this.myForm.get('numberOfChildren');
+  }
+
+  get numberOfInfants(): AbstractControl {
+    return this.myForm.get('numberOfInfants');
+  }
+
+  get guests(): number {
+    return (this.numberOfGuests.value + this.numberOfChildren.value);
+  }
+
+  increment(input: AbstractControl): void {
+    input.setValue(input.value + 1);
+  }
+
+  decrement(input: AbstractControl): void {
+    input.setValue(input.value - 1);
   }
 
   onSubmit(): void {
     console.log(this.myForm.value);
-    this.totalAmount = this.sum(this.startDate.value, this.endDate.value);
+    this.amount = this.calculate(this.startDate.value, this.endDate.value);
     this.openSnackBar('Đặt phòng thành công!', 'Đóng');
+  }
+
+  calculate(startDate: Date, endDate: Date): number {
+    this.numberOfDay = endDate.getDate() - startDate.getDate();
+    return this.numberOfDay * this.roomData.pricePerNight;
   }
 
 }
