@@ -50,6 +50,7 @@ import {ReviewComponent} from './components/review/review.component';
 import {SliderModule} from 'angular-image-slider';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     SliderModule,
     MatTabsModule,
     MatStepperModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgImageSliderModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

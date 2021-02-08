@@ -15,10 +15,15 @@ a {
   color: black;
 }
 
-#detailRoomHidden {
-  display: none;
-}
+/*#detailRoomHidden {*/
+/*  display: none;*/
+/*}*/
 
-#roomDetail:hover + #detailRoomHidden {
-  display: block;
+/*#roomDetail:hover + #detailRoomHidden {*/
+/*  display: block;*/
+/*}*/
+
+.card-img-top{
+  min-height: 150px;
+  max-height: 150px;
 }
