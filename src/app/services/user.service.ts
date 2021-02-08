@@ -13,7 +13,7 @@ export class UserService {
   }
 
   login(value: any): Observable<any> {
-    return this.http.post(this.url, value);
+    return this.http.post('http://localhost:8080/api/v1/users/login', value);
   }
 
   getOne(id: number): Observable<any> {
