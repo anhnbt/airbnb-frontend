@@ -47,25 +47,15 @@
                     <div class="row">
                         <mat-form-field appearance="outline" class="col-6">
                             <mat-label>Nhận phòng</mat-label>
-                            <input matInput [matDatepicker]="picker1" formControlName="startDate">
+                            <input matInput [matDatepickerFilter]="myFilterStart" [matDatepicker]="picker1" formControlName="startDate" (dateChange)="onChangeStartDate()">
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1>
-                                <mat-datepicker-actions>
-                                    <button mat-button matDatepickerCancel>Cancel</button>
-                                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                                </mat-datepicker-actions>
-                            </mat-datepicker>
+                            <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="col-6">
                             <mat-label>Trả phòng</mat-label>
-                            <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker2" formControlName="endDate">
+                            <input matInput [matDatepickerFilter]="myFilterEnd" [matDatepicker]="picker2" formControlName="endDate" (dateChange)="calculate()">
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                            <mat-datepicker #picker2>
-                                <mat-datepicker-actions>
-                                    <button mat-button matDatepickerCancel>Cancel</button>
-                                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                                </mat-datepicker-actions>
-                            </mat-datepicker>
+                            <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
                     </div>
                     <mat-accordion>
@@ -81,7 +71,7 @@
                             <div class="d-flex align-items-center mb-2">
                                 <strong class="flex-grow-1">Người lớn</strong>
                                 <div class="justify-content-end">
-                                    <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" [disabled]="numberOfGuests.value == 0" (click)="decrement(numberOfGuests)">
+                                    <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" [disabled]="numberOfGuests.value == 1" (click)="decrement(numberOfGuests)">
                     <span class="material-icons">remove</span>
                   </button>
                                     <span class="mx-2">{{numberOfGuests.value}}</span>
@@ -121,10 +111,10 @@
                         <button mat-raised-button color="accent" type="submit">Đặt ngay</button>
                     </mat-action-row>
                 </form>
-                <div *ngIf="amount">
-                    <div class="d-flex justify-content-between"><strong>{{roomData.pricePerNight | currency: 'VND'}} x {{numberOfDay}} đêm</strong> {{amount | currency: 'VND'}}</div>
-                    <div class="d-flex justify-content-between"><strong>Total:</strong> {{amount | currency: 'VND'}}</div>
-                </div>
+                <ul class="list-group list-group-flush" *ngIf="amount">
+                    <li class="list-group-item d-flex justify-content-between"><strong class="text-muted">{{roomData.pricePerNight | currency: 'VND'}} x {{numberOfDay}} đêm</strong> {{amount | currency: 'VND'}}</li>
+                    <li class="list-group-item d-flex justify-content-between font-weight-bold">Total <span>{{amount | currency: 'VND'}}</span></li>
+                </ul>
             </div>
             <!-- /.card-body -->
         </div>

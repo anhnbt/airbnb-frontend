@@ -14,8 +14,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class RoomDetailsComponent implements OnInit {
 
   myForm = this.fb.group({
-    startDate: [new Date(), Validators.required],
-    endDate: [this.addDays(new Date(), 2), Validators.required],
+    startDate: [null, Validators.required],
+    endDate: [null, Validators.required],
     numberOfGuests: [1, Validators.required],
     numberOfChildren: [0, Validators.required],
     numberOfInfants: [0, Validators.required],
@@ -25,12 +25,17 @@ export class RoomDetailsComponent implements OnInit {
   
   numberOfDay: number = 0;
   amount: number = 0;
-  date = new FormControl(new Date());
-  serializedDate = new FormControl((new Date()).toISOString());
-  myFilter = (d: Date | null): boolean => {
+
+  myFilterStart = (d: Date | null): boolean => {
+    const yesterday = new Date(new Date().setDate(new Date().getDate()-1));
+    const selectedDate = (d || new Date());
+    return selectedDate > yesterday;
+  };
+  
+  myFilterEnd = (d: Date | null): boolean => {
     const currentDate = new Date();
-    const selectedDate = d || this.date.value;
-    return currentDate <= selectedDate;
+    const selectedDate = (d || new Date());
+    return selectedDate > currentDate && selectedDate > this.startDate.value;
   };
 
   constructor(
@@ -87,6 +92,11 @@ export class RoomDetailsComponent implements OnInit {
     return (this.numberOfGuests.value + this.numberOfChildren.value);
   }
 
+  onChangeStartDate(): void {
+    this.endDate.setValue(null);
+    console.log(this.startDate.value + ' - Changed...' + this.endDate.value);
+  }
+
   increment(input: AbstractControl): void {
     input.setValue(input.value + 1);
   }
@@ -97,13 +107,12 @@ export class RoomDetailsComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.myForm.value);
-    this.amount = this.calculate(this.startDate.value, this.endDate.value);
     this.openSnackBar('Đặt phòng thành công!', 'Đóng');
   }
 
-  calculate(startDate: Date, endDate: Date): number {
-    this.numberOfDay = endDate.getDate() - startDate.getDate();
-    return this.numberOfDay * this.roomData.pricePerNight;
+  calculate(): void {
+    this.numberOfDay = this.endDate.value.getDate() - this.startDate.value.getDate();
+    this.amount = this.numberOfDay * this.roomData.pricePerNight;
   }
 
 }
