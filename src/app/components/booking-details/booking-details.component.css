@@ -1,0 +1,13 @@
+.carousel-item img {
+  max-height: 200px;
+  min-height: 200px;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  padding: 5px;
+  margin: 0;
+}
+
+span {
+  vertical-align: middle;
+}

@@ -86,7 +86,7 @@
             <td>{{booking.startDate}}</td>
             <td>{{booking.endDate}}</td>
             <td>{{booking.status}}</td>
-            <td>{{booking.room.pricePerNight | currency:"VND"}}</td>
+            <td>{{booking.room.pricePerNight * booking.numNight | currency:"VND"}}</td>
             <td>
               <a mat-raised-button [routerLink]="['/booking-detail', booking.id]">Chi tiết</a>
             </td>
