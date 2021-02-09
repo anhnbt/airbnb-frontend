@@ -52,6 +52,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UserProfileComponent,
     BookingListComponent,
     BookingDetailsComponent,
-    ReviewComponent
+    ReviewComponent,
+    PageNotFoundComponent
   ],
   imports: [
     MatAutocompleteModule,

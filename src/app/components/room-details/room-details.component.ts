@@ -22,21 +22,21 @@ export class RoomDetailsComponent implements OnInit {
   });
 
   roomData: Room = {};
-  
-  numberOfDay: number = 0;
-  amount: number = 0;
+
+  totalNights = 0;
+  total = 0;
 
   myFilterStart = (d: Date | null): boolean => {
     const yesterday = new Date(new Date().setDate(new Date().getDate()-1));
     const selectedDate = (d || new Date());
     return selectedDate > yesterday;
-  };
-  
+  }
+
   myFilterEnd = (d: Date | null): boolean => {
     const currentDate = new Date();
     const selectedDate = (d || new Date());
     return selectedDate > currentDate && selectedDate > this.startDate.value;
-  };
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -88,7 +88,7 @@ export class RoomDetailsComponent implements OnInit {
     return this.myForm.get('numberOfInfants');
   }
 
-  get guests(): number {
+  get guestCount(): number {
     return (this.numberOfGuests.value + this.numberOfChildren.value);
   }
 
@@ -111,8 +111,8 @@ export class RoomDetailsComponent implements OnInit {
   }
 
   calculate(): void {
-    this.numberOfDay = this.endDate.value.getDate() - this.startDate.value.getDate();
-    this.amount = this.numberOfDay * this.roomData.pricePerNight;
+    this.totalNights = this.endDate.value.getDate() - this.startDate.value.getDate();
+    this.total = this.totalNights * this.roomData.pricePerNight;
   }
 
 }

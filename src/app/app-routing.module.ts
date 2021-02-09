@@ -8,6 +8,7 @@ import {BookingDetailsComponent} from './components/booking-details/booking-deta
 import {ReviewComponent} from './components/review/review.component';
 import {LoginComponent} from './components/layout-login/login/login.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'rooms/:id', component: RoomDetailsComponent},
   {path: 'create-post', component: CreatePostComponent},
   {path: 'booking-detail/:id', component: BookingDetailsComponent},
-  {path: 'profile', component: UserProfileComponent}
+  {path: 'profile', component: UserProfileComponent},
+  {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({
