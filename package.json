@@ -27,6 +27,7 @@
     "angular-image-slider": "0.0.9",
     "bootstrap": "^4.5.0",
     "firebase": "^7.0 || ^8.0",
+    "ng-image-slider": "^2.6.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

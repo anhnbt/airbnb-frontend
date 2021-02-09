@@ -19,20 +19,13 @@ export class UserProfileComponent implements OnInit {
     dateOfBirth: null,
     phone: '',
     active: null,
-    createdAt: null,
+    createdDate: null,
     updatedAt: null,
   };
   // user: any;
   roomsOfHost = [];
   bookings = [];
-
-  imagesUrl = [
-    'https://albailassan.com/jquery/img/landscape/05.jpg',
-    'https://albailassan.com/jquery/img/landscape/05.jpg',
-    'https://albailassan.com/jquery/img/landscape/05.jpg',
-    'https://albailassan.com/jquery/img/landscape/05.jpg',
-    'https://albailassan.com/jquery/img/landscape/05.jpg'
-  ];
+  imagesRoom: any[] = [];
 
   constructor(private userService: UserService,
               private roomService: RoomService) {
@@ -43,6 +36,11 @@ export class UserProfileComponent implements OnInit {
       this.user = res.data;
       this.userService.getRoomsOfHost(1).subscribe((res: any) => {
         this.roomsOfHost = res.data;
+        for (const room of this.roomsOfHost) {
+          for (const img of room.roomImages) {
+            this.imagesRoom.push(img);
+          }
+        }
         this.userService.getBookingsOfUser(1).subscribe((res: any) => {
           this.bookings = res.data;
         });

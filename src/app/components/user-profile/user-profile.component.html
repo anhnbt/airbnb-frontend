@@ -1,22 +1,40 @@
-<angular-image-slider
-  [autoRotate]="true"
-  [autoRotateAfter]="5000"
-  [autoRotateRight]="true"
-  [images]="imagesUrl"
-></angular-image-slider>
+
+<div id="carouselExampleControls" class="carousel slide mb-4" data-ride="carousel"
+     style="width: 100%; height: 350px; text-align:center;margin:0; padding:0;">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img style="max-height: 350px"
+           src="https://noithattrevietnam.com/uploaded/Kien-thuc-nha-dep/hinh-anh-nha-2-tang-mai-thai/19-images-about-houses-casas-on-pinterest-house-design-luxury-beautiful-home-design-1024x619.jpg"
+           class="d-block w-100" alt="...">
+    </div>
+    <div *ngFor="let img of imagesRoom" class="carousel-item">
+      <img [src]=img.imageUrl class="d-block w-100" alt="..." style="max-height: 350px">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 
 <div class="row">
   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12  text-center">
     <img src="https://www.w3schools.com/howto/img_avatar.png" height="100" width="100" class="rounded-circle"
          alt="avatar">
     <br>
-    <button class="mt-3" mat-raised-button color="primary">Sửa thông tin</button>
+        <button class="mt-3" mat-raised-button color="primary">Sửa thông tin</button>
   </div>
   <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12">
-    <h2>{{user.name}}</h2>
-    <mat-hint>Tham gia vào {{user.createdAt | date: 'dd/MM/yyyy'}}</mat-hint>
-    <p>Email: {{user.email}}</p>
-    <p>Phone: {{user.phone}}</p>
+    <div>
+      <h2 class="mb-0">{{user.name}}</h2>
+      <small>Tham gia vào {{user.createdDate | date: 'dd/MM/yyyy'}}</small>
+      <p>Email: {{user.email}}</p>
+      <p>Phone: {{user.phone}}</p>
+    </div>
     <hr>
     <mat-tab-group mat-align-tabs="start">
       <mat-tab *ngIf="roomsOfHost.length != 0" label="Nhà của bạn">
@@ -35,11 +53,13 @@
               <p class="card-title">{{room.address}} - {{room.province.name}} - {{room.province.country.name}}</p>
 
               <div class="m-0">
-                <button [disabled]="room.status" (click)="changeStatus(room.id)" mat-raised-button color="primary">Còn
-                  trống
+                <button [disabled]="room.status" (click)="changeStatus(room.id)" mat-raised-button color="primary"
+                        class="float-left pl-1 pr-1">
+                  Còn trống <span class="material-icons">lock_open</span>
                 </button>
-                <button [disabled]="!room.status" (click)="changeStatus(room.id)" mat-raised-button color="warn"
-                        class="float-right"> Hết phòng
+                <button [disabled]="!room.status" (click)="changeStatus(room.id)" mat-raised-button
+                        class="float-right pl-1 pr-1">
+                  Hết phòng <span class="material-icons p-0 m-0">error_outline</span>
                 </button>
               </div>
             </div>
@@ -55,7 +75,8 @@
             <th scope="col">Ngày checkin</th>
             <th scope="col">Ngày checkout</th>
             <th scope="col">Trạng thái</th>
-            <th scope="col">Tổng tiền</th>
+            <th scope="col">Giá tiền</th>
+            <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
@@ -65,7 +86,10 @@
             <td>{{booking.startDate}}</td>
             <td>{{booking.endDate}}</td>
             <td>{{booking.status}}</td>
-            <td>{{booking.numNights * booking.room.pricePerNight | currency:"VND"}}</td>
+            <td>{{booking.room.pricePerNight * booking.numNight | currency:"VND"}}</td>
+            <td>
+              <a mat-raised-button [routerLink]="['/booking-detail', booking.id]">Chi tiết</a>
+            </td>
           </tr>
           </tbody>
         </table>
