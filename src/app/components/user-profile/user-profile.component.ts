@@ -39,7 +39,6 @@ export class UserProfileComponent implements OnInit {
         for (const room of this.roomsOfHost) {
           for (const img of room.roomImages) {
             this.imagesRoom.push(img);
-            console.log(this.imagesRoom);
           }
         }
         this.userService.getBookingsOfUser(1).subscribe((res: any) => {

@@ -75,7 +75,8 @@
             <th scope="col">Ngày checkin</th>
             <th scope="col">Ngày checkout</th>
             <th scope="col">Trạng thái</th>
-            <th scope="col">Tổng tiền</th>
+            <th scope="col">Giá tiền</th>
+            <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
@@ -85,7 +86,10 @@
             <td>{{booking.startDate}}</td>
             <td>{{booking.endDate}}</td>
             <td>{{booking.status}}</td>
-            <td>{{booking.numNights * booking.room.pricePerNight | currency:"VND"}}</td>
+            <td>{{booking.room.pricePerNight | currency:"VND"}}</td>
+            <td>
+              <a mat-raised-button [routerLink]="['/booking-detail', booking.id]">Chi tiết</a>
+            </td>
           </tr>
           </tbody>
         </table>

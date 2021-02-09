@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogContentComponent} from '../layout/dialog-content/dialog-content.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-booking-details',
@@ -18,11 +19,13 @@ export class BookingDetailsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
+     const id = this.activatedRoute.snapshot.paramMap.get('id');
   }
 
   onSubmit(): void {
