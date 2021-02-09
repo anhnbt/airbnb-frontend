@@ -1,137 +1,123 @@
 <div class="row">
-  <div class="col-md-8 mb-4">
-    <mat-card>
-      <mat-card-header>
-        <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-             alt="Photo of a Shiba Inu">
-        <mat-card-title>{{room.name}}</mat-card-title>
-        <mat-card-subtitle><strong>4.78</strong> (23) · <span
-          class="material-icons">location_on</span> {{room.province.name}}
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-grid-list cols="3" rowHeight="100px">
-          <mat-grid-tile rowspan="2">
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                 alt="Photo of a Shiba Inu">
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                 alt="Photo of a Shiba Inu">
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                 alt="Photo of a Shiba Inu">
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                 alt="Photo of a Shiba Inu">
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                 alt="Photo of a Shiba Inu">
-          </mat-grid-tile>
-        </mat-grid-list>
-        <ul>
-          <li><strong>Loại phòng</strong>: {{room.propertyType.name}}</li>
-          <li><strong>Địa chỉ</strong>: {{room.address}}</li>
-          <li><strong>Số lượng phòng ngủ</strong>: {{room.totalOfBedroom}}</li>
-          <li><strong>Số lượng phòng tắm</strong>: {{room.totalOfBathroom}}</li>
-          <li><strong>Giá tiền theo ngày (VNĐ)</strong>: <strong>{{room.pricePerNight}}₫</strong>/đêm</li>
-        </ul>
-        <div>
-          <h2>Mô tả chung</h2>
-          {{room.description}}
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-body">
-        <div class="mb-4"><strong class="h4">{{room.pricePerNight | currency:'VND'}}</strong> /đêm</div>
-        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-          <div class="row">
-            <mat-form-field appearance="outline" class="col-6">
-              <mat-label>Nhận phòng</mat-label>
-              <input matInput [matDatepicker]="picker1" formControlName="startDate">
-              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1>
-                <mat-datepicker-actions>
-                  <button mat-button matDatepickerCancel>Cancel</button>
-                  <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                </mat-datepicker-actions>
-              </mat-datepicker>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="col-6">
-              <mat-label>Trả phòng</mat-label>
-              <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker2"
-                     formControlName="endDate">
-              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-              <mat-datepicker #picker2>
-                <mat-datepicker-actions>
-                  <button mat-button matDatepickerCancel>Cancel</button>
-                  <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                </mat-datepicker-actions>
-              </mat-datepicker>
-            </mat-form-field>
-          </div>
-          <mat-accordion>
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Khách
-                </mat-panel-title>
-                <mat-panel-description>
-                  {{totalKhach}} khách
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <div class="d-flex align-items-center mb-2">
-                <strong class="flex-grow-1">Người lớn</strong>
-                <div class="justify-content-end">
-                  <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" [disabled]="orderdetails.nguoilon == 0" (click)="orderdetails.nguoilon = orderdetails.nguoilon - 1">
+    <div class="col-md-8 mb-4">
+        <mat-card *ngIf="roomData != undefined">
+            <mat-card-header>
+                <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                <mat-card-title>{{roomData.name}}</mat-card-title>
+                <mat-card-subtitle><strong>4.78</strong> (23) · <span class="material-icons">location_on</span> {{roomData.province.name}}
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-grid-list cols="3" rowHeight="100px">
+                    <mat-grid-tile rowspan="2">
+                        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <ul>
+                    <li><strong>Loại phòng</strong>: {{roomData.propertyType.name}}</li>
+                    <li><strong>Địa chỉ</strong>: {{roomData.address}}</li>
+                    <li><strong>Số lượng phòng ngủ</strong>: {{roomData.totalOfBedroom}}</li>
+                    <li><strong>Số lượng phòng tắm</strong>: {{roomData.totalOfBathroom}}</li>
+                    <li><strong>Giá tiền theo ngày (VNĐ)</strong>: <strong>{{roomData.pricePerNight}}₫</strong>/đêm</li>
+                </ul>
+                <div>
+                    <h2>Mô tả chung</h2>
+                    {{roomData.description}}
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-4"><strong class="h4">{{roomData.pricePerNight | currency:'VND'}}</strong> /đêm</div>
+                <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <mat-form-field appearance="outline" class="col-6">
+                            <mat-label>Nhận phòng</mat-label>
+                            <input matInput [matDatepickerFilter]="myFilterStart" [matDatepicker]="picker1" formControlName="startDate" (dateChange)="onChangeStartDate()">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-6">
+                            <mat-label>Trả phòng</mat-label>
+                            <input matInput [matDatepickerFilter]="myFilterEnd" [matDatepicker]="picker2" formControlName="endDate" (dateChange)="calculate()">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Khách
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    {{(guests)}} khách
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <div class="d-flex align-items-center mb-2">
+                                <strong class="flex-grow-1">Người lớn</strong>
+                                <div class="justify-content-end">
+                                    <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" [disabled]="numberOfGuests.value == 1" (click)="decrement(numberOfGuests)">
                     <span class="material-icons">remove</span>
                   </button>
-                  <span class="mx-2">{{orderdetails.nguoilon}}</span>
-                  <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" [disabled]="orderdetails.nguoilon == 4" (click)="orderdetails.nguoilon = orderdetails.nguoilon + 1">
+                                    <span class="mx-2">{{numberOfGuests.value}}</span>
+                                    <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" [disabled]="guests == 4" (click)="increment(numberOfGuests)">
                   <span class="material-icons">add</span>
                   </button>
-                </div>
-              </div>
-              <div class="d-flex align-items-center mb-2">
-                <strong class="flex-grow-1">Trẻ em</strong>
-                <div class="justify-content-end">
-                  <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" [disabled]="orderdetails.treem == 0" (click)="orderdetails.treem = orderdetails.treem - 1">
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <strong class="flex-grow-1">Trẻ em</strong>
+                                <div class="justify-content-end">
+                                    <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" [disabled]="numberOfChildren.value == 0" (click)="decrement(numberOfChildren)">
                     <span class="material-icons">remove</span>
                   </button>
-                  <span class="mx-2">{{orderdetails.treem}}</span>
-                  <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" (click)="orderdetails.treem = orderdetails.treem + 1">
+                                    <span class="mx-2">{{numberOfChildren.value}}</span>
+                                    <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" [disabled]="guests == 4" (click)="increment(numberOfChildren)">
                     <span class="material-icons">add</span>
                   </button>
-                </div>
-              </div>
-              <div class="d-flex align-items-center mb-2">
-                <strong class="flex-grow-1">Em bé</strong>
-                <div class="justify-content-end">
-                  <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" [disabled]="orderdetails.embe == 0" (click)="orderdetails.embe = orderdetails.embe - 1">
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <strong class="flex-grow-1">Em bé</strong>
+                                <div class="justify-content-end">
+                                    <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" [disabled]="numberOfInfants.value == 0" (click)="decrement(numberOfInfants)">
                     <span class="material-icons">remove</span>
                   </button>
-                  <span class="mx-2">{{orderdetails.embe}}</span>
-                  <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" (click)="orderdetails.embe = orderdetails.embe + 1">
+                                    <span class="mx-2">{{numberOfInfants.value}}</span>
+                                    <button type="button" mat-mini-fab aria-label="Example icon button with a home icon" (click)="increment(numberOfInfants)">
                     <span class="material-icons">add</span>
                   </button>
-                </div>
-              </div>
-              <p>Tối đa 4 khách. Không tính em bé vào số lượng khách.</p>
-            </mat-expansion-panel>
-          </mat-accordion>
-          <mat-action-row>
-            <button mat-raised-button color="accent" type="submit">Đặt ngay</button>
-          </mat-action-row>
-        </form>
-        <div *ngIf="totalAmount && (endDate.dirty || endDate.touched)" class="d-flex justify-content-between"><strong>{{room.pricePerNight | currency: 'VND'}} x {{totalDay}} đêm</strong> {{totalAmount | currency: 'VND'}}</div>
-        <div *ngIf="totalAmount && (endDate.dirty || endDate.touched)" class="d-flex justify-content-between"><strong>Total:</strong> {{totalAmount | currency: 'VND'}}</div>
-      </div><!-- /.card-body -->
-    </div><!-- /.card -->
-  </div>
+                                </div>
+                            </div>
+                            <p>Tối đa 4 khách. Không tính em bé vào số lượng khách.</p>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                    <mat-action-row>
+                        <button mat-raised-button color="accent" type="submit">Đặt ngay</button>
+                    </mat-action-row>
+                </form>
+                <ul class="list-group list-group-flush" *ngIf="amount">
+                    <li class="list-group-item d-flex justify-content-between"><strong class="text-muted">{{roomData.pricePerNight | currency: 'VND'}} x {{numberOfDay}} đêm</strong> {{amount | currency: 'VND'}}</li>
+                    <li class="list-group-item d-flex justify-content-between font-weight-bold">Total <span>{{amount | currency: 'VND'}}</span></li>
+                </ul>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
 </div>

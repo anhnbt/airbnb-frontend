@@ -11,10 +11,10 @@
     <mat-card-content>
       <mat-form-field appearance="outline" class="example-full-width">
         <mat-label>User Name *</mat-label>
-        <input matInput placeholder="User Name" type="text" formControlName="name">
-        <mat-error *ngIf="hasError('name', 'required')">User Name is required</mat-error>
-        <mat-error *ngIf="hasError('name', 'pattern')">User Name k dung mau</mat-error>
-        <mat-error *ngIf="hasError('name', 'minlength')">User Name k it hon 3 ki tu</mat-error>
+        <input matInput placeholder="User Name" type="text" formControlName="username">
+        <mat-error *ngIf="hasError('username', 'required')">User Name is required</mat-error>
+        <mat-error *ngIf="hasError('username', 'pattern')">User Name k dung mau</mat-error>
+        <mat-error *ngIf="hasError('username', 'minlength')">User Name k it hon 3 ki tu</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="example-full-width">

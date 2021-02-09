@@ -51,6 +51,7 @@ import {SliderModule} from 'angular-image-slider';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,9 @@ import { NgImageSliderModule } from 'ng-image-slider';
     MatTabsModule,
     MatStepperModule,
     MatExpansionModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    MatExpansionModule,
+    NgbModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
