@@ -27,7 +27,7 @@ export class RoomDetailsComponent implements OnInit {
   total = 0;
 
   myFilterStart = (d: Date | null): boolean => {
-    const yesterday = new Date(new Date().setDate(new Date().getDate()-1));
+    const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
     const selectedDate = (d || new Date());
     return selectedDate > yesterday;
   }
