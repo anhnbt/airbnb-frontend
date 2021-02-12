@@ -1,1 +1,30 @@
-<p>booking-list works!</p>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col" (click)="sort('id')">ID</th>
+    <th scope="col">Khách thuê</th>
+    <th scope="col">Địa điểm thuê</th>
+    <th scope="col" (click)="sort('createdDate')">Ngày đặt booking</th>
+    <th scope="col">Ngày checkin</th>
+    <th scope="col">Ngày checkout</th>
+    <th scope="col">Trạng thái</th>
+    <th scope="col">Giá tiền</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let booking of bookingsOfCus">
+    <th>{{booking.id}}</th>
+    <th>{{booking.user.name}}</th>
+    <td><p id="roomDetail">{{booking.room.name}}</p></td>
+    <td>{{booking.createdDate}}</td>
+    <td>{{booking.startDate}}</td>
+    <td>{{booking.endDate}}</td>
+    <td>{{booking.status}}</td>
+    <td>{{booking.room.pricePerNight * booking.numNight | currency:"VND"}}</td>
+    <td>
+      <a mat-raised-button [routerLink]="['/booking-detail', booking.id]">Chi tiết</a>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -63,7 +63,7 @@
     </mat-card-content>
     <mat-card-actions>
       <button *ngIf="booking.status != 'COMPLETED'" [disabled]="booking.status == 'CANCELLED'" mat-raised-button color="primary">Hủy đặt phòng</button>
-      <mat-error *ngIf="booking.status != 'CANCELED'" class="mt-2"><strong>*Bạn đã hủy đặt phòng</strong></mat-error>
+      <mat-error *ngIf="booking.status == 'CANCELLED'" class="mt-2"><strong>*Bạn đã hủy đặt phòng</strong></mat-error>
     </mat-card-actions>
   </mat-card>
 </form>

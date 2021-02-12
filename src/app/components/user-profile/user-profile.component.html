@@ -94,6 +94,10 @@
           </tbody>
         </table>
       </mat-tab>
+
+      <mat-tab *ngIf="roomsOfHost.length != 0" label="Booking của khách">
+        <app-booking-list></app-booking-list>
+      </mat-tab>
     </mat-tab-group>
 
     <hr>
