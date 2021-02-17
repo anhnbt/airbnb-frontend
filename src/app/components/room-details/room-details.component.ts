@@ -54,6 +54,7 @@ export class RoomDetailsComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.roomService.getRoom(id).subscribe((res: any) => {
       this.roomData = res.data;
+      console.log(res.data);
     });
   }
 
