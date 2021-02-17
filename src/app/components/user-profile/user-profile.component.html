@@ -32,8 +32,8 @@
     <div>
       <h2 class="mb-0">{{user.name}}</h2>
       <small>Tham gia vào {{user.createdDate | date: 'dd/MM/yyyy'}}</small>
-      <p>Email: {{user.email}}</p>
-      <p>Phone: {{user.phone}}</p>
+      <p><span class="material-icons">email</span>: {{user.email}}</p>
+      <p><span class="material-icons">call</span>: {{user.phone}}</p>
     </div>
     <hr>
     <mat-tab-group mat-align-tabs="start">
