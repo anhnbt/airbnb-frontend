@@ -78,23 +78,6 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
-  // uploadFile(event): void {
-  //   const file = event.target.files[0];
-  //   const filePath = 'name-your-file-path-here';
-  //   // const filePath = `${this.product.name}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-  //   const fileRef = this.storage.ref(filePath);
-  //   const task = this.storage.upload(filePath, file);
-  //
-  //   // observe percentage changes
-  //   this.uploadPercent = task.percentageChanges();
-  //   // get notified when the download URL is available
-  //   task.snapshotChanges().pipe(
-  //     finalize(() => this.downloadURL = fileRef.getDownloadURL())
-  //   )
-  //     .subscribe();
-  // }
-
-
   uploadFile(file: File): void {
     // const file = event.target.files[0];
     const filePath = `${file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
@@ -176,30 +159,12 @@ export class CreatePostComponent implements OnInit {
         this.images.splice(index, 1);
         this.newFileList.splice(index, 1);
         console.log(this.newFileList);
-        // this.fileList.splice(index, 1);
-        // this.secondFormGroup.patchValue({
-        //   fileSource: this.images
-        // });
       }
     });
   }
 
-  // onSubmit(): void {
-  //   console.log('Submit');
-  //   console.log(this.secondFormGroup.get('image').value);
-  //   const formData: FormData = new FormData();
-  //   formData.append('image', 'Hello');
-  //   formData.append('imageSource', this.secondFormGroup.get('imageSource').value);
-  //   console.log(formData);
-  //   this.roomService.uploadMultiImage(formData).subscribe(
-  //     (response) => console.log(response),
-  //     (error) => console.warn(error)
-  //   );
-  // }
-
   onSubmit(): void {
     this.submitPost();
-    console.log(this.newFileList);
     for (const file of this.newFileList) {
       this.uploadFile(file);
     }
