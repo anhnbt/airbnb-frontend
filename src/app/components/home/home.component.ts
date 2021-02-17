@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   myControl = new FormControl();
   back: any;
 roomImg = []
+  add = '';
   constructor(private serviceHome: ListHomeService, private serviceCity: ListCityService) {
   }
 
@@ -49,6 +50,12 @@ roomImg = []
     });
     this.back = 'Xem Tất Cả Phòng';
   }
+  search2(): void {
+    this.serviceHome.findAllByAddress(this.add).subscribe((res: any) => {
+      this.rooms = res.data;
+    });
+    this.back = 'Xem Tất Cả Phòng';
+  }
 
   getAllHome(): void {
     this.serviceHome.getAll().subscribe((res: any) => {
@@ -58,4 +65,6 @@ roomImg = []
     });
 
   }
+
+
 }

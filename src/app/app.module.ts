@@ -30,7 +30,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTreeModule} from '@angular/material/tree';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {HomeComponent} from './components/home/home.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -72,6 +72,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     PageNotFoundComponent
   ],
   imports: [
+    FormsModule,
     MatAutocompleteModule,
     BrowserModule,
     BrowserAnimationsModule,
