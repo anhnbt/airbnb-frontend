@@ -34,13 +34,16 @@
           <a routerLink="/rooms/{{r.id}}">
             <img mat-card-image  src="{{r.roomImages[0] && r.roomImages[0].imageUrl}}">
           </a>
+
           <mat-card-content>{{r.description}}</mat-card-content>
+          <a routerLink="/rooms/{{r.id}}" color="primary" mat-button class="float-right">
+            Đặt Ngay
+          </a>
           <mat-card-actions class="clearfix">
             <div class="float-left"><strong>{{r.pricePerNight | currency:'VND'}}</strong>/đêm</div>
-            <button mat-icon-button class="float-right">
-              <mat-icon>share</mat-icon>
-            </button>
+
           </mat-card-actions>
+
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
