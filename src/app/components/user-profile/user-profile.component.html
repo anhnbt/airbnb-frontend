@@ -4,12 +4,17 @@
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img style="max-height: 350px"
-           src="https://noithattrevietnam.com/uploaded/Kien-thuc-nha-dep/hinh-anh-nha-2-tang-mai-thai/19-images-about-houses-casas-on-pinterest-house-design-luxury-beautiful-home-design-1024x619.jpg"
+           src="{{imagesRoom[0].imageUrl}}"
            class="d-block w-100" alt="...">
     </div>
-    <div *ngFor="let img of imagesRoom" class="carousel-item">
-      <img [src]=img.imageUrl class="d-block w-100" alt="..." style="max-height: 350px">
-    </div>
+<!--    <div *ngFor="let img of imagesRoom" class="carousel-item">-->
+<!--      <img [src]=img.imageUrl class="d-block w-100" alt="..." style="max-height: 350px">-->
+<!--    </div>-->
+    <ng-container *ngFor="let item of imagesRoom; let first = first let i=index; let odd=odd" [class.odd]="odd">
+      <div class="carousel-item" *ngIf="!first">
+        <img src="{{ item.imageUrl }}" style="max-height: 350px" class="d-block w-100" alt="...">
+      </div>
+    </ng-container>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -42,8 +47,7 @@
           <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 m-0 p-2" *ngFor="let room of roomsOfHost">
             <a [routerLink]="['/rooms', room.id]">
               <img class="card-img-top p-0"
-                   *ngFor="let img of room.roomImages"
-                   [src]=img.imageUrl
+                   [src]=room.roomImages[0].imageUrl
                    alt="house">
             </a>
             <div class="card-body p-0">
@@ -101,6 +105,5 @@
     </mat-tab-group>
 
     <hr>
-    <h1>Đánh giá</h1>
   </div>
 </div>
