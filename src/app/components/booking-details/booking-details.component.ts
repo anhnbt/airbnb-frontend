@@ -41,9 +41,6 @@ export class BookingDetailsComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.myForm.value);
-    const timestamp = new Date(this.cancelReservationDate.value);
-    console.log(timestamp);
     this.openConfirmDialog();
   }
 
@@ -71,7 +68,10 @@ export class BookingDetailsComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.bookingService.cancelBooking(this.booking.id).subscribe(res => {
+          console.log(this.myForm.value);
+          const timestamp = new Date(this.cancelReservationDate.value);
+          console.log(timestamp);
+          this.bookingService.cancelBooking(this.booking.id, timestamp).subscribe(res => {
             console.log(res);
             this.openSnackBar('Hủy đặt phòng thành công!', 'Close');
             this.ngOnInit();

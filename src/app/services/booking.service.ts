@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,8 @@ export class BookingService {
     return this.http.get(this.URL + '/' + id);
   }
 
-  cancelBooking(id: any): any {
+  cancelBooking(id: any, timestamp: any): any {
     // @ts-ignore
-    return this.http.put(this.URL + '/' + id + '/cancel');
+    return this.http.put(this.URL + '/' + id + '/cancel', {'localDateTime': timestamp});
   }
 }

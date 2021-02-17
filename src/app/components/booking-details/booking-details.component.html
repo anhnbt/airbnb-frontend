@@ -1,69 +1,65 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>
-        Thông tin đặt phòng
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-form-field appearance="outline">
-        <mat-label>Thời hạn ngày hủy phòng</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="cancelReservationDate">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker>
-          <mat-datepicker-actions>
-            <button mat-button matDatepickerCancel>Cancel</button>
-            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-          </mat-datepicker-actions>
-        </mat-datepicker>
-      </mat-form-field>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                Thông tin đặt phòng
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field appearance="outline">
+                <mat-label>Thời hạn ngày hủy phòng</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="cancelReservationDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker>
+                    <mat-datepicker-actions>
+                        <button mat-button matDatepickerCancel>Cancel</button>
+                        <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                    </mat-datepicker-actions>
+                </mat-datepicker>
+            </mat-form-field>
 
-      <div>
-        <h3><strong>Ngày checkin: {{booking.startDate | date: "dd/MM/yyyy"}}</strong></h3>
-        <h3><strong>Ngày checkout: {{booking.endDate | date: "dd/MM/yyyy"}}</strong></h3>
-        <h3>
-          <strong>Số lượng khách:</strong> {{booking.numberOfGuests}} Người lớn - {{booking.numberOfChildren}} Trẻ em
-        </h3>
-        <h3><strong>Tổng chi phí: {{booking.numNight * room.pricePerNight | currency: "VND"}}</strong></h3>
-      </div>
-
-      <h3><strong>Thông tin nơi ở:</strong></h3>
-      <div class="row">
-        <div class="col-4">
-          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item" *ngFor="let img of roomImages">
-                <img [src]=img.imageUrl class="d-block w-100" alt="">
-              </div>
-              <div class="carousel-item active">
-                <img src="" class="d-block w-100"
-                     alt="...">
-              </div>
+            <div>
+                <h3><strong>Ngày checkin: {{booking.startDate | date: "dd/MM/yyyy"}}</strong></h3>
+                <h3><strong>Ngày checkout: {{booking.endDate | date: "dd/MM/yyyy"}}</strong></h3>
+                <h3>
+                    <strong>Số lượng khách:</strong> {{booking.numberOfGuests}} Người lớn - {{booking.numberOfChildren}} Trẻ em
+                </h3>
+                <h3><strong>Tổng chi phí: {{booking.numNight * room.pricePerNight | currency: "VND"}}</strong></h3>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
 
-        </div>
-        <div class="col-8">
-          <h1>{{room.name}}</h1>
-          <h2>{{room.pricePerNight | currency:"VND"}}</h2>
-          <p><span class="material-icons">location_on</span> {{room.address}}</p>
-          <p><span class="material-icons">meeting_room</span> {{room.propertyType.name}}</p>
-          <p><span class="material-icons">bedroom_parent</span> {{room.totalOfBedroom}} Phòng ngủ - <span class="material-icons">bathroom</span> {{room.totalOfBathroom}} Phòng tắm</p>
-          <p><span class="material-icons">description</span> {{room.description}}</p>
-        </div>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button *ngIf="booking.status != 'COMPLETED'" [disabled]="booking.status == 'CANCELLED'" mat-raised-button color="primary">Hủy đặt phòng</button>
-      <mat-error *ngIf="booking.status == 'CANCELLED'" class="mt-2"><strong>*Bạn đã hủy đặt phòng</strong></mat-error>
-    </mat-card-actions>
-  </mat-card>
+            <h3><strong>Thông tin nơi ở:</strong></h3>
+            <div class="row">
+                <div class="col-4">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner" *ngFor="let img of roomImages; let first = first">
+                            <div class="carousel-item" [class.active]="first">
+                                <img [src]=img.imageUrl class="d-block w-100" alt="">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col-8">
+                    <h1>{{room.name}}</h1>
+                    <h2>{{room.pricePerNight | currency:"VND"}}</h2>
+                    <p><span class="material-icons">location_on</span> {{room.address}}</p>
+                    <p><span class="material-icons">meeting_room</span> {{room.propertyType.name}}</p>
+                    <p><span class="material-icons">bedroom_parent</span> {{room.totalOfBedroom}} Phòng ngủ - <span class="material-icons">bathroom</span> {{room.totalOfBathroom}} Phòng tắm</p>
+                    <p><span class="material-icons">description</span> {{room.description}}</p>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button *ngIf="booking.status === 'IN_PROGRESS'" [disabled]="booking.status == 'CANCELLED'" mat-raised-button color="primary">Hủy đặt phòng</button>
+            <mat-error *ngIf="booking.status === 'CANCELED'" class="mt-2"><strong>*Bạn đã hủy đặt phòng</strong></mat-error>
+        </mat-card-actions>
+    </mat-card>
 </form>
