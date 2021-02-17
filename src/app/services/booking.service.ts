@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class BookingService {
   cancelBooking(id: any, timestamp: any): any {
     // @ts-ignore
     return this.http.put(this.URL + '/' + id + '/cancel', {'localDateTime': timestamp});
+  }
+
+  booking(roomId: number, userId: number, data: any): any {
+    return this.http.post(this.URL + '/' + roomId + '/' + userId, data);
   }
 }
