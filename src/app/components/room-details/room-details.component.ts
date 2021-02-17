@@ -5,6 +5,7 @@ import {Room} from '../../models/room';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { BookingService } from 'src/app/services/booking.service';
 
 @Component({
   selector: 'app-room-details',
@@ -39,6 +40,7 @@ export class RoomDetailsComponent implements OnInit {
   }
 
   constructor(
+    private bookingService: BookingService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private roomService: RoomService,
@@ -54,6 +56,7 @@ export class RoomDetailsComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.roomService.getRoom(id).subscribe((res: any) => {
       this.roomData = res.data;
+      console.log(res.data);
     });
   }
 
@@ -107,6 +110,7 @@ export class RoomDetailsComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.myForm.value);
+    this.bookingService.booking(this.roomData.id, 1, this.myForm.value).subscribe(res => console.log(res));
     this.openSnackBar('Đặt phòng thành công!', 'Đóng');
   }
 
