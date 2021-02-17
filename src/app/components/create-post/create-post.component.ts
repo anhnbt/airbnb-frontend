@@ -21,7 +21,7 @@ export class CreatePostComponent implements OnInit {
   propertyTypeList: any;
 
   images: string[] = [];
-  imagesTung = {
+  imagesFirebase = {
     imageUrl: ''
   };
 
@@ -30,7 +30,7 @@ export class CreatePostComponent implements OnInit {
   downloadURL: Observable<string>;
 
   firstFormGroup: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]),
     pricePerNight: new FormControl('', [Validators.required]),
     propertyType: new FormControl('', [Validators.required]),
     status: new FormControl('', [Validators.required]),
@@ -39,7 +39,6 @@ export class CreatePostComponent implements OnInit {
     totalOfBedroom: new FormControl('', [Validators.required, Validators.min(1)]),
     totalOfBathroom: new FormControl('', [Validators.required, Validators.min(1)]),
     description: new FormControl(),
-    images: new FormControl(),
   });
 
   secondFormGroup = this.fb.group({
@@ -75,6 +74,7 @@ export class CreatePostComponent implements OnInit {
     console.log(this.firstFormGroup.value);
     this.roomService.save(this.firstFormGroup.value).subscribe((res: any) => {
       console.log(res.data);
+      this.openSnackBar('Upload nhà thành công', 'Close');
     });
   }
 
@@ -108,8 +108,10 @@ export class CreatePostComponent implements OnInit {
     task.snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe(async url => {
-          this.imagesTung.imageUrl = url;
-          await this.roomImageService.save(this.imagesTung).subscribe();
+          this.imagesFirebase.imageUrl = url;
+          await this.roomImageService.save(this.imagesFirebase).subscribe(res => {
+            this.openSnackBar('Upload ảnh thành công', 'Close');
+          });
         });
       })
     )

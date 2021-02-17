@@ -22,10 +22,9 @@ export class UserProfileComponent implements OnInit {
     createdDate: null,
     updatedAt: null,
   };
-  // user: any;
   roomsOfHost = [];
   bookings = [];
-  imagesRoom: any[] = [];
+  imagesRoom = [];
 
   constructor(private userService: UserService,
               private roomService: RoomService) {
