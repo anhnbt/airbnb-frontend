@@ -25,9 +25,9 @@ export class CreatePostComponent implements OnInit {
     imageUrl: ''
   };
 
-  fileList: any;
+  fileList: any = [];
+  newFileList: any = [];
   uploadPercent: Observable<number>;
-  downloadURL: Observable<string>;
 
   firstFormGroup: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]),
@@ -120,13 +120,21 @@ export class CreatePostComponent implements OnInit {
 
 
   showPreview(event: Event): void {
-    this.fileList = (event.target as HTMLInputElement).files;
-    // this.fileList = event.target.files;
-    console.log(this.fileList);
+    if (this.newFileList.length === 0) {
+      this.fileList = (event.target as HTMLInputElement).files;
+      this.newFileList = Array.from(this.fileList);
+    } else {
+      // @ts-ignore
+      for (const file of (event.target as HTMLInputElement).files) {
+        this.newFileList.push(file);
+      }
+    }
+    console.log(this.newFileList);
+    this.images = [];
     if (this.fileList && this.fileList.length) {
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.fileList.length; i++) {
-        const file: File = this.fileList.item(i);
+      for (let i = 0; i < this.newFileList.length; i++) {
+        const file: File = this.newFileList[i];
         // Kiểm tra nếu không phải là ảnh
         if (!file.type.startsWith('image/')) {
           continue;
@@ -166,6 +174,8 @@ export class CreatePostComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.images.splice(index, 1);
+        this.newFileList.splice(index, 1);
+        console.log(this.newFileList);
         // this.fileList.splice(index, 1);
         // this.secondFormGroup.patchValue({
         //   fileSource: this.images
@@ -189,8 +199,8 @@ export class CreatePostComponent implements OnInit {
 
   onSubmit(): void {
     this.submitPost();
-    console.log(this.fileList);
-    for (const file of this.fileList) {
+    console.log(this.newFileList);
+    for (const file of this.newFileList) {
       this.uploadFile(file);
     }
   }
