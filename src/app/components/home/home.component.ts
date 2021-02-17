@@ -23,17 +23,18 @@ interface City {
 export class HomeComponent implements OnInit {
 
   places: any;
-  rooms: any;
+  rooms= [];
   myControl = new FormControl();
   back: any;
-
+roomImg = []
   constructor(private serviceHome: ListHomeService, private serviceCity: ListCityService) {
   }
 
   ngOnInit(): void {
     this.serviceHome.getAll().subscribe((res: any) => {
       this.rooms = res.data;
-      console.log(this.rooms);
+
+      console.log(this.rooms[0].roomImages[0].imageUrl);
     });
     this.serviceCity.getAllCity().subscribe((res: any) => {
       this.places = res.data;
@@ -52,7 +53,7 @@ export class HomeComponent implements OnInit {
   getAllHome(): void {
     this.serviceHome.getAll().subscribe((res: any) => {
       this.rooms = res.data;
-      console.log(this.rooms);
+
       this.back= '';
     });
 
