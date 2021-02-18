@@ -12,32 +12,32 @@
       <mat-form-field appearance="outline" class="example-full-width">
         <mat-label>Email *</mat-label>
         <input matInput placeholder="Email" type="email" formControlName="email">
-        <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
-        <mat-error *ngIf="hasError('email', 'email')">Email k dung mau</mat-error>
+        <mat-error *ngIf="hasError('email', 'required')">Email không được trống</mat-error>
+        <mat-error *ngIf="hasError('email', 'email')">Email không đúng mẫu</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="example-full-width">
         <mat-label>User Name *</mat-label>
         <input matInput placeholder="User Name" type="text" formControlName="username">
-        <mat-error *ngIf="hasError('username', 'required')">User Name is required</mat-error>
-        <mat-error *ngIf="hasError('username', 'pattern')">User Name k dung mau</mat-error>
-        <mat-error *ngIf="hasError('username', 'minlength')">User Name k it hon 3 ki tu</mat-error>
+        <mat-error *ngIf="hasError('username', 'required')">User Name không được trống</mat-error>
+        <mat-error *ngIf="hasError('username', 'pattern')">User Name không đúng mẫu</mat-error>
+        <mat-error *ngIf="hasError('username', 'minlength')">User Name không ít hơn 3 ký tự</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="example-full-width">
         <mat-label>Password *</mat-label>
         <input matInput placeholder="Password" type="password" formControlName="password">
-        <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
-        <mat-error *ngIf="hasError('password', 'minlength')">Password k it hon 6 ki tu</mat-error>
+        <mat-error *ngIf="hasError('password', 'required')">Password không được trống</mat-error>
+        <mat-error *ngIf="hasError('password', 'minlength')">Password không ít hơn  ký tự</mat-error>
       </mat-form-field>
 
 
       <mat-form-field appearance="outline" class="example-full-width">
         <mat-label>Confirm Password *</mat-label>
         <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword">
-        <mat-error *ngIf="hasError('confirmPassword', 'required')">Password is required</mat-error>
-        <mat-error *ngIf="hasError('confirmPassword', 'minlength')">Password k it hon 6 ki tu</mat-error>
-        <mat-error *ngIf="null != validateControlsValue('password', 'confirmPassword')">Password k trung khop</mat-error>
+        <mat-error *ngIf="hasError('confirmPassword', 'required')">Password không được trống</mat-error>
+        <mat-error *ngIf="hasError('confirmPassword', 'minlength')">Password 6không ít hơn  ký tự</mat-error>
+        <mat-error *ngIf="null != validateControlsValue('password', 'confirmPassword')">Password không trùng khớp</mat-error>
       </mat-form-field>
 
 <!--      <mat-form-field appearance="outline" class="example-full-width">-->
