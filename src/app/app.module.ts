@@ -53,6 +53,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ChangePassComponent } from './components/change-pass/change-pass.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     BookingListComponent,
     BookingDetailsComponent,
     ReviewComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ChangePassComponent
   ],
   imports: [
     FormsModule,
