@@ -66,6 +66,34 @@
             </div>
           </div>
         </div>
+        <hr>
+        <div class="row p-0 m-0 float-right">
+
+          <mat-form-field class="mr-2" style="width: 50px">
+            <mat-label>Số bản ghi</mat-label>
+            <mat-select [(ngModel)]="size" (ngModelChange)="getData(); page = 0">
+              <mat-option [value]="4">4</mat-option>
+              <mat-option [value]="8">8</mat-option>
+              <mat-option [value]="12">12</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <p class="mr-2 pageNum">
+            {{size*page+1}} -
+            <span *ngIf="size*(page+1) < pagingRooms.totalElements">{{size*(page+1)}}</span>
+            <span *ngIf="size*(page+1) > pagingRooms.totalElements">{{pagingRooms.totalElements}}</span>
+            Trên {{pagingRooms.totalElements}}
+          </p>
+
+          <button class="mr-2" type="button" mat-mini-fab color="primary" (click)="page = pagingRooms.number - 1; getData()" [disabled]="pagingRooms.first">
+            <span class="material-icons">navigate_before</span>
+          </button>
+          <p class="mr-2 pageNum">Trang {{page + 1}}/{{pagingRooms.totalPages}}</p>
+          <button type="button" mat-mini-fab color="primary" (click)="page = pagingRooms.number + 1; getData()" [disabled]="pagingRooms.last">
+            <span class="material-icons">navigate_next</span>
+          </button>
+
+        </div>
       </mat-tab>
       <mat-tab *ngIf="bookings.length != 0" label="Bookings">
         <table class="table table-hover">

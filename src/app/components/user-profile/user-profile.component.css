@@ -23,3 +23,7 @@ a {
 .material-icons {
   vertical-align: middle;
 }
+
+.pageNum {
+  padding-top: 10px;
+}

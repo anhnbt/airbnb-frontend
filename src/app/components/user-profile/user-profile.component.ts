@@ -25,24 +25,26 @@ export class UserProfileComponent implements OnInit {
   imagesRoom: RoomImages[] = [{
     imageUrl: ''
   }];
+  pagingRooms;
+  page = 0;
+  size = 8;
 
   constructor(private userService: UserService,
               private roomService: RoomService) {
   }
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  getData(): void {
     this.userService.getOne(1).subscribe((res: any) => {
       this.user = res.data;
-      this.userService.getRoomsOfHost(1).subscribe((res: any) => {
-        this.roomsOfHost = res.data;
-        let idx = 0;
-        for (const room of this.roomsOfHost) {
-          for (const img of room.roomImages) {
-            this.imagesRoom[idx] = img;
-            idx++;
-          }
-        }
-        this.userService.getBookingsOfUser(1).subscribe((res: any) => {
+      this.userService.getRoomsOfHost(this.user.id, this.page, this.size).subscribe((res: any) => {
+        this.pagingRooms = res.data;
+        this.roomsOfHost = res.data.content;
+        this.imagesRoom = this.roomsOfHost[0].roomImages;
+        this.userService.getBookingsOfUser(this.user.id).subscribe((res: any) => {
           this.bookings = res.data;
         });
       });
@@ -51,9 +53,7 @@ export class UserProfileComponent implements OnInit {
 
   changeStatus(id: number): any {
     this.roomService.changeStatus(id).subscribe(res => {
-      this.userService.getRoomsOfHost(1).subscribe((res: any) => {
-        this.roomsOfHost = res.data;
-      });
+      this.getData();
     });
   }
 }

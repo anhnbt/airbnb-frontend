@@ -22,7 +22,7 @@ export class BookingListComponent implements OnInit {
     this.bookingService.getAll().subscribe(res => {
       this.bookings = res;
       this.userService.getRoomsOfHost(1).subscribe(res => {
-        this.rooms = res.data;
+        this.rooms = res.data.content;
         for (const b of this.bookings) {
           for (const r of this.rooms) {
             if (r.id === b.room.id) {
