@@ -32,9 +32,11 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit(): void{
-    this.userService.login(this.myForm.value).subscribe(res => {
-      console.log(res);
+      console.log(this.myForm.value);
+      this.userService.login(this.myForm.value).subscribe(res => {
+      console.log(res.data);
       this.localService.set(res.data.username, res.data.accessToken );
+      console.log(res.data.username);
       this.router.navigate(['/']);
     });
 
