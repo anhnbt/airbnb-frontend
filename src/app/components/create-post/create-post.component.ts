@@ -25,9 +25,9 @@ export class CreatePostComponent implements OnInit {
     imageUrl: ''
   };
 
-  fileList: any;
+  fileList: any = [];
+  newFileList: any = [];
   uploadPercent: Observable<number>;
-  downloadURL: Observable<string>;
 
   firstFormGroup: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]),
@@ -78,23 +78,6 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
-  // uploadFile(event): void {
-  //   const file = event.target.files[0];
-  //   const filePath = 'name-your-file-path-here';
-  //   // const filePath = `${this.product.name}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-  //   const fileRef = this.storage.ref(filePath);
-  //   const task = this.storage.upload(filePath, file);
-  //
-  //   // observe percentage changes
-  //   this.uploadPercent = task.percentageChanges();
-  //   // get notified when the download URL is available
-  //   task.snapshotChanges().pipe(
-  //     finalize(() => this.downloadURL = fileRef.getDownloadURL())
-  //   )
-  //     .subscribe();
-  // }
-
-
   uploadFile(file: File): void {
     // const file = event.target.files[0];
     const filePath = `${file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
@@ -120,13 +103,21 @@ export class CreatePostComponent implements OnInit {
 
 
   showPreview(event: Event): void {
-    this.fileList = (event.target as HTMLInputElement).files;
-    // this.fileList = event.target.files;
-    console.log(this.fileList);
+    if (this.newFileList.length === 0) {
+      this.fileList = (event.target as HTMLInputElement).files;
+      this.newFileList = Array.from(this.fileList);
+    } else {
+      // @ts-ignore
+      for (const file of (event.target as HTMLInputElement).files) {
+        this.newFileList.push(file);
+      }
+    }
+    console.log(this.newFileList);
+    this.images = [];
     if (this.fileList && this.fileList.length) {
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.fileList.length; i++) {
-        const file: File = this.fileList.item(i);
+      for (let i = 0; i < this.newFileList.length; i++) {
+        const file: File = this.newFileList[i];
         // Kiểm tra nếu không phải là ảnh
         if (!file.type.startsWith('image/')) {
           continue;
@@ -166,31 +157,15 @@ export class CreatePostComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.images.splice(index, 1);
-        // this.fileList.splice(index, 1);
-        // this.secondFormGroup.patchValue({
-        //   fileSource: this.images
-        // });
+        this.newFileList.splice(index, 1);
+        console.log(this.newFileList);
       }
     });
   }
 
-  // onSubmit(): void {
-  //   console.log('Submit');
-  //   console.log(this.secondFormGroup.get('image').value);
-  //   const formData: FormData = new FormData();
-  //   formData.append('image', 'Hello');
-  //   formData.append('imageSource', this.secondFormGroup.get('imageSource').value);
-  //   console.log(formData);
-  //   this.roomService.uploadMultiImage(formData).subscribe(
-  //     (response) => console.log(response),
-  //     (error) => console.warn(error)
-  //   );
-  // }
-
   onSubmit(): void {
     this.submitPost();
-    console.log(this.fileList);
-    for (const file of this.fileList) {
+    for (const file of this.newFileList) {
       this.uploadFile(file);
     }
   }

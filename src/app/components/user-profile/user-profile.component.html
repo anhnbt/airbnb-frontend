@@ -4,12 +4,9 @@
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img style="max-height: 350px"
-           src="{{imagesRoom[0].imageUrl}}"
+           [src]="imagesRoom[0].imageUrl"
            class="d-block w-100" alt="...">
     </div>
-<!--    <div *ngFor="let img of imagesRoom" class="carousel-item">-->
-<!--      <img [src]=img.imageUrl class="d-block w-100" alt="..." style="max-height: 350px">-->
-<!--    </div>-->
     <ng-container *ngFor="let item of imagesRoom; let first = first let i=index; let odd=odd" [class.odd]="odd">
       <div class="carousel-item" *ngIf="!first">
         <img src="{{ item.imageUrl }}" style="max-height: 350px" class="d-block w-100" alt="...">
