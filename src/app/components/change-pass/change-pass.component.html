@@ -1,0 +1,15 @@
+<h1>ĐỔI MẬT KHẨU</h1>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Nhập mật khẩu mới</mat-label>
+    <input [(ngModel)]="login.password" matInput type="password">
+  </mat-form-field>
+<br>
+
+<mat-form-field class="example-full-width">
+  <mat-label>Xác nhận lại mật khẩu</mat-label>
+  <input matInput type="password" >
+</mat-form-field>
+<br >
+<button (click)="changePw()" mat-raised-button color="warn" type="button">Đổi mật khẩu</button>
+
