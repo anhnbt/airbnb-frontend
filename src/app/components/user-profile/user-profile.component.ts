@@ -38,7 +38,6 @@ export class UserProfileComponent implements OnInit {
         let idx = 0;
         for (const room of this.roomsOfHost) {
           for (const img of room.roomImages) {
-            // this.imagesRoom.push(img);
             this.imagesRoom[idx] = img;
             idx++;
           }
@@ -52,7 +51,9 @@ export class UserProfileComponent implements OnInit {
 
   changeStatus(id: number): any {
     this.roomService.changeStatus(id).subscribe(res => {
-      this.ngOnInit();
+      this.userService.getRoomsOfHost(1).subscribe((res: any) => {
+        this.roomsOfHost = res.data;
+      });
     });
   }
 }
