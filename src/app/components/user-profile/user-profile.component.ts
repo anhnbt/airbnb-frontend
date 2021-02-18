@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
-import {User} from '../../models/user';
-import {Timestamp} from 'rxjs';
-import {Room} from '../../models/room';
+import {RoomImages} from '../../models/roomImages';
 import {RoomService} from '../../services/room.service';
 
 @Component({
@@ -24,7 +22,9 @@ export class UserProfileComponent implements OnInit {
   };
   roomsOfHost = [];
   bookings = [];
-  imagesRoom = [];
+  imagesRoom: RoomImages[] = [{
+    imageUrl: ''
+  }];
 
   constructor(private userService: UserService,
               private roomService: RoomService) {
@@ -35,9 +35,12 @@ export class UserProfileComponent implements OnInit {
       this.user = res.data;
       this.userService.getRoomsOfHost(1).subscribe((res: any) => {
         this.roomsOfHost = res.data;
+        let idx = 0;
         for (const room of this.roomsOfHost) {
           for (const img of room.roomImages) {
-            this.imagesRoom.push(img);
+            // this.imagesRoom.push(img);
+            this.imagesRoom[idx] = img;
+            idx++;
           }
         }
         this.userService.getBookingsOfUser(1).subscribe((res: any) => {
