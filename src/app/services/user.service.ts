@@ -20,7 +20,10 @@ export class UserService {
     return this.http.get(this.url + '/' + id);
   }
 
-  getRoomsOfHost(id: number): Observable<any> {
+  getRoomsOfHost(id: number, page?: number, size?: number): Observable<any> {
+    if (page || size) {
+      return this.http.get(`${this.url}/${id}/rooms?page=${page}&size=${size}`);
+    }
     return this.http.get(this.url + '/' + id + '/rooms');
   }
 
