@@ -30,4 +30,8 @@ export class UserService {
   getBookingsOfUser(id: number): Observable<any> {
     return this.http.get(this.url + '/' + id + '/bookings');
   }
+
+  loginWithGoogle(name: string, email: string): Observable<any> {
+    return this.http.post('http://localhost:8080/api/v1/users/login-with-google', {email, name});
+  }
 }
