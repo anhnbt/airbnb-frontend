@@ -27,4 +27,8 @@ export class UserService {
   getBookingsOfUser(id: number): Observable<any> {
     return this.http.get(this.url + '/' + id + '/bookings');
   }
+
+  getUser(username: string): Observable<any> {
+    return this.http.get(`${this.url}/${username}`);
+  }
 }

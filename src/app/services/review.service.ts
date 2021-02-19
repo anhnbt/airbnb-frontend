@@ -10,8 +10,8 @@ export class ReviewService{
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<any>{
-    return this.http.get(this.url);
+  getAll(id: number): Observable<any>{
+    return this.http.get(this.url + '/room/' + id);
   }
   save(value: any): Observable<any>{
     return this.http.post(this.url, value);

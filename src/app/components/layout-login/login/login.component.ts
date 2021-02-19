@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void{
     this.userService.login(this.myForm.value).subscribe(res => {
       console.log(res);
-      this.localService.set(res.data.username, res.data.accessToken );
+      this.localService.set(res.data.username, res.data.accessToken, res.data.id );
       this.router.navigate(['/']);
     });
 

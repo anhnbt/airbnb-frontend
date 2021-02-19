@@ -11,19 +11,21 @@
   </mat-form-field>
   <button (click)="send()">send</button>
 </form>
-<mat-list *ngFor="let item of dataSource" role="list">
+<mat-list *ngFor="let item of reviews | async" role="list">
   <div style="border-top: 1px solid">
-  <mat-list-item role="listitem" >
+    <div class="row">
+  <mat-list-item role="listitem" class="col-1">
     <mat-icon>
       account_circle
     </mat-icon>
     {{item.booking.user.username}}
   </mat-list-item>
-    <mat-list-item role="listitem">
+    <mat-list-item role="listitem" class="col-1">
       <mat-icon color="warn">
         {{showRating(item.rating)}}
       </mat-icon>
     </mat-list-item>
+    </div>
   <mat-divider>--</mat-divider>
   <mat-list-item role="listitem">
     {{item.reviewBody}}
@@ -33,3 +35,7 @@
   </mat-list-item>
   </div>
 </mat-list>
+<mat-paginator
+               [pageSizeOptions]="[5, 10]"
+>
+</mat-paginator>

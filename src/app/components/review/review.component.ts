@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ReviewService} from '../../services/review.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {Observable} from 'rxjs';
+import {UserService} from "../../services/user.service";
+import {BookingService} from "../../services/booking.service";
+import {LocalStorageService} from "../../services/localStorage.service";
 
 @Component({
   selector: 'app-review',
@@ -9,16 +15,27 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class ReviewComponent implements OnInit {
   displayedColumns: string[] = ['rating', 'review_body'];
+  reviews: Observable<any>;
   dataSource: any;
+  checkBooking = true;
   ratingArr = [1, 2, 3, 4, 5];
   myForm: FormGroup = new FormGroup({
     reviewBody: new FormControl(''),
     rating: new FormControl('')
   });
   star = this.myForm.value.rating;
+  booking = {};
+  @Input() childId: number;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private reviewService: ReviewService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private changeDetectorRef: ChangeDetectorRef,
+              private userService: UserService,
+              private bookingService: BookingService,
+              private local: LocalStorageService
+  ) {
   }
 
   ngOnInit(): void {
@@ -38,10 +55,19 @@ export class ReviewComponent implements OnInit {
   }
 
   loadData(): void {
-    this.reviewService.getAll().subscribe(res => {
-      this.dataSource = res.data;
-      console.log(this.dataSource);
+    this.reviewService.getAll(this.childId).subscribe(res => {
+      // this.dataSource = res.data;
+      this.dataSource = new MatTableDataSource(res.data);
+      this.changeDetectorRef.detectChanges();
+      this.dataSource.paginator = this.paginator;
+      this.reviews = this.dataSource.connect();
     });
+    this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).id)
+      .subscribe(res =>{
+      this.booking = res.data;
+      console.log(this.booking);
+      console.log(this.local.get(localStorage.key(0)).id);
+    })
   }
 
   onClick(index: number): void {
@@ -79,4 +105,5 @@ export class ReviewComponent implements OnInit {
         break;
     }
   }
+
 }
