@@ -11,6 +11,7 @@ import {UserProfileComponent} from './components/user-profile/user-profile.compo
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import {RegisterComponent} from './components/layout-login/register/register.component';
 import {ChangePassComponent} from './components/change-pass/change-pass.component';
+import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'booking-detail/:id', component: BookingDetailsComponent},
   {path: 'profile', component: UserProfileComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'edit-profile', component: EditProfileComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 
