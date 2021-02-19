@@ -26,6 +26,7 @@
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
     "angular-image-slider": "0.0.9",
     "bootstrap": "^4.5.0",
+    "chart.js": "^2.9.4",
     "firebase": "^8.2.7",
     "firebaseui": "^4.7.3",
     "firebaseui-angular": "^5.1.2",
