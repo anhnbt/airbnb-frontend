@@ -48,6 +48,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ChangePassComponent } from './components/change-pass/change-pass.component';
+import { RegisterComponent } from './components/layout-login/register/register.component';
 /**
  * Config cho firebase
  */
@@ -103,6 +104,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     BookingDetailsComponent,
     ReviewComponent,
     PageNotFoundComponent,
+    RegisterComponent,
     ChangePassComponent
   ],
   imports: [

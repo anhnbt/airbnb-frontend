@@ -1,4 +1,4 @@
-<form [formGroup]="myForm" class="example-form">
+<form  [formGroup]="myForm" class="example-form">
   <button mat-icon-button color="accent" *ngFor="let ratingId of ratingArr;index as i" (click)="onClick(i+1)">
     <mat-icon>
       {{showIcon(i+1)}}
