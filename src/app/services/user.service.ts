@@ -24,7 +24,7 @@ export class UserService {
     return this.http.get(this.url + '/' + id);
   }
   getOneByUsername(name: string): Observable<any> {
-    return this.http.get(this.url + '/username' + name);
+    return this.http.get(this.url + '/edit-user/' + name);
   }
   changePassword(login: any){
     return this.http.post('http://localhost:8080/api/user/changepw',login)

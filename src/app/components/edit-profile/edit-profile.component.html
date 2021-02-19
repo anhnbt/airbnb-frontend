@@ -1,1 +1,14 @@
-<p>edit-profile works!</p>
+<mat-card class="size">
+<h1>Thông tin cơ bản</h1>
+  <h2>Username: {{user.username}}</h2><br>
+  <hr>
+  <h2>Password: <a mat-raised-button color="primary" routerLink="/password">Đổi Mật Khẩu</a> </h2><br>
+  <hr>
+  <h2>name: {{user.name}} </h2><br>
+  <hr>
+  <h2>birth day: {{user.dateOfBirth}}</h2><br>
+  <hr>
+  <h2>email: {{user.email}}</h2><br>
+  <hr>
+
+</mat-card>
