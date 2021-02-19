@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../services/user.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-profile',
@@ -22,13 +23,25 @@ export class EditProfileComponent implements OnInit {
     roles: [],
   };
   username= localStorage.key(0);
-  constructor(private userService: UserService) { }
+  gender= ''
+  constructor(private userService: UserService,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.userService.getOneByUsername(this.username).subscribe(res=>{
       console.log(res.data),
-        this.user = res.data
-    })
-  }
 
+        this.user = res.data,
+        this.checkGender()
+    })
+
+    console.log(this.user.gender +'aaaa');
+  }
+checkGender():void{
+  if (this.user.gender==1){
+    this.gender = 'Nam'
+  }else {
+    this.gender ='Nu'
+  }
+}
 }
