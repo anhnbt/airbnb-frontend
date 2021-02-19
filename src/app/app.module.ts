@@ -44,9 +44,11 @@ import {ReviewComponent} from './components/review/review.component';
 import {SliderModule} from 'angular-image-slider';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {NgImageSliderModule} from 'ng-image-slider';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ChangePassComponent } from './components/change-pass/change-pass.component';
+import { RegisterComponent } from './components/layout-login/register/register.component';
 /**
  * Config cho firebase
  */
@@ -56,6 +58,7 @@ import {environment} from '../environments/environment.prod';
 import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import {AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR} from '@angular/fire/auth';
 import { LineChartRevenueComponent } from './components/line-chart-revenue/line-chart-revenue.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -103,7 +106,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     BookingDetailsComponent,
     ReviewComponent,
     PageNotFoundComponent,
-    LineChartRevenueComponent
+    LineChartRevenueComponent,
+    PageNotFoundComponent,
+    RegisterComponent,
+    ChangePassComponent,
+    EditProfileComponent
   ],
   imports: [
     FormsModule,

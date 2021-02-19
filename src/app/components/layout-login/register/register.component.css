@@ -1,0 +1,25 @@
+.container {
+  margin: 30px;
+}
+
+.example-card {
+  /*max-width: 400px;*/
+  margin: 30px auto;
+  /*display: flex;*/
+  /*justify-content: center;*/
+}
+
+.example-form {
+  margin: 30px auto;
+  min-width: 400px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}

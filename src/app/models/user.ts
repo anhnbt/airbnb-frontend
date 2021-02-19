@@ -3,6 +3,7 @@ import {Timestamp} from 'rxjs';
 export interface User {
   id: number;
   name: string;
+  username: string;
   email: string;
   gender: number;
   dateOfBirth: Date;
@@ -10,4 +11,7 @@ export interface User {
   active: boolean;
   createdAt: Timestamp<any>;
   updatedAt: Timestamp<any>;
+  roles?: [{
+    name: string
+  }];
 }
