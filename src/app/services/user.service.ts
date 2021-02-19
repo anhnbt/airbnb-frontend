@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {Account} from '../models/account';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class UserService {
 
   getOne(id: number): Observable<any> {
     return this.http.get(this.url + '/' + id);
-  }
+  }shareService
   getOneByUsername(name: string): Observable<any> {
     return this.http.get(this.url + '/edit-user/' + name);
   }
