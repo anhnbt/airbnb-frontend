@@ -1,15 +1,31 @@
+<h1><a mat-raised-button color="accent" routerLink="/profile" style="font-size: large">Quay về trang thông tin <a class="material-icons">
+  call_received
+</a></a></h1>
+<br>
 <h1>ĐỔI MẬT KHẨU</h1>
 
-  <mat-form-field class="example-full-width">
+<mat-list>
+  <mat-list-item>  <mat-form-field class="example-full-width">
     <mat-label>Nhập mật khẩu mới</mat-label>
-    <input [(ngModel)]="login.password" matInput type="password">
-  </mat-form-field>
-<br>
+    <input [(ngModel)]="login.password" (keyup)="checkConfirm()" matInput type="password">
+  </mat-form-field> </mat-list-item>
+  <mat-list-item> <mat-form-field class="example-full-width">
+    <mat-label>Xác nhận lại mật khẩu</mat-label>
+    <input [(ngModel)]="confirmPw" (keyup)="checkConfirm()" matInput type="password" >
+  </mat-form-field> </mat-list-item>
+  <mat-list-item> <a *ngIf="check" style="color: red">Mật khẩu không khớp</a>
+  </mat-list-item>
+  <mat-list-item>
+    <button [disabled]="checkDisabled" (click)="changePw()" (click)="openSnackBar(login.username, message)" mat-raised-button color="warn" type="button">Đổi mật khẩu</button>
 
-<mat-form-field class="example-full-width">
-  <mat-label>Xác nhận lại mật khẩu</mat-label>
-  <input matInput type="password" >
-</mat-form-field>
-<br >
-<button (click)="changePw()" mat-raised-button color="warn" type="button">Đổi mật khẩu</button>
+  </mat-list-item>
+  <mat-list-item>
+
+
+  </mat-list-item>
+</mat-list>
+
+
+
+
 
