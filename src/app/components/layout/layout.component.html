@@ -15,8 +15,8 @@
       </li>
     </ul>
     <ul class="navbar-nav">
-      <li class="nav-item" *ngIf="account">
-        <a class="nav-link" routerLink="/profile" routerLinkActive="active">{{account.username}}</a>
+      <li class="nav-item" *ngIf="authService.getLocal()">
+        <a class="nav-link" routerLink="/profile" routerLinkActive="active">{{authService.getLocal().username}}</a>
       </li>
       <li class="nav-item" *ngIf="!isAuthenticated">
         <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>

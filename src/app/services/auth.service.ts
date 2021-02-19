@@ -2,8 +2,10 @@ import {Injectable} from '@angular/core';
 import {LocalStorageService} from './localStorage.service';
 import {HttpClient} from '@angular/common/http';
 import {Account} from '../models/account';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {async, BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
+import firebase from 'firebase/app';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,8 @@ export class AuthService {
   constructor(
     private localStorageService: LocalStorageService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private auth: AngularFireAuth
   ) {
   }
 
@@ -30,22 +33,28 @@ export class AuthService {
     this.saveLocalAndRedirect(resp.data);
   }
 
-  loginWithGoogle(name: string, email: string): Observable<any> {
-    return this.http.post('http://localhost:8080/api/v1/users/login-with-google', {email, name});
+  async loginWithGoogle(name: string, email: string): Promise<any> {
+    const resp = await this.http.post('http://localhost:8080/api/v1/users/login-with-google', {email, name})
+      .toPromise() as any;
+    console.log(resp);
+    this.isAuthenticated.next(true);
+    if (resp.status !== 'OK') {
+      throw Error('We cannot handle the ' + resp.status + ' status');
+    }
+    this.saveLocalAndRedirect(resp.data);
   }
 
   logout(redirect: string): void {
     this.localStorageService.delete('airbnb_account');
+    if (this.auth.user) {
+      firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+      }).catch((error) => {
+        // An error happened.
+      });
+    }
     this.isAuthenticated.next(false);
     this.router.navigate([redirect]);
-  }
-
-  isLogin(): boolean {
-    const user = this.localStorageService.get('airbnb_account');
-    if (user && typeof user === 'object') {
-      return user.id && user.username && user.accessToken;
-    }
-    return false;
   }
 
   checkAuthenticated(): boolean {
@@ -65,11 +74,6 @@ export class AuthService {
 
   getLocal(): Account {
     return this.localStorageService.get('airbnb_account');
-  }
-
-  getToken(): string {
-    const user = this.getLocal();
-    return user ? user.accessToken : null;
   }
 
 }

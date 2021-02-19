@@ -21,7 +21,6 @@ export class LayoutComponent implements OnInit {
       shareReplay()
     );
 
-
   constructor(
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService) {

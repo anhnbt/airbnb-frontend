@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {LocalStorageService} from '../../../services/localStorage.service';
@@ -8,7 +8,6 @@ import firebase from 'firebase/app';
 import {FirebaseuiAngularLibraryService, FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult} from 'firebaseui-angular';
 import {AuthService} from '../../../services/auth.service';
 import {ShareService} from '../../../services/share.service';
-import {Account} from '../../../models/account';
 
 @Component({
   selector: 'app-login',
@@ -72,21 +71,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult): void {
+  async successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult): Promise<void> {
     const userProfile = signInSuccessData.authResult.additionalUserInfo.profile;
     const providerId = signInSuccessData.authResult.additionalUserInfo.providerId;
     console.log(providerId);
-    // @ts-ignore
-    this.userService.loginWithGoogle(userProfile.name, userProfile.email).subscribe(res => {
-      console.log(res);
-      if (res.status === 'OK') {
-        console.log('Login success.');
-        this.localService.set(res.data.username, res.data.accessToken);
-        this.router.navigate(['/']);
-      } else {
-        // this.messageError = res.message;
-      }
-    });
+    try {
+      // @ts-ignore
+      await this.authService.loginWithGoogle(userProfile.name, userProfile.email);
+    } catch (err) {
+      this.loginInvalid = true;
+    }
   }
 
   errorCallback(errorData: FirebaseUISignInFailure): void {
