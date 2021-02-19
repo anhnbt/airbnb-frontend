@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {LocalStorageService} from './localStorage.service';
 import {HttpClient} from '@angular/common/http';
 import {Account} from '../models/account';
-import {async, BehaviorSubject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
 import firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
