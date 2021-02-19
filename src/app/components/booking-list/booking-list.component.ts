@@ -31,9 +31,6 @@ export class BookingListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.bookingService.bookingsOfCus(1).subscribe(res => {
       this.bookingsOfCus = res.data;
-      for (const b of this.bookingsOfCus) {
-        b.price = b.numNight * b.room.pricePerNight;
-      }
       this.dataSource = new MatTableDataSource(this.bookingsOfCus);
       this.dataSource.paginator = this.paginator;
     });

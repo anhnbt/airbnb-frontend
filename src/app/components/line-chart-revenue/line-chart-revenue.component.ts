@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Chart} from 'node_modules/chart.js';
+import {BookingService} from '../../services/booking.service';
+import {SalesMonthService} from '../../services/sales-month.service';
 
 @Component({
   selector: 'app-line-chart-revenue',
@@ -9,27 +11,44 @@ import {Chart} from 'node_modules/chart.js';
 export class LineChartRevenueComponent implements OnInit {
 
   chart: any;
+  year = new Date().getFullYear();
 
-  constructor() {
+  constructor(private salesMonthService: SalesMonthService) {
   }
 
   ngOnInit(): void {
-    this.chart = new Chart('canvas', {
-      type: 'line',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [
-          {
-            label: 'Doanh thu',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: 'blue',
-            borderColor: 'blue',
-            borderWidth: 1,
-            fill: false,
-          }
-        ]
-      },
-    });
+    this.getData();
   }
 
+  getData(): any {
+    this.salesMonthService.getSalesMonth(1, this.year).subscribe(resF => {
+      this.salesMonthService.getSalesMonth(1, this.year - 1).subscribe(res => {
+        this.chart = new Chart('canvas', {
+          type: 'line',
+          data: {
+            // tslint:disable-next-line:max-line-length
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+            datasets: [
+              {
+                label: 'Doanh thu năm nay',
+                data: resF.data,
+                backgroundColor: 'blue',
+                borderColor: 'blue',
+                borderWidth: 1,
+                fill: false,
+              },
+              {
+                label: 'Doanh thu năm trước',
+                data: res.data,
+                backgroundColor: 'red',
+                borderColor: 'red',
+                borderWidth: 1,
+                fill: false,
+              }
+            ]
+          },
+        });
+      });
+    });
+  }
 }
