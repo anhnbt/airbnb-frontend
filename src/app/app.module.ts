@@ -57,6 +57,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {environment} from '../environments/environment.prod';
 import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import {AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR} from '@angular/fire/auth';
+import { LineChartRevenueComponent } from './components/line-chart-revenue/line-chart-revenue.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -104,6 +105,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     BookingListComponent,
     BookingDetailsComponent,
     ReviewComponent,
+    PageNotFoundComponent,
+    LineChartRevenueComponent,
     PageNotFoundComponent,
     RegisterComponent,
     ChangePassComponent,

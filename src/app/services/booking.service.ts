@@ -27,4 +27,9 @@ export class BookingService {
   booking(roomId: number, userId: number, data: any): any {
     return this.http.post(this.URL + '/' + roomId + '/' + userId, data);
   }
+
+
+  bookingsOfCus(userId: number): any {
+    return this.http.get(this.URL + '/user/' + userId);
+  }
 }

@@ -57,9 +57,6 @@ export class UserProfileComponent implements OnInit {
         this.imagesRoom = this.roomsOfHost[0].roomImages;
         this.userService.getBookingsOfUser(this.user.id).subscribe((res: any) => {
           this.bookings = res.data;
-          for (const b of this.bookings) {
-            b.price = b.numNight * b.room.pricePerNight;
-          }
           this.dataSource = new MatTableDataSource(this.bookings);
           this.dataSource.paginator = this.paginator;
         });
