@@ -57,6 +57,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {environment} from '../environments/environment.prod';
 import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import {AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR} from '@angular/fire/auth';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -105,7 +106,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ReviewComponent,
     PageNotFoundComponent,
     RegisterComponent,
-    ChangePassComponent
+    ChangePassComponent,
+    EditProfileComponent
   ],
   imports: [
     FormsModule,
