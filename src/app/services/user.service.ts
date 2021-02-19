@@ -16,6 +16,10 @@ export class UserService {
     return this.http.post('http://localhost:8080/api/v1/users/login', value);
   }
 
+  createUser(value: any): Observable<any>{
+    return this.http.post('http://localhost:8080/register', value);
+  }
+
   getOne(id: number): Observable<any> {
     return this.http.get(this.url + '/' + id);
   }

@@ -44,9 +44,10 @@ import {ReviewComponent} from './components/review/review.component';
 import {SliderModule} from 'angular-image-slider';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {NgImageSliderModule} from 'ng-image-slider';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { RegisterComponent } from './components/layout-login/register/register.component';
 /**
  * Config cho firebase
  */
@@ -101,7 +102,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     BookingListComponent,
     BookingDetailsComponent,
     ReviewComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RegisterComponent
   ],
   imports: [
     FormsModule,

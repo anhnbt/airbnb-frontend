@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ReviewService} from '../../services/review.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Route} from '@angular/router';
 
 @Component({
   selector: 'app-review',
@@ -10,6 +11,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 export class ReviewComponent implements OnInit {
   displayedColumns: string[] = ['rating', 'review_body'];
   dataSource: any;
+  checkBooking = true;
   ratingArr = [1, 2, 3, 4, 5];
   myForm: FormGroup = new FormGroup({
     reviewBody: new FormControl(''),
@@ -18,7 +20,8 @@ export class ReviewComponent implements OnInit {
   star = this.myForm.value.rating;
 
   constructor(private reviewService: ReviewService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private rote: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -31,6 +34,12 @@ export class ReviewComponent implements OnInit {
 
   send(): void {
     this.reviewService.save(this.myForm.value).subscribe(res => {
+      // if (res.data != null){
+      //   console.log(res.data);
+      //   this.checkBooking = true;
+      // }else {
+      //   this.checkBooking = false;
+      // }
       this.loadData();
       console.log(res.data.booking.user.username);
       this.myForm.reset();
