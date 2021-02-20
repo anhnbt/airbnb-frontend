@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {UserService} from "../../services/user.service";
 import {BookingService} from "../../services/booking.service";
 import {LocalStorageService} from "../../services/localStorage.service";
+import {Booking, Review} from "../../models/review";
 
 @Component({
   selector: 'app-review',
@@ -14,10 +15,9 @@ import {LocalStorageService} from "../../services/localStorage.service";
   styleUrls: ['./review.component.css']
 })
 export class ReviewComponent implements OnInit {
-  displayedColumns: string[] = ['rating', 'review_body'];
   reviews: Observable<any>;
   dataSource: any;
-  checkBooking = true;
+  checkReview = true;
   ratingArr = [1, 2, 3, 4, 5];
   myForm: FormGroup = new FormGroup({
     reviewBody: new FormControl(''),
@@ -25,6 +25,13 @@ export class ReviewComponent implements OnInit {
   });
   star = this.myForm.value.rating;
   booking = {};
+  // review: Review;
+  // review: {
+  //   id?: number;
+  //   rating?: number;
+  //   reviewBody?: string;
+  //   booking: Booking;
+  // }
   @Input() childId: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -47,27 +54,43 @@ export class ReviewComponent implements OnInit {
   }
 
   send(): void {
-    this.reviewService.save(this.myForm.value).subscribe(res => {
-      this.loadData();
-      console.log(res.data.booking.user.username);
-      this.myForm.reset();
+    console.log(this.myForm.get('reviewBody').value);
+    console.log(this.myForm.get('rating').value);
+    // this.review.rating = this.myForm.get('rating').value;
+    // this.review.reviewBody = this.myForm.get('reviewBody').value;
+    this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).id)
+    .subscribe(res =>{
+      this.booking = res.data;
+      console.log(this.booking);
+      this.reviewService.save(this.myForm.get('reviewBody').value, this.myForm.get('rating').value, this.booking).subscribe(res => {
+        console.log( res.data);
+        this.loadData();
+        // console.log(res.data.booking.user.username);
+        this.myForm.reset();
+      });
+      // console.log(this.local.get(localStorage.key(0)).id);
     });
   }
 
   loadData(): void {
+    if (this.local.get(localStorage.key(0)) != null) {
+      this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).id)
+        .subscribe(res => {
+          if (res.data != null) {
+            this.checkReview = false;
+          } else {
+            this.checkReview = true;
+          }
+        });
+    }else {
+      this.checkReview = true;
+    }
     this.reviewService.getAll(this.childId).subscribe(res => {
-      // this.dataSource = res.data;
       this.dataSource = new MatTableDataSource(res.data);
       this.changeDetectorRef.detectChanges();
       this.dataSource.paginator = this.paginator;
       this.reviews = this.dataSource.connect();
     });
-    this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).id)
-      .subscribe(res =>{
-      this.booking = res.data;
-      console.log(this.booking);
-      console.log(this.local.get(localStorage.key(0)).id);
-    })
   }
 
   onClick(index: number): void {

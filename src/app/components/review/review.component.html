@@ -1,4 +1,4 @@
-<form [formGroup]="myForm" class="example-form">
+<form [formGroup]="myForm" [hidden]="checkReview" class="example-form">
   <button mat-icon-button color="accent" *ngFor="let ratingId of ratingArr;index as i" (click)="onClick(i+1)">
     <mat-icon>
       {{showIcon(i+1)}}
@@ -11,6 +11,7 @@
   </mat-form-field>
   <button (click)="send()">send</button>
 </form>
+
 <mat-list *ngFor="let item of reviews | async" role="list">
   <div style="border-top: 1px solid">
     <div class="row">
