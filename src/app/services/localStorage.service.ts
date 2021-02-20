@@ -15,9 +15,9 @@ export class LocalStorageService {
   }
 
 
-  set = (key: string, value: any, id: number) => {
+  set = (key: string, value: any) => {
     const user: any = {
-      id: id,
+      // id: id,
       value: value
     };
     if (value && typeof value === 'object') {
