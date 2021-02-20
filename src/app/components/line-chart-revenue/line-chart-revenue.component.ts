@@ -21,8 +21,9 @@ export class LineChartRevenueComponent implements OnInit {
   }
 
   getData(): any {
-    this.salesMonthService.getSalesMonth(1, this.year).subscribe(resF => {
-      this.salesMonthService.getSalesMonth(1, this.year - 1).subscribe(res => {
+    const userLocal = JSON.parse(localStorage.getItem('airbnb_account'));
+    this.salesMonthService.getSalesMonth(userLocal.id, this.year).subscribe(resF => {
+      this.salesMonthService.getSalesMonth(userLocal.id, this.year - 1).subscribe(res => {
         this.chart = new Chart('canvas', {
           type: 'line',
           data: {

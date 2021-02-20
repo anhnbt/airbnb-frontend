@@ -10,8 +10,6 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./booking-list.component.css']
 })
 export class BookingListComponent implements OnInit, AfterViewInit {
-  rooms = [];
-  bookings = [];
   sortStatus = true;
 
   bookingsOfCus = [];
@@ -29,7 +27,8 @@ export class BookingListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.bookingService.bookingsOfCus(1).subscribe(res => {
+    const userLocal = JSON.parse(localStorage.getItem('airbnb_account'));
+    this.bookingService.bookingsOfCus(userLocal.id).subscribe(res => {
       this.bookingsOfCus = res.data;
       this.dataSource = new MatTableDataSource(this.bookingsOfCus);
       this.dataSource.paginator = this.paginator;

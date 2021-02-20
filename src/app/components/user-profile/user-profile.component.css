@@ -31,3 +31,12 @@ a {
 table {
   width: 100%;
 }
+
+img {
+  object-fit: cover;
+}
+
+mat-tab-group {
+  min-height: 500px;
+  max-height: 1000px;
+}
