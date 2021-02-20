@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {LocalStorageService} from '../../../services/localStorage.service';
+import {AngularFireAuth} from '@angular/fire/auth';
+import firebase from 'firebase/app';
+import {FirebaseuiAngularLibraryService, FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult} from 'firebaseui-angular';
+import {AuthService} from '../../../services/auth.service';
+import {ShareService} from '../../../services/share.service';
 
 @Component({
   selector: 'app-login',
@@ -10,34 +15,84 @@ import {LocalStorageService} from '../../../services/localStorage.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  formLogin: FormGroup;
+  public loginInvalid: boolean;
+  private formSubmitAttempt: boolean;
+  private returnUrl: string;
 
-  myForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
-  });
-  constructor(private fb: FormBuilder,
-              private router: Router,
-              private userService: UserService,
-              private localService: LocalStorageService) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService,
+    private authService: AuthService,
+    private shareService: ShareService,
+    private localService: LocalStorageService,
+    public auth: AngularFireAuth,
+    private firebaseuiAngularLibraryService: FirebaseuiAngularLibraryService) {
+    firebaseuiAngularLibraryService.firebaseUiInstance.disableAutoSignIn();
+  }
 
   ngOnInit(): void {
-    this.myForm = this.fb.group({
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+
+    this.formLogin = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z]*[0-9]*$')]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
-  }
-  public hasError = (controlName: string, errorName: string) => {
-    return this.myForm.controls[controlName].hasError(errorName);
+
+    if (this.authService.checkAuthenticated()) {
+      this.router.navigate([this.returnUrl]);
+    }
   }
 
+  async onSubmit(): Promise<void> {
+    this.loginInvalid = false;
+    this.formSubmitAttempt = false;
+    if (this.formLogin.valid) {
+      try {
+        const username = this.formLogin.get('username').value;
+        const password = this.formLogin.get('password').value;
+        await this.authService.login(username, password);
+      } catch (err) {
+        this.loginInvalid = true;
+      }
+    } else {
+      this.formSubmitAttempt = true;
+    }
 
-  onSubmit(): void{
-    this.userService.login(this.myForm.value).subscribe(res => {
-      console.log(res);
-      this.localService.set(res.data.username, res.data.accessToken, res.data.id );
-      this.router.navigate(['/']);
+  }
+
+  logout(): void {
+    firebase.auth().signOut().then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
     });
+  }
 
+  async successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult): Promise<void> {
+    const userProfile = signInSuccessData.authResult.additionalUserInfo.profile;
+    const providerId = signInSuccessData.authResult.additionalUserInfo.providerId;
+    console.log(providerId);
+    try {
+      // @ts-ignore
+      await this.authService.loginWithGoogle(userProfile.name, userProfile.email);
+    } catch (err) {
+      this.loginInvalid = true;
+    }
+  }
+
+  errorCallback(errorData: FirebaseUISignInFailure): void {
+    console.log('errorCallback');
+  }
+
+  uiShownCallback(): void {
+    console.log('uiShownCallback');
+  }
+
+  hasError(controlName: string, errorName: string): boolean {
+    return this.formLogin.controls[controlName].hasError(errorName);
   }
 
 }

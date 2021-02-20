@@ -31,4 +31,9 @@ export class BookingService {
   getBookingByRoomAndByUser(room_id, user_id): Observable<any> {
     return this.http.get(this.URL + `/${room_id}/${user_id}`);
   }
+
+
+  bookingsOfCus(userId: number): any {
+    return this.http.get(this.URL + '/user/' + userId);
+  }
 }

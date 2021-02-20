@@ -13,12 +13,6 @@ import {MatListModule} from '@angular/material/list';
 import {RouterModule} from '@angular/router';
 import {LayoutLoginComponent} from './components/layout-login/layout-login.component';
 import {LoginComponent} from './components/layout-login/login/login.component';
-/**
- * Config cho firebase
- */
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {environment} from '../environments/environment.prod';
 import {AppRoutingModule} from './app-routing.module';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
@@ -53,6 +47,48 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ChangePassComponent } from './components/change-pass/change-pass.component';
+import { RegisterComponent } from './components/layout-login/register/register.component';
+/**
+ * Config cho firebase
+ */
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {environment} from '../environments/environment.prod';
+import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
+import {AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR} from '@angular/fire/auth';
+import { LineChartRevenueComponent } from './components/line-chart-revenue/line-chart-revenue.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    {
+      scopes: [
+        'public_profile',
+        'email',
+        'user_likes',
+        'user_friends'
+      ],
+      customParameters: {
+        auth_type: 'reauthenticate'
+      },
+      provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID
+    },
+    // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+    firebase.auth.GithubAuthProvider.PROVIDER_ID,
+    // {
+    //   requireDisplayName: false,
+    //   provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
+    // },
+    // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+    // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+  ],
+  tosUrl: 'https://anhnbt.com/p/dieu-khoan-su-dung.html',
+  privacyPolicyUrl: 'https://anhnbt.com/p/chinh-sach-bao-mat.html',
+  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
+};
 
 @NgModule({
   declarations: [
@@ -69,7 +105,12 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     BookingListComponent,
     BookingDetailsComponent,
     ReviewComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LineChartRevenueComponent,
+    PageNotFoundComponent,
+    RegisterComponent,
+    ChangePassComponent,
+    EditProfileComponent
   ],
   imports: [
     FormsModule,
@@ -84,6 +125,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     MatListModule,
     RouterModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     AngularFireStorageModule,
     AppRoutingModule,
     MatInputModule,
@@ -112,7 +155,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     MatExpansionModule,
     NgbModule
   ],
-  providers: [MatDatepickerModule],
+  providers: [
+    MatDatepickerModule, {
+      provide: USE_AUTH_EMULATOR, useValue: !environment.production ? ['localhost', 9099] : undefined
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

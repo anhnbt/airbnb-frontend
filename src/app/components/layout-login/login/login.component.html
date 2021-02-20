@@ -1,32 +1,33 @@
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="example-form">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title class="align-content-sm-center">
-        LOGIN
-      </mat-card-title>
-      <mat-card-subtitle>
-        <p>* is required</p>
-      </mat-card-subtitle>
-    </mat-card-header>
+<mat-card class="border example-form">
+  <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" novalidate>
     <mat-card-content>
+      <h2 class="text-center">Đăng nhập</h2>
+      <mat-error *ngIf="loginInvalid">Tên đăng nhập hoặc mật khẩu không chính xác</mat-error>
       <mat-form-field appearance="outline" class="example-full-width">
-        <mat-label>User Name *</mat-label>
-        <input matInput placeholder="User Name" type="text" formControlName="username">
-        <mat-error *ngIf="hasError('username', 'required')">User Name is required</mat-error>
-        <mat-error *ngIf="hasError('username', 'pattern')">User Name k dung mau</mat-error>
-        <mat-error *ngIf="hasError('username', 'minlength')">User Name k it hon 3 ki tu</mat-error>
+        <mat-label>Tên đăng nhập</mat-label>
+        <input matInput placeholder="Tên đăng nhập" type="text" formControlName="username" required>
+        <mat-error *ngIf="hasError('username', 'required')">Tên đăng nhập không được trống</mat-error>
+        <mat-error *ngIf="hasError('username', 'pattern')">Tên đăng nhập không đúng mẫu</mat-error>
+        <mat-error *ngIf="hasError('username', 'minlength')">Tên đăng nhập không ít hơn 3 ký tự</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="example-full-width">
-        <mat-label>Password *</mat-label>
-        <input matInput placeholder="Password" type="password" formControlName="password">
-        <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
-        <mat-error *ngIf="hasError('password', 'minlength')">Password k it hon 6 ki tu</mat-error>
+        <mat-label>Mật khẩu</mat-label>
+        <input matInput placeholder="Mật khẩu" type="password" formControlName="password" required>
+        <mat-error *ngIf="hasError('password', 'required')">Mật khẩu không được trống</mat-error>
+        <mat-error *ngIf="hasError('password', 'minlength')">Mật khẩu không ít hơn 6 ký tự</mat-error>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions class="text-center">
-      <button [disabled]="myForm.invalid" mat-raised-button color="primary" type="submit">Login</button>
-      <p class="text-center">ban chua co tai khoan <a routerLink="/user/login">Register</a></p>
+      <p class="text-center">Nếu bạn chưa có tài khoản: <a routerLink="/register">Đăng ký</a></p>
+      <p>
+        <button [disabled]="formLogin.invalid" mat-raised-button color="primary" type="submit">Đăng nhập</button>
+      </p>
+      <p class="text-center">Hoặc đăng nhập với</p>
+      <firebase-ui
+        (signInSuccessWithAuthResult)="successCallback($event)"
+        (signInFailure)="errorCallback($event)"
+        (uiShown)="uiShownCallback()"></firebase-ui>
     </mat-card-actions>
-  </mat-card>
-</form>
+  </form>
+</mat-card>

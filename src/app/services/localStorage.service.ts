@@ -8,7 +8,6 @@ export class LocalStorageService {
   get = (key: string) => {
     const value = localStorage.getItem(key);
     try {
-      // @ts-ignore
       return JSON.parse(value);
     } catch (e) {
       return value;
