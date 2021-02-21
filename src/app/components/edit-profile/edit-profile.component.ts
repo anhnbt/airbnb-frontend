@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogContentComponent} from '../layout/dialog-content/dialog-content.component';
 import {DialogInputComponent} from '../layout/dialog-input/dialog-input.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {log} from 'util';
+
 
 @Component({
   selector: 'app-edit-profile',
@@ -38,9 +37,8 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getOneByUsername(this.username).subscribe(res => {
-      console.log(res.data),
-
-        this.user = res.data,
+      console.log(res.data)
+        this.user = res.data
         this.checkGender();
     });
 
@@ -80,8 +78,8 @@ export class EditProfileComponent implements OnInit {
 
   updateUserProfile(): void {
     this.userService.editUser(this.user).subscribe(res => {
-      this.openSnackBar(),
-        this.user = res.data;
+      this.openSnackBar()
+      this.user = res.data;
 
     });
   }
