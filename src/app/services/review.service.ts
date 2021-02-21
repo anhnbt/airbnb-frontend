@@ -5,16 +5,17 @@ import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ReviewService{
+export class ReviewService {
   private url = 'http://localhost:8080/api/review';
+
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<any>{
-    return this.http.get(this.url);
+  getAll(id: number): Observable<any> {
+    return this.http.get(this.url + '/room/' + id);
   }
 
-  save(value: any): Observable<any>{
-    return this.http.post(this.url, value);
+  save(reviewBody: string, rating: number, booking: any): Observable<any> {
+    return this.http.post(this.url, {reviewBody, rating, booking});
   }
 }
