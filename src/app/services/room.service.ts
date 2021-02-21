@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {Room} from '../models/room';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
 
 @Injectable({
@@ -47,7 +47,12 @@ export class RoomService {
   }
 
   save(product: any): any {
-    return this.http.post(this.URL, product);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem('airbnb_account')).accessToken}`
+    });
+    // @ts-ignore
+    return this.http.post(this.URL, product, {headers});
   }
 
   uploadMultiImage(formData: FormData): Observable<any> {

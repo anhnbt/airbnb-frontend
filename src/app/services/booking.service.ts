@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,10 @@ export class BookingService {
 
   booking(roomId: number, userId: number, data: any): any {
     return this.http.post(this.URL + '/' + roomId + '/' + userId, data);
+  }
+
+  getBookingByRoomAndByUser(room_id, user_id): Observable<any> {
+    return this.http.get(this.URL + `/${room_id}/${user_id}`);
   }
 
 
