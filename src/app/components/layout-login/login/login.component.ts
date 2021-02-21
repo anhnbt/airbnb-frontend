@@ -5,7 +5,11 @@ import {UserService} from '../../../services/user.service';
 import {LocalStorageService} from '../../../services/localStorage.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import firebase from 'firebase/app';
-import {FirebaseuiAngularLibraryService, FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult} from 'firebaseui-angular';
+import {
+  FirebaseuiAngularLibraryService,
+  FirebaseUISignInFailure,
+  FirebaseUISignInSuccessWithAuthResult
+} from 'firebaseui-angular';
 import {AuthService} from '../../../services/auth.service';
 import {ShareService} from '../../../services/share.service';
 
