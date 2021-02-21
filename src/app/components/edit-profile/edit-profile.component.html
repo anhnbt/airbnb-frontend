@@ -1,33 +1,26 @@
 <mat-card class="size">
-<h1>Thông tin cơ bản</h1>
+<h1>Thông tin cơ bản: Chỉnh sửa<button  (click)="openDialog(titleChangeName)" mat-raised-button color="warn"><span class="material-icons">
+mode_edit
+</span></button></h1>
   <h2>Username: {{user.username}}</h2><br>
   <hr>
   <h2>Password:  <a style="text-align: center" mat-raised-button color="primary" routerLink="/password">Đổi Mật Khẩu</a> </h2><br>
   <hr>
-  <h2>name: {{user.name}} <button mat-raised-button color="warn"><span class="material-icons">
-mode_edit
-</span></button></h2><br>
+  <h2>name: {{user.name}} </h2><br>
   <hr>
-  <h2>birth day: {{user.dateOfBirth}} <button mat-raised-button color="warn"><span class="material-icons">
-mode_edit
-</span></button></h2><br>
+  <h2>birth day: {{user.dateOfBirth | date:'dd-m-yyyy'}}</h2><br>
   <hr>
-  <h2>email: {{user.email}} <button mat-raised-button color="warn"><span class="material-icons">
-mode_edit
-</span></button></h2><br>
+  <h2>email: {{user.email}}</h2><br>
   <hr>
-  <h2>Phone: {{user.phone}}<button mat-raised-button color="warn"><span class="material-icons">
-mode_edit
-</span></button></h2><br>
+  <h2>Phone: {{user.phone}}</h2><br>
   <hr>
   <h2>Gender: {{gender}}</h2><br>
   <hr>
-  <h2>created Date: {{user.createdDate}}</h2><br>
+  <h2>created Date: {{user.createdDate  | date:'dd-mm-yyyy hh:mm'}}</h2><br>
   <hr>
 
-  <h2>modified Date: {{user.modifiedDate}}</h2><br>
+  <h2>modified Date: {{user.modifiedDate| date:'dd-mm-yyyy hh:mm'}}</h2><br>
   <hr>
-
   <hr>
 
 

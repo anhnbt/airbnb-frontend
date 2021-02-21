@@ -59,6 +59,7 @@ import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import {AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR} from '@angular/fire/auth';
 import { LineChartRevenueComponent } from './components/line-chart-revenue/line-chart-revenue.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { DialogInputComponent } from './components/layout/dialog-input/dialog-input.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -110,7 +111,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     PageNotFoundComponent,
     RegisterComponent,
     ChangePassComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    DialogInputComponent
   ],
   imports: [
     FormsModule,
