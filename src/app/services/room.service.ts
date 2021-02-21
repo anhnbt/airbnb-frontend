@@ -3,6 +3,7 @@ import {Observable, of} from 'rxjs';
 import {Room} from '../models/room';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import {catchError, tap} from 'rxjs/operators';
 export class RoomService {
   private URL = 'http://localhost:8080/api/v1/rooms';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private authService: AuthService) {
   }
 
   /** GET hero by id. Will 404 if id not found */
@@ -46,13 +48,13 @@ export class RoomService {
     return this.http.get(this.URL);
   }
 
-  save(product: any): any {
+  save(room: any): any {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('airbnb_account')).accessToken}`
+      Authorization: `Bearer ${this.authService.getLocal().accessToken}`
     });
     // @ts-ignore
-    return this.http.post(this.URL, product, {headers});
+    return this.http.post(this.URL, room, {headers});
   }
 
   uploadMultiImage(formData: FormData): Observable<any> {
