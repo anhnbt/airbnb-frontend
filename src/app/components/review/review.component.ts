@@ -50,7 +50,7 @@ export class ReviewComponent implements OnInit {
     console.log(this.myForm.get('reviewBody').value);
     console.log(this.myForm.get('rating').value);
 
-    this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).value.id)
+    this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).id)
       .subscribe(res => {
         this.booking = res.data;
         console.log(this.booking);
@@ -64,8 +64,8 @@ export class ReviewComponent implements OnInit {
   }
 
   loadData(): void {
-    if (this.local.get(localStorage.key(0)).value != null) {
-      this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).value.id)
+    if (this.local.get(localStorage.key(0)) != null) {
+      this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).id)
         .subscribe(res => {
           if (res.data != null) {
             this.checkReview = false;
