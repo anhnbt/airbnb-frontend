@@ -6,6 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {BookingListComponent} from '../booking-list/booking-list.component';
 import {Room} from '../../models/room';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -42,6 +43,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private userService: UserService,
               private roomService: RoomService,
+              private authService: AuthService
   ) {
   }
 
@@ -50,7 +52,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   getData(): void {
-    const userLocal = JSON.parse(localStorage.getItem('airbnb_account'));
+    // const userLocal = JSON.parse(localStorage.getItem('airbnb_account'));
+    const userLocal = this.authService.getLocal();
     this.userService.getOne(userLocal.id).subscribe((res: any) => {
       this.user = res.data;
       this.userService.getRoomsOfHost(this.user.id, this.page, this.size).subscribe((res: any) => {

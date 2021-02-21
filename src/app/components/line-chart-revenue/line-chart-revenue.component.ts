@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Chart} from 'node_modules/chart.js';
 import {BookingService} from '../../services/booking.service';
 import {SalesMonthService} from '../../services/sales-month.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-line-chart-revenue',
@@ -13,7 +14,8 @@ export class LineChartRevenueComponent implements OnInit {
   chart: any;
   year = new Date().getFullYear();
 
-  constructor(private salesMonthService: SalesMonthService) {
+  constructor(private salesMonthService: SalesMonthService,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -21,7 +23,7 @@ export class LineChartRevenueComponent implements OnInit {
   }
 
   getData(): any {
-    const userLocal = JSON.parse(localStorage.getItem('airbnb_account'));
+    const userLocal = this.authService.getLocal();
     this.salesMonthService.getSalesMonth(userLocal.id, this.year).subscribe(resF => {
       this.salesMonthService.getSalesMonth(userLocal.id, this.year - 1).subscribe(res => {
         this.chart = new Chart('canvas', {

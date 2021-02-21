@@ -3,6 +3,7 @@ import {BookingService} from '../../services/booking.service';
 import {UserService} from '../../services/user.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-booking-list',
@@ -15,7 +16,7 @@ export class BookingListComponent implements OnInit, AfterViewInit {
   bookingsOfCus = [];
 
   constructor(private bookingService: BookingService,
-              private userService: UserService) {
+              private authService: AuthService) {
   }
 
   displayedColumns: string[] = ['id', 'cusName', 'roomName', 'createdDate', 'startDate', 'endDate', 'status', 'price', 'action'];
@@ -27,7 +28,7 @@ export class BookingListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    const userLocal = JSON.parse(localStorage.getItem('airbnb_account'));
+    const userLocal = this.authService.getLocal();
     this.bookingService.bookingsOfCus(userLocal.id).subscribe(res => {
       this.bookingsOfCus = res.data;
       this.dataSource = new MatTableDataSource(this.bookingsOfCus);
