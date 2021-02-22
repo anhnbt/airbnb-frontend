@@ -29,7 +29,11 @@
 <!--  </tbody>-->
 <!--</table>-->
 
-<div class="mat-elevation-z8">
+<div class="mt-2"  *ngIf="bookingsOfCus.length == 0">
+  <mat-error>Chưa có khách nào đặt nhà của bạn!</mat-error>
+</div>
+
+<div class="mat-elevation-z8" *ngIf="bookingsOfCus.length != 0">
   <table mat-table [dataSource]="dataSource">
 
     <ng-container matColumnDef="id">

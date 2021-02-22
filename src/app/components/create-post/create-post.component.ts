@@ -75,6 +75,9 @@ export class CreatePostComponent implements OnInit {
     this.roomService.save(this.firstFormGroup.value).subscribe((res: any) => {
       console.log(res.data);
       this.openSnackBar('Upload nhà thành công', 'Close');
+      for (const file of this.newFileList) {
+        this.uploadFile(file);
+      }
     });
   }
 
@@ -165,8 +168,5 @@ export class CreatePostComponent implements OnInit {
 
   onSubmit(): void {
     this.submitPost();
-    for (const file of this.newFileList) {
-      this.uploadFile(file);
-    }
   }
 }

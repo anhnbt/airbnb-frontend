@@ -3,6 +3,7 @@ import {BookingService} from '../../services/booking.service';
 import {UserService} from '../../services/user.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-booking-list',
@@ -10,14 +11,12 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./booking-list.component.css']
 })
 export class BookingListComponent implements OnInit, AfterViewInit {
-  rooms = [];
-  bookings = [];
   sortStatus = true;
 
   bookingsOfCus = [];
 
   constructor(private bookingService: BookingService,
-              private userService: UserService) {
+              private authService: AuthService) {
   }
 
   displayedColumns: string[] = ['id', 'cusName', 'roomName', 'createdDate', 'startDate', 'endDate', 'status', 'price', 'action'];
@@ -29,7 +28,8 @@ export class BookingListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.bookingService.bookingsOfCus(1).subscribe(res => {
+    const userLocal = this.authService.getLocal();
+    this.bookingService.bookingsOfCus(userLocal.id).subscribe(res => {
       this.bookingsOfCus = res.data;
       this.dataSource = new MatTableDataSource(this.bookingsOfCus);
       this.dataSource.paginator = this.paginator;
