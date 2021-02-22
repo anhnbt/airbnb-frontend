@@ -2,6 +2,7 @@ import {User} from './user';
 import {Province} from './province';
 import {PropertyType} from './property-type';
 import {BookingImage} from './booking-image';
+import {RoomImages} from "./roomImages";
 
 export interface Room {
   id?: number;
@@ -15,4 +16,5 @@ export interface Room {
   province?: Province;
   propertyType?: PropertyType;
   bookingImages?: BookingImage[];
+  roomImages?: RoomImages[];
 }

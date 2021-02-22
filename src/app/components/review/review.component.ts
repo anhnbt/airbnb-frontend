@@ -77,6 +77,7 @@ export class ReviewComponent implements OnInit {
       this.checkReview = true;
     }
     this.reviewService.getAll(this.childId).subscribe(res => {
+      res.data.sort((a, b) => (a.createdDate < b.createdDate) ? 1 : ((b.createdDate < a.createdDate) ? -1 : 0));
       this.dataSource = new MatTableDataSource(res.data);
       this.changeDetectorRef.detectChanges();
       this.dataSource.paginator = this.paginator;
