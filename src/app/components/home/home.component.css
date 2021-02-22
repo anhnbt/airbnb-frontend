@@ -37,10 +37,22 @@ a {
   line-height: 1.6rem
 }
 
-.myFormat {
-  height: 400px;
+.fontName {
+  display: -webkit-box;
+  max-height: 3.2rem;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  -webkit-line-clamp: 1;
+  line-height: 1.6rem
 }
-
+.myFormat {
+  height: 450px;
+}
+img{
+  height: 215px;
+}
 .material-icons {
   vertical-align: middle;
 }

@@ -6,8 +6,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthService} from '../../services/auth.service';
 
 
-
-
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -30,7 +28,7 @@ export class EditProfileComponent implements OnInit {
   };
 
   titleChangeName = 'Nhập tên mới';
-  username = ''
+  username = '';
   gender = '';
   action: 'Chỉnh sửa thành công';
 
@@ -41,13 +39,11 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.username = this.auService.getLocal().username
-    console.log(this);
-
+    this.username = this.auService.getLocal().username;
     this.userService.getOneByUsername(this.username).subscribe(res => {
-      console.log(res.data)
-        this.user = res.data
-        this.checkGender();
+      console.log(res.data);
+      this.user = res.data;
+      this.checkGender();
     });
 
   }
@@ -85,8 +81,8 @@ export class EditProfileComponent implements OnInit {
 
   updateUserProfile(): void {
     this.userService.editUser(this.user).subscribe(res => {
-      this.openSnackBar()
-        this.user = res.data;
+      this.openSnackBar();
+      this.user = res.data;
 
     });
   }

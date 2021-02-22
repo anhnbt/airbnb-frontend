@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {AuthService} from '../../services/auth.service';
 
 
 @Component({
@@ -10,7 +11,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class ChangePassComponent implements OnInit {
   login = {
-    username: localStorage.key(0),
+    username: '',
     password: ''
 
   };
@@ -20,11 +21,12 @@ export class ChangePassComponent implements OnInit {
   message = 'ĐỔI Mật Khẩu Thành Công';
 
   constructor(private userService: UserService,
-              private _snackBar: MatSnackBar) {
+              private _snackBar: MatSnackBar,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
-
+    this.login.username = this.authService.getLocal().username;
   }
 
   openSnackBar(message: string, action: string) {
@@ -50,7 +52,6 @@ export class ChangePassComponent implements OnInit {
 
   changePw() {
     this.userService.changePassword(this.login).subscribe(res => {
-
     });
   }
 }
