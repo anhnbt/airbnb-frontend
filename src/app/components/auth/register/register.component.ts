@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {User} from '../../../models/user';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -28,12 +29,12 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) {
   }
 
   ngOnInit(): void {
-    // console.log(this.user.roles);
     this.myForm = this.fb.group({
         username: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z]*[0-9]*$')]],
         password: ['', [Validators.required, Validators.minLength(6)]],
@@ -47,13 +48,13 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  public hasError = (controlName: string, errorName: string) => {
+  hasError(controlName: string, errorName: string): boolean {
     return this.myForm.controls[controlName].hasError(errorName);
   }
 
   validateControlsValue(firstControlName: string, secondControlName: string): any {
     // tslint:disable-next-line:only-arrow-functions typedef
-    return function (formGroup: FormGroup) {
+    return function(formGroup: FormGroup) {
       const {value: firstControlValue} = formGroup.get(firstControlName);
       const {value: secondControlValue} = formGroup.get(secondControlName);
       return firstControlValue === secondControlValue
@@ -71,16 +72,9 @@ export class RegisterComponent implements OnInit {
     this.user = this.myForm.value;
     // @ts-ignore
     this.user?.roles = [{name: 'ROLE_USER'}];
-    this.save();
-    console.log(this.user?.roles);
-    console.log(this.user);
-    this.router.navigate(['/login']);
-  }
-
-  save(): void {
-    this.userService.createUser(this.myForm.value).subscribe(res => {
-      alert('Dang ky thanh cong')
-      this.user = res.data;
+    this.userService.create(this.myForm.value).subscribe(() => {
+      this.myForm.reset();
+      this.router.navigate(['/']);
     });
   }
 

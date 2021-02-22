@@ -1,22 +1,21 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropertyTypeService {
 
-  private URL = 'http://localhost:8080/api/propertyType';
-
   constructor(private http: HttpClient) {
   }
 
   getAll(): Observable<any> {
-    return this.http.get(this.URL);
+    return this.http.get(`${environment.apiUrl}/propertyType`);
   }
 
   getOne(id: number): Observable<any> {
-    return this.http.get(this.URL + '/' + id);
+    return this.http.get(`${environment.apiUrl}/propertyType/${id}`);
   }
 }

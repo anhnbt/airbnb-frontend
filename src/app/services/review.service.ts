@@ -1,21 +1,21 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewService {
-  private url = 'http://localhost:8080/api/review';
 
   constructor(private http: HttpClient) {
   }
 
   getAll(id: number): Observable<any> {
-    return this.http.get(this.url + '/room/' + id);
+    return this.http.get(`${environment.apiUrl}/review/room/${id}`);
   }
 
   save(reviewBody: string, rating: number, booking: any): Observable<any> {
-    return this.http.post(this.url, {reviewBody, rating, booking});
+    return this.http.post(`${environment.apiUrl}/review`, {reviewBody, rating, booking});
   }
 }

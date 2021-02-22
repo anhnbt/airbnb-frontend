@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ListHomeService} from '../../services/list-home.service';
 import {FormControl} from '@angular/forms';
-import {ListCityService} from '../../services/list-city.service';
+import {ProvinceService} from '../../services/province.service';
 
 interface Country {
   id: number;
@@ -29,26 +29,24 @@ export class HomeComponent implements OnInit {
   roomImg = [];
   add = '';
 
-  constructor(private serviceHome: ListHomeService, private serviceCity: ListCityService) {
+  constructor(
+    private serviceHome: ListHomeService,
+    private serviceCity: ProvinceService) {
   }
 
   ngOnInit(): void {
     this.serviceHome.getAll().subscribe((res: any) => {
       this.rooms = res.data;
-
-      console.log(this.rooms[0].roomImages[0].imageUrl);
     });
 
-    this.serviceCity.getAllCity().subscribe((res: any) => {
+    this.serviceCity.findAll().subscribe((res: any) => {
       this.places = res.data;
-      console.log(this.places);
     });
   }
 
   search(id: number): void {
-    this.serviceHome.findAllByCityId(id).subscribe((res: any) => {
+    this.serviceHome.findAllByProvinceId(id).subscribe((res: any) => {
       this.rooms = res.data;
-      console.log(id + ' search');
     });
     this.back = 'Xem Tất Cả Phòng';
   }
@@ -63,7 +61,6 @@ export class HomeComponent implements OnInit {
   getAllHome(): void {
     this.serviceHome.getAll().subscribe((res: any) => {
       this.rooms = res.data;
-
       this.back = '';
     });
 

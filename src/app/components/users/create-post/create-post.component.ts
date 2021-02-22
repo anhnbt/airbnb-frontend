@@ -1,15 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {RoomService} from '../../services/room.service';
-import {ProvinceService} from '../../services/province.service';
-import {PropertyTypeService} from '../../services/property-type.service';
-import {Observable} from 'rxjs';
-import {DialogContentComponent} from '../layout/dialog-content/dialog-content.component';
+import {AngularFireStorage} from '@angular/fire/storage';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
-import {AngularFireStorage} from '@angular/fire/storage';
-import {RoomImageService} from '../../services/room-image.service';
+import {RoomService} from '../../../services/room.service';
+import {ProvinceService} from '../../../services/province.service';
+import {PropertyTypeService} from '../../../services/property-type.service';
+import {DialogContentComponent} from '../../layout/dialog-content/dialog-content.component';
+import {RoomImageService} from '../../../services/room-image.service';
+import {AuthService} from '../../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
@@ -55,25 +57,26 @@ export class CreatePostComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private storage: AngularFireStorage,
+    private authService: AuthService,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
-    // this.roomService.getAll().subscribe((res: any) => {
-    //   console.log(res.data);
-    // });
-    this.provinceService.getAll().subscribe((res: any) => {
-      this.provinceList = res.data;
-    });
-    this.propertyTypeService.getAll().subscribe((res: any) => {
-      this.propertyTypeList = res.data;
-    });
+    if (this.authService.checkAuthenticated()) {
+      this.provinceService.findAll().subscribe((res: any) => {
+        this.provinceList = res.data;
+      });
+      this.propertyTypeService.getAll().subscribe((res: any) => {
+        this.propertyTypeList = res.data;
+      });
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   submitPost(): any {
-    console.log(this.firstFormGroup.value);
     this.roomService.save(this.firstFormGroup.value).subscribe((res: any) => {
-      console.log(res.data);
       this.openSnackBar('Upload nhà thành công', 'Close');
       for (const file of this.newFileList) {
         this.uploadFile(file);
@@ -82,9 +85,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   uploadFile(file: File): void {
-    // const file = event.target.files[0];
     const filePath = `${file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-    // const filePath = `${this.product.name}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
 
@@ -115,7 +116,6 @@ export class CreatePostComponent implements OnInit {
         this.newFileList.push(file);
       }
     }
-    console.log(this.newFileList);
     this.images = [];
     if (this.fileList && this.fileList.length) {
       // tslint:disable-next-line:prefer-for-of
@@ -161,7 +161,6 @@ export class CreatePostComponent implements OnInit {
       if (result) {
         this.images.splice(index, 1);
         this.newFileList.splice(index, 1);
-        console.log(this.newFileList);
       }
     });
   }

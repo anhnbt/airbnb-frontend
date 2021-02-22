@@ -12,16 +12,17 @@
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <div id="carouselExampleControls" class="carousel slide mb-2" data-ride="carousel">
+          <div id="carouselExampleControls" class="carousel slide mb-2" data-ride="carousel" *ngIf="roomData.roomImages">
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <!--                                <img src="{{ roomData.roomImages[0].imageUrl }}" class="d-block w-100" alt="...">-->
+                <img src="{{ roomData.roomImages[0].imageUrl }}" class="d-block w-100" alt="...">
               </div>
-              <!--                            <ng-container *ngFor="let item of roomData.roomImages; let first = first let i=index; let odd=odd; trackBy: trackById" [class.odd]="odd">-->
-              <!--                                <div class="carousel-item" *ngIf="!first">-->
-              <!--                                    <img src="{{ item.imageUrl }}" class="d-block w-100" alt="...">-->
-              <!--                                </div>-->
-              <!--                            </ng-container>-->
+              <ng-container
+                *ngFor="let item of roomData.roomImages; let first = first">
+                <div class="carousel-item" *ngIf="!first">
+                  <img src="{{ item.imageUrl }}" class="d-block w-100" alt="...">
+                </div>
+              </ng-container>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -34,7 +35,7 @@
           </div>
           <div class="media mb-2">
             <div class="media-body">
-              <h2 class="mt-0 mb-1">{{roomData.propertyType.name}} · {{roomData.user.name}}</h2>
+              <h2 class="mt-0 mb-1"><span *ngIf="roomData.propertyType">{{roomData.propertyType.name}}</span> · <span *ngIf="roomData.user">{{roomData.user.name}}</span></h2>
               <p>{{roomData.totalOfBathroom}} Phòng tắm · {{roomData.totalOfBedroom}} phòng ngủ</p>
             </div>
             <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" width="75" class="ml-3 rounded"

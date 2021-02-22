@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="booking; else nodata">
   <mat-card-header>
     <mat-card-title>
       Thông tin đặt phòng
@@ -52,3 +52,6 @@
     <mat-error *ngIf="booking.status === 'CANCELED'" class="mt-2"><strong>*Bạn đã hủy đặt phòng</strong></mat-error>
   </mat-card-actions>
 </mat-card>
+<ng-template #nodata>
+  <mat-card>Không có dữ liệu.</mat-card>
+</ng-template>
