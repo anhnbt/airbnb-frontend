@@ -3,6 +3,7 @@ import {Observable, of} from 'rxjs';
 import {Room} from '../models/room';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,16 @@ import {catchError, tap} from 'rxjs/operators';
 export class RoomService {
   private URL = 'http://localhost:8080/api/v1/rooms';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private authService: AuthService) {
   }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.authService.getLocal().accessToken}`
+    })
+  };
 
   /** GET hero by id. Will 404 if id not found */
   getRoom(id: number): Observable<Room> {
@@ -46,13 +55,9 @@ export class RoomService {
     return this.http.get(this.URL);
   }
 
-  save(product: any): any {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('airbnb_account')).accessToken}`
-    });
+  save(room: any): any {
     // @ts-ignore
-    return this.http.post(this.URL, product, {headers});
+    return this.http.post('http://localhost:8080/api/host', room, this.httpOptions);
   }
 
   uploadMultiImage(formData: FormData): Observable<any> {
@@ -61,7 +66,7 @@ export class RoomService {
 
   changeStatus(id: number): any {
     // @ts-ignore
-    return this.http.put(this.URL + '/' + id + '/status');
+    return this.http.put('http://localhost:8080/api/host' + '/' + id + '/status', null, this.httpOptions);
   }
 
   cancelled(id: number, cancelled: boolean): Observable<any> {
