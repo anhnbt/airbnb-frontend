@@ -15,13 +15,6 @@ export class UserService {
               private authService: AuthService) {
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-    })
-  };
-
   login(value: any): Observable<any> {
     return this.http.post('http://localhost:8080/api/v1/users/login', value);
   }
@@ -35,7 +28,13 @@ export class UserService {
   }
 
   getOne(id: number): Observable<any> {
-    return this.http.get(this.url + '/' + id, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
+      })
+    };
+    return this.http.get(this.url + '/' + id, httpOptions);
   }
 
   getOneByUsername(name: string): Observable<any> {
@@ -47,14 +46,26 @@ export class UserService {
   }
 
   getRoomsOfHost(id: number, page?: number, size?: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
+      })
+    };
     if (page || size) {
-      return this.http.get(`${this.url}/${id}/rooms?page=${page}&size=${size}`, this.httpOptions);
+      return this.http.get(`${this.url}/${id}/rooms?page=${page}&size=${size}`, httpOptions);
     }
-    return this.http.get(this.url + '/' + id + '/rooms', this.httpOptions);
+    return this.http.get(this.url + '/' + id + '/rooms', httpOptions);
   }
 
   getBookingsOfUser(id: number): Observable<any> {
-    return this.http.get(this.url + '/' + id + '/bookings', this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
+      })
+    };
+    return this.http.get(this.url + '/' + id + '/bookings', httpOptions);
   }
 
   loginWithGoogle(name: string, email: string): Observable<any> {
