@@ -31,7 +31,13 @@ export class BookingService {
   }
 
   getBookingByRoomAndByUser(roomId: number, userId: number): Observable<any> {
-    return this.http.get(this.URL + `/${roomId}/${userId}`);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
+      })
+    };
+    return this.http.get(this.URL + `/${roomId}/${userId}`, httpOptions);
   }
 
 

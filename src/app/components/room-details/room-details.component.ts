@@ -65,7 +65,7 @@ export class RoomDetailsComponent implements OnInit {
     this.roomService.getRoom(this.id).subscribe((res: any) => {
       this.roomData = res.data;
       this.images[0].imageUrl = res.data
-        .roomData.roomImages[0].imageUrl;
+        .roomImages[0].imageUrl;
     });
   }
 
