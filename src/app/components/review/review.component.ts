@@ -85,8 +85,6 @@ export class ReviewComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.reviews = this.dataSource.connect();
         this.checkPage = false;
-        console.log(this.checkPage);
-        console.log(res.data);
       }else {
         this.checkPage = true;
       }
