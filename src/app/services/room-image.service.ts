@@ -12,14 +12,13 @@ export class RoomImageService {
               private authService: AuthService) {
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-    })
-  };
-
   save(image: any): any {
-    return this.http.post(this.URL, image, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
+      })
+    };
+    return this.http.post(this.URL, image, httpOptions);
   }
 }
