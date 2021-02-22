@@ -34,9 +34,9 @@
       <mat-form-field appearance="outline" class="example-full-width">
         <mat-label>Xác nhận lại mật khẩu *</mat-label>
         <input matInput placeholder="Xác nhận lại mật khẩu " type="password" formControlName="confirmPassword">
+        <mat-error *ngIf=" '' != validateControlsValue('password', 'confirmPassword')">Mật khẩu không trùng khớp</mat-error>
         <mat-error *ngIf="hasError('confirmPassword', 'required')">Mật khẩu không được trống</mat-error>
         <mat-error *ngIf="hasError('confirmPassword', 'minlength')">Mật khẩu 6không ít hơn  ký tự</mat-error>
-        <mat-error *ngIf="null != validateControlsValue('password', 'confirmPassword')">Mật khẩu không trùng khớp</mat-error>
       </mat-form-field>
 
 

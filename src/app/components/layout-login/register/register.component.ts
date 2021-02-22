@@ -56,8 +56,8 @@ export class RegisterComponent implements OnInit {
     return function (formGroup: FormGroup) {
       const {value: firstControlValue} = formGroup.get(firstControlName);
       const {value: secondControlValue} = formGroup.get(secondControlName);
-      return firstControlValue === secondControlValue
-        ? null
+      return firstControlValue == secondControlValue
+        ? ''
         : {
           valueNotMatch: {
             firstControlValue,
