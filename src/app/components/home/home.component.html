@@ -35,20 +35,17 @@
     <mat-grid-list cols="3" rowHeight="0.70:1" *ngIf="roomLength > 0  else nodata">
       <mat-grid-tile class="col-sm-12 col-md-6 col-lg-4" *ngFor="let r of rooms | async">
         <mat-card class="border myFormat">
-          <mat-card-header>
-
-            <mat-card-title><a routerLink="/rooms/1">{{r.name}}</a></mat-card-title>
-            <mat-card-subtitle>
-              <p>Đánh giá: <span *ngIf="r.avgRatting != null" style="color: #005cbf">{{r.avgRatting}}/5 <span
-                class="material-icons pb-1" style="color: yellow ;font-weight: bold">grade</span></span>
-                <span style="color: blue" *ngIf="r.avgRatting == null">Chưa có đánh giá</span></p>
-            </mat-card-subtitle>
-          </mat-card-header>
           <a routerLink="/rooms/{{r.id}}">
             <img mat-card-image src="{{r.roomImages[0] && r.roomImages[0].imageUrl}}">
           </a>
-
+          <mat-card-title><a routerLink="/rooms/1">{{r.name}}</a></mat-card-title>
+          <mat-card-subtitle class="myFont">{{r.address}}</mat-card-subtitle>
           <mat-card-content class="myFont">{{r.description}}</mat-card-content>
+          <mat-card-subtitle>
+            <p>Đánh giá: <span *ngIf="r.avgRatting != null" style="color: #005cbf">{{r.avgRatting}}/5 <span
+              class="material-icons pb-1" style="color: yellow ;font-weight: bold">grade</span></span>
+              <span style="color: blue" *ngIf="r.avgRatting == null">Chưa có đánh giá</span></p>
+          </mat-card-subtitle>
           <a routerLink="/rooms/{{r.id}}" color="primary" mat-button class="float-right">
             Đặt Ngay
           </a>
