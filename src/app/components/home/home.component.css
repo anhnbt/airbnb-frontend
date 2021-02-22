@@ -40,7 +40,9 @@ a {
 .myFormat {
   height: 450px;
 }
-
+img{
+  height: 215px;
+}
 .material-icons {
   vertical-align: middle;
 }
