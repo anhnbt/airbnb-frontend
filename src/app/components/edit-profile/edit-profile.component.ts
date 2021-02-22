@@ -3,6 +3,9 @@ import {UserService} from '../../services/user.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogInputComponent} from '../layout/dialog-input/dialog-input.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {AuthService} from '../../services/auth.service';
+
+
 
 
 @Component({
@@ -25,24 +28,28 @@ export class EditProfileComponent implements OnInit {
     active: true,
     roles: [],
   };
+
   titleChangeName = 'Nhập tên mới';
-  username = localStorage.key(0);
+  username = ''
   gender = '';
   action: 'Chỉnh sửa thành công';
 
   constructor(private userService: UserService,
               private dialog: MatDialog,
-              private _snackBar: MatSnackBar) {
+              private _snackBar: MatSnackBar,
+              private auService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.username = this.auService.getLocal().username
+    console.log(this);
+
     this.userService.getOneByUsername(this.username).subscribe(res => {
       console.log(res.data)
         this.user = res.data
         this.checkGender();
     });
 
-    console.log(this.user.gender + 'aaaa');
   }
 
   openDialog(title: string): void {
@@ -79,7 +86,7 @@ export class EditProfileComponent implements OnInit {
   updateUserProfile(): void {
     this.userService.editUser(this.user).subscribe(res => {
       this.openSnackBar()
-      this.user = res.data;
+        this.user = res.data;
 
     });
   }
