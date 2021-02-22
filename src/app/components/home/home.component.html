@@ -29,7 +29,7 @@
     <button mat-raised-button color="accent" type="button" (click)="search2()">Tìm KIếm</button>
     <a routerLink="/" (click)="getAllHome()">{{back}}</a>
     <mat-grid-list cols="3" rowHeight="0.70:1" *ngIf="rooms.length > 0 else nodata">
-      <mat-grid-tile *ngFor="let r of rooms ; index as i;">
+      <mat-grid-tile class="col-sm-12 col-md-6 col-lg-4" *ngFor="let r of rooms ; index as i;">
         <mat-card class="border myFormat">
           <mat-card-header>
 
