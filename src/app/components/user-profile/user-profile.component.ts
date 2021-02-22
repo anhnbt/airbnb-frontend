@@ -7,6 +7,9 @@ import {MatTableDataSource} from '@angular/material/table';
 import {BookingListComponent} from '../booking-list/booking-list.component';
 import {Room} from '../../models/room';
 import {AuthService} from '../../services/auth.service';
+import {DialogUpdateComponent} from '../booking-details/dialog-update/dialog-update.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-profile',
@@ -41,9 +44,12 @@ export class UserProfileComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private userService: UserService,
-              private roomService: RoomService,
-              private authService: AuthService
+  constructor(
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private userService: UserService,
+    private roomService: RoomService,
+    private authService: AuthService
   ) {
   }
 
@@ -86,5 +92,19 @@ export class UserProfileComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.bookings);
     this.dataSource.paginator = this.paginator;
     this.sortStatus = !this.sortStatus;
+  }
+
+
+  edit(room: Room): void {
+    const dialogRef = this.dialog.open(DialogUpdateComponent, {
+      width: '450px',
+      data: room
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getData();
+      }
+    });
   }
 }

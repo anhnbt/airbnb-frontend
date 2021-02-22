@@ -65,14 +65,11 @@
               <p class="card-title">{{room.address}} - {{room.province.name}} - {{room.province.country.name}}</p>
 
               <div class="m-0">
-                <button [disabled]="room.status" (click)="changeStatus(room.id)" mat-raised-button color="primary"
+                <button [className]="room.status ? 'btn btn-success' : 'btn btn-danger'" (click)="changeStatus(room.id)" mat-raised-button
                         class="float-left pl-1 pr-1">
                   Còn trống <span class="material-icons">lock_open</span>
                 </button>
-                <button [disabled]="!room.status" (click)="changeStatus(room.id)" mat-raised-button
-                        class="float-right pl-1 pr-1">
-                  Hết phòng <span class="material-icons p-0 m-0">error_outline</span>
-                </button>
+                <button mat-raised-button color="accent" type="button" (click)="edit(room)">Sửa</button>
               </div>
             </div>
           </div>

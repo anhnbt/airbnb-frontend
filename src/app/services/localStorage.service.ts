@@ -16,10 +16,6 @@ export class LocalStorageService {
 
 
   set = (key: string, value: any) => {
-    // const user: any = {
-    //   // id: id,
-    //   value: value
-    // };
     if (value && typeof value === 'object') {
       localStorage.setItem(key, JSON.stringify(value) );
     } else {

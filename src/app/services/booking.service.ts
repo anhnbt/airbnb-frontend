@@ -21,17 +21,17 @@ export class BookingService {
     return this.http.get(this.URL + '/' + id);
   }
 
-  cancelBooking(id: any, timestamp: any): any {
+  cancelled(id: number): Observable<any> {
     // @ts-ignore
-    return this.http.put(this.URL + '/' + id + '/cancel', {'localDateTime': timestamp});
+    return this.http.put(this.URL + '/' + id + '/cancelled');
   }
 
-  booking(roomId: number, userId: number, data: any): any {
+  booking(roomId: number, userId: number, data: any): Observable<any> {
     return this.http.post(this.URL + '/' + roomId + '/' + userId, data);
   }
 
-  getBookingByRoomAndByUser(room_id, user_id): Observable<any> {
-    return this.http.get(this.URL + `/${room_id}/${user_id}`);
+  getBookingByRoomAndByUser(roomId: number, userId: number): Observable<any> {
+    return this.http.get(this.URL + `/${roomId}/${userId}`);
   }
 
 

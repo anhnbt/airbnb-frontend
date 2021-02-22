@@ -2,10 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {RoomService} from '../../services/room.service';
 import {Room} from '../../models/room';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { BookingService } from 'src/app/services/booking.service';
+import {BookingService} from 'src/app/services/booking.service';
+import {AuthService} from '../../services/auth.service';
+import {DialogContentComponent} from '../layout/dialog-content/dialog-content.component';
 
 @Component({
   selector: 'app-room-details',
@@ -31,18 +33,20 @@ export class RoomDetailsComponent implements OnInit {
     const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
     const selectedDate = (d || new Date());
     return selectedDate > yesterday;
-  }
+  };
 
   myFilterEnd = (d: Date | null): boolean => {
     const currentDate = new Date();
     const selectedDate = (d || new Date());
     return selectedDate > currentDate && selectedDate > this.startDate.value;
-  }
+  };
 
   constructor(
+    public authService: AuthService,
     private bookingService: BookingService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private router: Router,
     private roomService: RoomService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog) {
@@ -108,10 +112,43 @@ export class RoomDetailsComponent implements OnInit {
     input.setValue(input.value - 1);
   }
 
+  convertUTCDateToLocalDate(date): Date {
+    const newDate = new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
+    return newDate;
+  }
+
   onSubmit(): void {
-    console.log(this.myForm.value);
-    this.bookingService.booking(this.roomData.id, 1, this.myForm.value).subscribe(res => console.log(res));
-    this.openSnackBar('Đặt phòng thành công!', 'Đóng');
+    if (!this.authService.checkAuthenticated()) {
+      const dialogRef = this.dialog.open(DialogContentComponent, {
+        width: '300px',
+        data: {
+          title: 'Cảnh báo',
+          content: 'Bạn cần đăng nhập để có thể đặt phòng',
+          confirm: 'Đăng nhập',
+          close: 'Hủy'
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.router.navigate(['/login']);
+        }
+      });
+    } else {
+      const localStartDate = this.convertUTCDateToLocalDate(this.startDate.value);
+      const localEndDate = this.convertUTCDateToLocalDate(this.endDate.value);
+      this.startDate.setValue(new Date(localStartDate));
+      this.endDate.setValue(new Date(localEndDate));
+      const userId = this.authService.getLocal().id;
+      this.bookingService.booking(this.roomData.id, userId, this.myForm.value).subscribe(res => {
+        if (res.status === 'OK') {
+          this.openSnackBar('Đặt phòng thành công!', 'Đóng');
+          this.myForm.reset();
+        } else {
+          this.openSnackBar('Đã xảy ra lỗi!', 'Đóng');
+        }
+      });
+    }
   }
 
   calculate(): void {

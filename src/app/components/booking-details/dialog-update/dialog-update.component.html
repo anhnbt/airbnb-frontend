@@ -1,0 +1,15 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+  <h2 mat-dialog-title>Cập nhật: {{data.name}}</h2>
+  <mat-dialog-content>
+    <mat-slide-toggle [checked]="myForm.controls['cancelled'].value" color="accent" formControlName="cancelled">
+      Không cho phép khách hủy thuê phòng trước 1 ngày
+    </mat-slide-toggle>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">Hủy</button>
+    <button [disabled]="myForm.invalid" mat-raised-button color="primary" [mat-dialog-close]="true" type="submit"
+            cdkFocusInitial>Cập nhật
+    </button>
+  </mat-dialog-actions>
+</form>
+

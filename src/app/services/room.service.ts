@@ -68,4 +68,8 @@ export class RoomService {
     // @ts-ignore
     return this.http.put('http://localhost:8080/api/host' + '/' + id + '/status', null, this.httpOptions);
   }
+
+  cancelled(id: number, cancelled: boolean): Observable<any> {
+    return this.http.put(this.URL + '/' + id + '/cancelled', {cancelled});
+  }
 }
