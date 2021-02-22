@@ -26,10 +26,14 @@
         </mat-autocomplete>
       </mat-form-field>
     </form>
+
     <button mat-raised-button color="accent" type="button" (click)="search2()">Tìm KIếm</button>
-    <a routerLink="/" (click)="getAllHome()">{{back}}</a>
-    <mat-grid-list cols="3" rowHeight="0.70:1" *ngIf="rooms.length > 0 else nodata">
-      <mat-grid-tile class="col-sm-12 col-md-6 col-lg-4" *ngFor="let r of rooms ; index as i;">
+    <a routerLink="/" style="font-size: large ; font-weight: bold;color: #005cbf "
+       (click)="getAllHome()">{{back}}</a><br>
+    <br>
+    <br>
+    <mat-grid-list cols="3" rowHeight="0.70:1" *ngIf="roomLength > 0  else nodata">
+      <mat-grid-tile class="col-sm-12 col-md-6 col-lg-4" *ngFor="let r of rooms | async">
         <mat-card class="border myFormat">
           <mat-card-header>
 
@@ -52,10 +56,11 @@
             <div class="float-left"><strong>{{r.pricePerNight | currency:'VND'}}</strong>/đêm</div>
 
           </mat-card-actions>
-
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
+    <mat-paginator [pageSizeOptions]="[6, 9 , 12]" showFirstLastButtons></mat-paginator>
+    <br>
     <ng-template #nodata>
       Chưa có dữ liệu.
     </ng-template>
