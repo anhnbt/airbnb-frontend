@@ -26,8 +26,7 @@ export class UserService {
     return this.http.post('http://localhost:8080/api/v1/users/login', value);
   }
 
-
-  createUser(value: any): Observable<any> {
+  createUser(value: any): Observable<any>{
     return this.http.post('http://localhost:8080/api/v1/users/register', value);
   }
 
@@ -43,7 +42,7 @@ export class UserService {
     return this.http.get(this.url + '/edit-user/' + name);
   }
 
-  changePassword(login: any) {
+  changePassword(login: any): any {
     return this.http.post('http://localhost:8080/api/user/changepw', login);
   }
 
