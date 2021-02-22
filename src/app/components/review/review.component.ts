@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ReviewService} from '../../services/review.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Route} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {Observable} from 'rxjs';
+import {UserService} from "../../services/user.service";
+import {BookingService} from "../../services/booking.service";
+import {LocalStorageService} from "../../services/localStorage.service";
 
 @Component({
   selector: 'app-review',
@@ -9,19 +14,28 @@ import {ActivatedRoute, Route} from '@angular/router';
   styleUrls: ['./review.component.css']
 })
 export class ReviewComponent implements OnInit {
-  displayedColumns: string[] = ['rating', 'review_body'];
+  reviews: Observable<any>;
   dataSource: any;
-  checkBooking = true;
+  checkReview = true;
   ratingArr = [1, 2, 3, 4, 5];
   myForm: FormGroup = new FormGroup({
     reviewBody: new FormControl(''),
     rating: new FormControl('')
   });
   star = this.myForm.value.rating;
+  booking = {};
+
+  @Input() childId: number;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private reviewService: ReviewService,
               private fb: FormBuilder,
-              private rote: ActivatedRoute) {
+              private changeDetectorRef: ChangeDetectorRef,
+              private userService: UserService,
+              private bookingService: BookingService,
+              private local: LocalStorageService
+  ) {
   }
 
   ngOnInit(): void {
@@ -33,23 +47,40 @@ export class ReviewComponent implements OnInit {
   }
 
   send(): void {
-    this.reviewService.save(this.myForm.value).subscribe(res => {
-      // if (res.data != null){
-      //   console.log(res.data);
-      //   this.checkBooking = true;
-      // }else {
-      //   this.checkBooking = false;
-      // }
-      this.loadData();
-      console.log(res.data.booking.user.username);
-      this.myForm.reset();
-    });
+    console.log(this.myForm.get('reviewBody').value);
+    console.log(this.myForm.get('rating').value);
+
+    this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).value.id)
+      .subscribe(res => {
+        this.booking = res.data;
+        console.log(this.booking);
+        this.reviewService.save(this.myForm.get('reviewBody').value, this.myForm.get('rating').value, this.booking).subscribe(res => {
+          console.log(res.data);
+          this.loadData();
+          this.myForm.reset();
+        });
+        // console.log(this.local.get(localStorage.key(0)).id);
+      });
   }
 
   loadData(): void {
-    this.reviewService.getAll().subscribe(res => {
-      this.dataSource = res.data;
-      console.log(this.dataSource);
+    if (this.local.get(localStorage.key(0)).value != null) {
+      this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).value.id)
+        .subscribe(res => {
+          if (res.data != null) {
+            this.checkReview = false;
+          } else {
+            this.checkReview = true;
+          }
+        });
+    } else {
+      this.checkReview = true;
+    }
+    this.reviewService.getAll(this.childId).subscribe(res => {
+      this.dataSource = new MatTableDataSource(res.data);
+      this.changeDetectorRef.detectChanges();
+      this.dataSource.paginator = this.paginator;
+      this.reviews = this.dataSource.connect();
     });
   }
 
@@ -70,7 +101,7 @@ export class ReviewComponent implements OnInit {
   }
 
   showRating(rating: number): string {
-    switch (rating){
+    switch (rating) {
       case 1:
         return 'star';
         break;
@@ -88,4 +119,5 @@ export class ReviewComponent implements OnInit {
         break;
     }
   }
+
 }

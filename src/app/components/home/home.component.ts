@@ -23,11 +23,12 @@ interface City {
 export class HomeComponent implements OnInit {
 
   places: any;
-  rooms= [];
+  rooms = [];
   myControl = new FormControl();
   back: any;
-roomImg = []
+  roomImg = [];
   add = '';
+
   constructor(private serviceHome: ListHomeService, private serviceCity: ListCityService) {
   }
 
@@ -37,6 +38,7 @@ roomImg = []
 
       console.log(this.rooms[0].roomImages[0].imageUrl);
     });
+
     this.serviceCity.getAllCity().subscribe((res: any) => {
       this.places = res.data;
       console.log(this.places);
@@ -50,6 +52,7 @@ roomImg = []
     });
     this.back = 'Xem Tất Cả Phòng';
   }
+
   search2(): void {
     this.serviceHome.findAllByAddress(this.add).subscribe((res: any) => {
       this.rooms = res.data;
@@ -61,7 +64,7 @@ roomImg = []
     this.serviceHome.getAll().subscribe((res: any) => {
       this.rooms = res.data;
 
-      this.back= '';
+      this.back = '';
     });
 
   }

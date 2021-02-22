@@ -17,19 +17,27 @@ export class UserService {
     return this.http.post('http://localhost:8080/api/v1/users/login', value);
   }
 
+
   createUser(value: any): Observable<any>{
-    return this.http.post('http://localhost:8080/register', value);
+    return this.http.post('http://localhost:8080/api/v1/users/register', value);
+  }
+
+  editUser(value: any): Observable<any> {
+    return this.http.post('http://localhost:8080/api/user/edit', value);
   }
 
   getOne(id: number): Observable<any> {
     return this.http.get(this.url + '/' + id);
-  }shareService
+  }
+
   getOneByUsername(name: string): Observable<any> {
-    return this.http.get(this.url + '/username' + name);
+    return this.http.get(this.url + '/edit-user/' + name);
   }
-  changePassword(login: any){
-    return this.http.post('http://localhost:8080/api/user/changepw',login)
+
+  changePassword(login: any) {
+    return this.http.post('http://localhost:8080/api/user/changepw', login);
   }
+
   getRoomsOfHost(id: number, page?: number, size?: number): Observable<any> {
     if (page || size) {
       return this.http.get(`${this.url}/${id}/rooms?page=${page}&size=${size}`);
@@ -43,5 +51,9 @@ export class UserService {
 
   loginWithGoogle(name: string, email: string): Observable<any> {
     return this.http.post('http://localhost:8080/api/v1/users/login-with-google', {email, name});
+  }
+
+  getUser(username: string): Observable<any> {
+    return this.http.get(`${this.url}/${username}`);
   }
 }

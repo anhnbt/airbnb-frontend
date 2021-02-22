@@ -13,7 +13,7 @@ import { BookingService } from 'src/app/services/booking.service';
   styleUrls: ['./room-details.component.css']
 })
 export class RoomDetailsComponent implements OnInit {
-
+  id: number;
   myForm = this.fb.group({
     startDate: [null, Validators.required],
     endDate: [null, Validators.required],
@@ -53,8 +53,8 @@ export class RoomDetailsComponent implements OnInit {
   }
 
   getRoom(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.roomService.getRoom(id).subscribe((res: any) => {
+    this.id = +this.route.snapshot.paramMap.get('id');
+    this.roomService.getRoom(this.id).subscribe((res: any) => {
       this.roomData = res.data;
       console.log(res.data);
     });

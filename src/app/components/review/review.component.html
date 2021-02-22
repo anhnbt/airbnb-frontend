@@ -1,7 +1,7 @@
-<form  [formGroup]="myForm" class="example-form">
+<form [formGroup]="myForm" [hidden]="checkReview" class="example-form">
   <button mat-icon-button color="accent" *ngFor="let ratingId of ratingArr;index as i" (click)="onClick(i+1)">
     <mat-icon>
-      {{showIcon(i+1)}}
+      {{showIcon(i + 1)}}
     </mat-icon>
   </button>
   <mat-form-field class="example-full-width">
@@ -9,27 +9,34 @@
     <!--    <input matInput placeholder="User Name" type="text" formControlName="name">-->
     <textarea matInput placeholder="Ex. It makes me feel..." formControlName="reviewBody"></textarea>
   </mat-form-field>
-  <button (click)="send()">send</button>
+  <button type="button" class="btn btn-success" (click)="send()">send</button>
 </form>
-<mat-list *ngFor="let item of dataSource" role="list">
+
+<mat-list *ngFor="let item of reviews | async" role="list">
   <div style="border-top: 1px solid">
-  <mat-list-item role="listitem" >
-    <mat-icon>
-      account_circle
-    </mat-icon>
-    {{item.booking.user.username}}
-  </mat-list-item>
+    <div class="row">
+      <mat-list-item role="listitem" class="col-1">
+        <mat-icon>
+          account_circle
+        </mat-icon>
+        {{item.booking.user.username}}
+      </mat-list-item>
+      <mat-list-item role="listitem" class="col-1">
+        <mat-icon color="warn">
+          {{showRating(item.rating)}}
+        </mat-icon>
+      </mat-list-item>
+    </div>
+    <mat-divider>--</mat-divider>
     <mat-list-item role="listitem">
-      <mat-icon color="warn">
-        {{showRating(item.rating)}}
-      </mat-icon>
+      {{item.reviewBody}}
     </mat-list-item>
-  <mat-divider>--</mat-divider>
-  <mat-list-item role="listitem">
-    {{item.reviewBody}}
-  </mat-list-item>
-  <mat-list-item role="listitem">
-    {{item.createdDate}}
-  </mat-list-item>
+    <mat-list-item role="listitem">
+      {{item.createdDate}}
+    </mat-list-item>
   </div>
 </mat-list>
+<mat-paginator
+  [pageSizeOptions]="[5, 10]"
+>
+</mat-paginator>
