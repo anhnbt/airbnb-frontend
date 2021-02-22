@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,8 @@ import {Observable} from 'rxjs';
 export class BookingService {
   private URL = 'http://localhost:8080/api/v1/bookings';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private authService: AuthService) {
   }
 
   getAll(): any {
@@ -34,6 +36,12 @@ export class BookingService {
 
 
   bookingsOfCus(userId: number): any {
-    return this.http.get(this.URL + '/user/' + userId);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
+      })
+    };
+    return this.http.get(this.URL + '/user/' + userId, httpOptions);
   }
 }

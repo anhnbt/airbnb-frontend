@@ -15,6 +15,13 @@ export class RoomService {
               private authService: AuthService) {
   }
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.authService.getLocal().accessToken}`
+    })
+  };
+
   /** GET hero by id. Will 404 if id not found */
   getRoom(id: number): Observable<Room> {
     const url = `http://localhost:8080/api/v1/rooms/${id}`;
@@ -49,12 +56,8 @@ export class RoomService {
   }
 
   save(room: any): any {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-    });
     // @ts-ignore
-    return this.http.post(this.URL, room, {headers});
+    return this.http.post('http://localhost:8080/api/host', room, this.httpOptions);
   }
 
   uploadMultiImage(formData: FormData): Observable<any> {
@@ -63,6 +66,6 @@ export class RoomService {
 
   changeStatus(id: number): any {
     // @ts-ignore
-    return this.http.put(this.URL + '/' + id + '/status');
+    return this.http.put('http://localhost:8080/api/host' + '/' + id + '/status', null, this.httpOptions);
   }
 }
