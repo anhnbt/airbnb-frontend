@@ -38,7 +38,7 @@
           <a routerLink="/rooms/{{r.id}}">
             <img mat-card-image src="{{r.roomImages[0] && r.roomImages[0].imageUrl}}">
           </a>
-          <mat-card-title><a routerLink="/rooms/1">{{r.name}}</a></mat-card-title>
+          <mat-card-title><a class="fontName" routerLink="/rooms/1">{{r.name}}</a></mat-card-title>
           <mat-card-subtitle class="myFont">{{r.address}}</mat-card-subtitle>
           <mat-card-content class="myFont">{{r.description}}</mat-card-content>
           <mat-card-subtitle>
