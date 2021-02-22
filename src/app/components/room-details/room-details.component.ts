@@ -8,6 +8,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {BookingService} from 'src/app/services/booking.service';
 import {AuthService} from '../../services/auth.service';
 import {DialogContentComponent} from '../layout/dialog-content/dialog-content.component';
+import {RoomImages} from "../../models/roomImages";
 
 @Component({
   selector: 'app-room-details',
@@ -25,6 +26,9 @@ export class RoomDetailsComponent implements OnInit {
   });
 
   roomData: Room = {};
+  images: RoomImages[] = [{
+    imageUrl: '',
+  }];
 
   totalNights = 0;
   total = 0;
@@ -60,7 +64,8 @@ export class RoomDetailsComponent implements OnInit {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.roomService.getRoom(this.id).subscribe((res: any) => {
       this.roomData = res.data;
-      console.log(res.data);
+      this.images[0].imageUrl = res.data
+        .roomImages[0].imageUrl;
     });
   }
 

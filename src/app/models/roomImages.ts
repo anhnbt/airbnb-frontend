@@ -1,3 +1,3 @@
 export interface RoomImages {
-  imageUrl: string;
+  imageUrl?: string;
 }

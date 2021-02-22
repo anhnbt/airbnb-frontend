@@ -17,6 +17,7 @@ export class ReviewComponent implements OnInit {
   reviews: Observable<any>;
   dataSource: any;
   checkReview = true;
+  checkPage = true;
   ratingArr = [1, 2, 3, 4, 5];
   myForm: FormGroup = new FormGroup({
     reviewBody: new FormControl(''),
@@ -50,7 +51,7 @@ export class ReviewComponent implements OnInit {
     console.log(this.myForm.get('reviewBody').value);
     console.log(this.myForm.get('rating').value);
 
-    this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).value.id)
+    this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).id)
       .subscribe(res => {
         this.booking = res.data;
         console.log(this.booking);
@@ -64,8 +65,8 @@ export class ReviewComponent implements OnInit {
   }
 
   loadData(): void {
-    if (this.local.get(localStorage.key(0)).value != null) {
-      this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).value.id)
+    if (this.local.get(localStorage.key(0)) != null) {
+      this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).id)
         .subscribe(res => {
           if (res.data != null) {
             this.checkReview = false;
@@ -77,10 +78,16 @@ export class ReviewComponent implements OnInit {
       this.checkReview = true;
     }
     this.reviewService.getAll(this.childId).subscribe(res => {
-      this.dataSource = new MatTableDataSource(res.data);
-      this.changeDetectorRef.detectChanges();
-      this.dataSource.paginator = this.paginator;
-      this.reviews = this.dataSource.connect();
+      if (res.data.length > 0) {
+        res.data.sort((a, b) => (a.createdDate < b.createdDate) ? 1 : ((b.createdDate < a.createdDate) ? -1 : 0));
+        this.dataSource = new MatTableDataSource(res.data);
+        this.changeDetectorRef.detectChanges();
+        this.dataSource.paginator = this.paginator;
+        this.reviews = this.dataSource.connect();
+        this.checkPage = false;
+      }else {
+        this.checkPage = true;
+      }
     });
   }
 
