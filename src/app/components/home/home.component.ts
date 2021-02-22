@@ -28,15 +28,16 @@ export class HomeComponent implements OnInit {
   back: any;
   roomImg = [];
   add = '';
+  avgRatting = 0;
+  ratting = '';
 
-  constructor(private serviceHome: ListHomeService, private serviceCity: ListCityService) {
+  constructor(private serviceHome: ListHomeService,
+              private serviceCity: ListCityService) {
   }
 
   ngOnInit(): void {
     this.serviceHome.getAll().subscribe((res: any) => {
       this.rooms = res.data;
-
-      console.log(this.rooms[0].roomImages[0].imageUrl);
     });
 
     this.serviceCity.getAllCity().subscribe((res: any) => {
@@ -63,11 +64,9 @@ export class HomeComponent implements OnInit {
   getAllHome(): void {
     this.serviceHome.getAll().subscribe((res: any) => {
       this.rooms = res.data;
-
       this.back = '';
     });
 
   }
-
 
 }
