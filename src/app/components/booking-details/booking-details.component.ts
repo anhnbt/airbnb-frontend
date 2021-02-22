@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogContentComponent} from '../layout/dialog-content/dialog-content.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {BookingService} from '../../services/booking.service';
 import {Room} from '../../models/room';
 
@@ -16,10 +16,6 @@ export class BookingDetailsComponent implements OnInit {
   booking: any;
   room: Room = {};
   roomImages = [];
-
-  myForm = this.fb.group({
-    cancelReservationDate: [new Date(), Validators.required],
-  });
 
   constructor(
     private fb: FormBuilder,
@@ -40,51 +36,42 @@ export class BookingDetailsComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-    this.openConfirmDialog();
-  }
-
-  get cancelReservationDate(): AbstractControl {
-    return this.myForm.get('cancelReservationDate');
-  }
-
-  getTimeFromDate(timestamp: Date): Date {
-    return new Date(timestamp);
-  }
-
-  openConfirmDialog(): void {
-    if (this.cancelReservationDate.value <= 1) {
-      this.openSnackBar('Bạn không thể hủy đặt phòng trước 1 ngày', 'Close');
-    } else {
-      const dialogRef = this.dialog.open(DialogContentComponent, {
-        width: '300px',
-        data: {
-          title: 'Xác nhận',
-          content: 'Bạn có muốn hủy đặt phòng này?',
-          confirm: 'Xác nhận',
-          close: 'Hủy'
-        }
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          console.log(this.myForm.value);
-          const timestamp = new Date(this.cancelReservationDate.value);
-          console.log(timestamp);
-          this.bookingService.cancelBooking(this.booking.id, timestamp).subscribe(res => {
-            console.log(res);
-            this.openSnackBar('Hủy đặt phòng thành công!', 'Close');
-            this.ngOnInit();
-          });
-        }
-      });
-    }
-  }
-
   openSnackBar(message: string, action: string): void {
     this.snackBar.open(message, action, {
       duration: 3000
     });
   }
 
+  openConfirmDialog(): void {
+    const startDate = new Date(this.booking.startDate).getDate();
+    const cancelledDate = new Date().getDate();
+    console.log(cancelledDate + ' === ' + startDate);
+    if (cancelledDate < startDate) {
+      if (this.room.cancelled && cancelledDate === (startDate - 1)) {
+        this.openSnackBar('Bạn không thể hủy đặt phòng trước 1 ngày', 'Close');
+      } else {
+        const dialogRef = this.dialog.open(DialogContentComponent, {
+          width: '300px',
+          data: {
+            title: 'Xác nhận',
+            content: 'Bạn có muốn hủy đặt phòng này?',
+            confirm: 'Xác nhận',
+            close: 'Hủy'
+          }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.bookingService.cancelled(this.booking.id).subscribe(res => {
+              console.log(res);
+              this.openSnackBar('Hủy đặt phòng thành công!', 'Close');
+              this.ngOnInit();
+            });
+          }
+        });
+      }
+    } else {
+      this.openSnackBar('Quá hạn hủy đặt phòng. Bạn có muốn trả phòng?', 'Close');
+    }
+  }
 }
