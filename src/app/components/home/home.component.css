@@ -13,16 +13,20 @@
 .example-full-width {
   width: 100%;
 }
-.mat-card{
+
+.mat-card {
   max-width: 300px;
 }
-.size{
+
+.size {
   max-width: 1080px;
 }
-a{
+
+a {
   color: #1b1e21;
 }
-.myFont{
+
+.myFont {
   display: -webkit-box;
   max-height: 3.2rem;
   -webkit-box-orient: vertical;
@@ -32,6 +36,11 @@ a{
   -webkit-line-clamp: 2;
   line-height: 1.6rem
 }
-.myFormat{
+
+.myFormat {
   height: 400px;
+}
+
+.material-icons {
+  vertical-align: middle;
 }

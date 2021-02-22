@@ -12,6 +12,8 @@ export interface Room {
   pricePerNight?: number;
   totalOfBedroom?: number;
   totalOfBathroom?: number;
+  status?: boolean;
+  cancelled?: boolean;
   user?: User;
   province?: Province;
   propertyType?: PropertyType;
