@@ -8,15 +8,12 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/create-post" routerLinkActive="active">Host</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/booking-detail/1" routerLinkActive="active">Detail Booking</a>
+        <a class="nav-link" routerLink="/users/create-post" routerLinkActive="active">Host</a>
       </li>
     </ul>
     <ul class="navbar-nav">
       <li class="nav-item" *ngIf="authService.getLocal()">
-        <a class="nav-link" routerLink="/profile" routerLinkActive="active">{{authService.getLocal().username}}</a>
+        <a class="nav-link" routerLink="/users/profile" routerLinkActive="active">{{authService.getLocal().username}}</a>
       </li>
       <li class="nav-item" *ngIf="!isAuthenticated">
         <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>

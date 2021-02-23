@@ -4,7 +4,6 @@ import {RoomImages} from '../../models/roomImages';
 import {RoomService} from '../../services/room.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {BookingListComponent} from '../booking-list/booking-list.component';
 import {Room} from '../../models/room';
 import {AuthService} from '../../services/auth.service';
 import {DialogUpdateComponent} from '../booking-details/dialog-update/dialog-update.component';
@@ -13,10 +12,10 @@ import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   user = {
     id: 0,
     name: '',
@@ -58,17 +57,17 @@ export class UserProfileComponent implements OnInit {
   }
 
   getData(): void {
-    // const userLocal = JSON.parse(localStorage.getItem('airbnb_account'));
     const userLocal = this.authService.getLocal();
-    this.userService.getOne(userLocal.id).subscribe((res: any) => {
+    this.userService.findById(userLocal.id).subscribe((res: any) => {
       this.user = res.data;
-      this.userService.getRoomsOfHost(this.user.id, this.page, this.size).subscribe((res: any) => {
+      this.userService.findRoomByUserId(this.user.id, this.page, this.size).subscribe((res: any) => {
         this.pagingRooms = res.data;
         this.roomsOfHost = res.data.content;
-        if (this.roomsOfHost[0].roomImages.length !== 0) {
+        if (this.roomsOfHost.length !== 0 && this.roomsOfHost[0].roomImages.length > 0) {
+          console.log(this.roomsOfHost[0]);
           this.imagesRoom = this.roomsOfHost[0].roomImages;
         }
-        this.userService.getBookingsOfUser(this.user.id).subscribe((res: any) => {
+        this.userService.findBookingByUserId(this.user.id).subscribe((res: any) => {
           this.bookings = res.data;
           this.dataSource = new MatTableDataSource(this.bookings);
           this.dataSource.paginator = this.paginator;

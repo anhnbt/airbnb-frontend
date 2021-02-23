@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {RoomService} from '../../services/room.service';
 import {Room} from '../../models/room';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -8,7 +8,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {BookingService} from 'src/app/services/booking.service';
 import {AuthService} from '../../services/auth.service';
 import {DialogContentComponent} from '../layout/dialog-content/dialog-content.component';
-import {RoomImages} from "../../models/roomImages";
+import {RoomImages} from '../../models/roomImages';
 
 @Component({
   selector: 'app-room-details',
@@ -64,14 +64,13 @@ export class RoomDetailsComponent implements OnInit {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.roomService.getRoom(this.id).subscribe((res: any) => {
       this.roomData = res.data;
-      this.images[0].imageUrl = res.data
-        .roomImages[0].imageUrl;
+      if (res.data.roomImages.length > 0) {
+        this.images[0].imageUrl = res.data
+          .roomImages[0].imageUrl;
+      } else {
+        this.images[0].imageUrl = 'https://via.placeholder.com/350x150';
+      }
     });
-  }
-
-  addDays(dateObj: Date, numDays: number): Date {
-    dateObj.setDate(dateObj.getDate() + numDays);
-    return dateObj;
   }
 
   openSnackBar(message: string, action: string): void {
@@ -106,7 +105,6 @@ export class RoomDetailsComponent implements OnInit {
 
   onChangeStartDate(): void {
     this.endDate.setValue(null);
-    console.log(this.startDate.value + ' - Changed...' + this.endDate.value);
   }
 
   increment(input: AbstractControl): void {
@@ -118,8 +116,7 @@ export class RoomDetailsComponent implements OnInit {
   }
 
   convertUTCDateToLocalDate(date): Date {
-    const newDate = new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
-    return newDate;
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
   }
 
   onSubmit(): void {

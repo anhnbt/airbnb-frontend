@@ -1,19 +1,25 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListHomeService {
 
-  constructor(private http: HttpClient) { }
-  getAll(){
-    return this.http.get('http://localhost:8080/api/v1/rooms');
+  constructor(private http: HttpClient) {
   }
-  findAllByCityId(id: number){
-    return this.http.get('http://localhost:8080/api/v1/rooms/city/'+id);
+
+  getAll(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/rooms`);
   }
-  findAllByAddress(add: string){
-    return this.http.get('http://localhost:8080/api/v1/rooms/address/'+add);
+
+  findAllByProvinceId(id: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/rooms/province/${id}`);
+  }
+
+  findAllByAddress(address: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/rooms/address/${address}`);
   }
 }

@@ -3,76 +3,55 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Account} from '../models/account';
 import {AuthService} from './auth.service';
+import {environment} from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
-  private url = 'http://localhost:8080/api/user';
 
-  constructor(private http: HttpClient,
-              private authService: AuthService) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService) {
   }
 
-  login(value: any): Observable<any> {
-    return this.http.post('http://localhost:8080/api/v1/users/login', value);
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.authService.getToken()}`
+    })
+  };
+
+  create(value: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/auth/register`, value);
   }
 
-  createUser(value: any): Observable<any>{
-    return this.http.post('http://localhost:8080/api/v1/users/register', value);
+  update(value: any, id: number): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/users/${id}`, value, this.httpOptions);
   }
 
-  editUser(value: any): Observable<any> {
-    return this.http.post('http://localhost:8080/api/user/edit', value);
+  findById(id: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/users/${id}`, this.httpOptions);
   }
 
-  getOne(id: number): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-      })
-    };
-    return this.http.get(this.url + '/' + id, httpOptions);
+  findByUsername(username: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/users/${username}`, this.httpOptions);
   }
 
-  getOneByUsername(name: string): Observable<any> {
-    return this.http.get(this.url + '/edit-user/' + name);
+  changePassword(userForm: any, id: number): any {
+    return this.http.put(`${environment.apiUrl}/users/${id}`, userForm, this.httpOptions);
   }
 
-  changePassword(login: any): any {
-    return this.http.post('http://localhost:8080/api/user/changepw', login);
-  }
-
-  getRoomsOfHost(id: number, page?: number, size?: number): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-      })
-    };
+  findRoomByUserId(id: number, page?: number, size?: number): Observable<any> {
     if (page || size) {
-      return this.http.get(`${this.url}/${id}/rooms?page=${page}&size=${size}`, httpOptions);
+      return this.http.get(`${environment.apiUrl}/users/${id}/rooms?page=${page}&size=${size}`, this.httpOptions);
     }
-    return this.http.get(this.url + '/' + id + '/rooms', httpOptions);
+    return this.http.get(`${environment.apiUrl}/users/${id}/rooms`, this.httpOptions);
   }
 
-  getBookingsOfUser(id: number): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-      })
-    };
-    return this.http.get(this.url + '/' + id + '/bookings', httpOptions);
+  findBookingByUserId(id: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/users/${id}/bookings`, this.httpOptions);
   }
 
-  loginWithGoogle(name: string, email: string): Observable<any> {
-    return this.http.post('http://localhost:8080/api/v1/users/login-with-google', {email, name});
-  }
-
-  getUser(username: string): Observable<any> {
-    return this.http.get(`${this.url}/${username}`);
-  }
 }

@@ -1,10 +1,22 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ListHomeService} from '../../services/list-home.service';
 import {FormControl} from '@angular/forms';
-import {ListCityService} from '../../services/list-city.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {Observable} from 'rxjs';
+import {ProvinceService} from '../../services/province.service';
+
+interface Country {
+  id: number;
+  name: string;
+  city: any;
+
+}
+
+interface City {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-list-home',
@@ -17,18 +29,15 @@ export class HomeComponent implements OnInit {
   rooms: Observable<any>;
   myControl = new FormControl();
   back: any;
-  roomImg = [];
   roomLength = 0;
   add = '';
-  avgRatting = 0;
-  ratting = '';
-  key: string = 'name';
-  reverse: boolean = false;
+  key = 'name';
+  reverse = false;
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private serviceHome: ListHomeService,
-              private serviceCity: ListCityService,
+              private provinceService: ProvinceService,
               private changeDetectorRef: ChangeDetectorRef) {
   }
 
@@ -42,14 +51,13 @@ export class HomeComponent implements OnInit {
 
     });
 
-    this.serviceCity.getAllCity().subscribe((res: any) => {
+    this.provinceService.findAll().subscribe((res: any) => {
       this.places = res.data;
-      console.log(this.places);
     });
   }
 
   search(id: number): void {
-    this.serviceHome.findAllByCityId(id).subscribe((res: any) => {
+    this.serviceHome.findAllByProvinceId(id).subscribe((res: any) => {
       this.dataSource = new MatTableDataSource(res.data);
       this.changeDetectorRef.detectChanges();
       this.dataSource.paginator = this.paginator;
@@ -80,5 +88,6 @@ export class HomeComponent implements OnInit {
     });
 
   }
+
 
 }

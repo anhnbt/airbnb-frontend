@@ -11,8 +11,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {RouterModule} from '@angular/router';
-import {LayoutLoginComponent} from './components/layout-login/layout-login.component';
-import {LoginComponent} from './components/layout-login/login/login.component';
+import {LayoutLoginComponent} from './components/auth/layout-login.component';
+import {LoginComponent} from './components/auth/login/login.component';
+import {RegisterComponent} from './components/auth/register/register.component';
 import {AppRoutingModule} from './app-routing.module';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
@@ -26,7 +27,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTreeModule} from '@angular/material/tree';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {HomeComponent} from './components/home/home.component';
+import {HomeComponent} from './components/room-list/home.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {DialogContentComponent} from './components/layout/dialog-content/dialog-content.component';
@@ -34,8 +35,10 @@ import {RoomDetailsComponent} from './components/room-details/room-details.compo
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {HttpClientModule} from '@angular/common/http';
-import {CreatePostComponent} from './components/create-post/create-post.component';
-import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import {ProfileComponent} from './components/users/profile.component';
+import {EditProfileComponent} from './components/users/edit-profile/edit-profile.component';
+import {CreatePostComponent} from './components/users/create-post/create-post.component';
+import {ChangePassComponent} from './components/users/change-password/change-pass.component';
 import {BookingListComponent} from './components/booking-list/booking-list.component';
 import {BookingDetailsComponent} from './components/booking-details/booking-details.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -47,8 +50,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {NgImageSliderModule} from 'ng-image-slider';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
-import {ChangePassComponent} from './components/change-pass/change-pass.component';
-import {RegisterComponent} from './components/layout-login/register/register.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 /**
@@ -60,7 +61,6 @@ import {environment} from '../environments/environment.prod';
 import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import {AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR} from '@angular/fire/auth';
 import {LineChartRevenueComponent} from './components/line-chart-revenue/line-chart-revenue.component';
-import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
 import {DialogInputComponent} from './components/layout/dialog-input/dialog-input.component';
 import {DialogUpdateComponent} from './components/booking-details/dialog-update/dialog-update.component';
 
@@ -105,7 +105,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     LoginComponent,
     RoomDetailsComponent,
     CreatePostComponent,
-    UserProfileComponent,
+    ProfileComponent,
     BookingListComponent,
     BookingDetailsComponent,
     ReviewComponent,
