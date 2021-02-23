@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
         username: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z]*[0-9]*$')]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
-        phone: [''],
+        phone: ['',[Validators.minLength(9), Validators.maxLength(10)]],
         email: ['', [Validators.required, Validators.email]],
         gender: [''],
         dateOfBirth: ['']
@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit {
     this.user?.roles = [{name: 'ROLE_USER'}];
     this.userService.create(this.myForm.value).subscribe(() => {
       this.myForm.reset();
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
     });
   }
 

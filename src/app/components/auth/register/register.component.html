@@ -28,7 +28,7 @@
         <mat-label>Mật khẩu *</mat-label>
         <input matInput placeholder="Mật khẩu" type="password" formControlName="password">
         <mat-error *ngIf="hasError('password', 'required')">Mật khẩu không được trống</mat-error>
-        <mat-error *ngIf="hasError('password', 'minlength')">Mật khẩu không ít hơn  ký tự</mat-error>
+        <mat-error *ngIf="hasError('password', 'minlength')">Mật khẩu không ít hơn 6 ký tự</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="example-full-width">
@@ -36,24 +36,32 @@
         <input matInput placeholder="Xác nhận lại mật khẩu " type="password" formControlName="confirmPassword">
         <mat-error *ngIf=" '' != validateControlsValue('password', 'confirmPassword')">Mật khẩu không trùng khớp</mat-error>
         <mat-error *ngIf="hasError('confirmPassword', 'required')">Mật khẩu không được trống</mat-error>
-        <mat-error *ngIf="hasError('confirmPassword', 'minlength')">Mật khẩu 6không ít hơn  ký tự</mat-error>
+        <mat-error *ngIf="hasError('confirmPassword', 'minlength')">Mật khẩu không ít hơn ký tự</mat-error>
       </mat-form-field>
 
 
       <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Số điện thoại</mat-label>
-        <input matInput placeholder="Số điện thoại" type="text" formControlName="phone">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="example-full-width">
-        <mat-label>Gender</mat-label>
-        <input matInput placeholder="Giới tính" type="text" formControlName="gender">
+        <mat-label>Số điện thoại</mat-label>
+        <input matInput placeholder="Số điện thoại" type="number" formControlName="phone">
+        <mat-error *ngIf="hasError('phone', 'maxlength')">Số điện thoại không đúng mẫu</mat-error>
+        <mat-error *ngIf="hasError('phone', 'minlength')">Số điện thoại không đúng mẫu</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="example-full-width">
         <mat-label>Ngày sinh</mat-label>
-        <input matInput placeholder="Ngày sinh " type="date" formControlName="dateOfBirth">
+        <input matInput placeholder="Ngày sinh" type="date" formControlName="dateOfBirth">
       </mat-form-field>
+
+      <mat-label>Giới tính
+        <label>
+          <input type="radio" value="1" name="gender" formControlName="gender">
+          NAM
+        </label>
+        <label>
+          <input type="radio" value="2" name="gender" formControlName="gender">
+          Nữ
+        </label>
+      </mat-label>
     </mat-card-content>
     <mat-card-actions class="text-center">
       <button [disabled]="myForm.invalid" mat-raised-button color="primary" type="submit">Tạo tài khoản</button>
