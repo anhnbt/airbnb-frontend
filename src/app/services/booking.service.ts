@@ -13,6 +13,13 @@ export class BookingService {
               private authService: AuthService) {
   }
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.authService.getToken()}`
+    })
+  };
+
   getAll(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/bookings`, this.httpOptions);
   }
@@ -30,21 +37,10 @@ export class BookingService {
   }
 
   getBookingByRoomAndByUser(roomId: number, userId: number): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-      })
-    };
     return this.http.get(`${environment.apiUrl}/bookings/${roomId}/${userId}`, this.httpOptions);
   }
 
   bookingsOfCus(userId: number): any {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-      })
-    };
-    return this.http.get(`${environment.apiUrl}/bookings/user/${userId}`, this.httpOptions);  }
+    return this.http.get(`${environment.apiUrl}/bookings/user/${userId}`, this.httpOptions);
+  }
 }

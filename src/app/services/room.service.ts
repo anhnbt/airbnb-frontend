@@ -10,11 +10,17 @@ import {environment} from '../../environments/environment.prod';
   providedIn: 'root'
 })
 export class RoomService {
-  private URL = 'http://localhost:8080/api/v1/rooms';
 
   constructor(private http: HttpClient,
               private authService: AuthService) {
   }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.authService.getToken()}`
+    })
+  };
 
   /** GET hero by id. Will 404 if id not found */
   getRoom(id: number): Observable<Room> {
@@ -44,14 +50,7 @@ export class RoomService {
   }
 
   save(room: any): any {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-      })
-    };
-    // @ts-ignore
-    return this.http.post(`${environment.apiUrl}/host`, room, httpOptions);
+    return this.http.post(`${environment.apiUrl}/host`, room, this.httpOptions);
   }
 
   uploadMultiImage(formData: FormData): Observable<any> {
@@ -59,17 +58,10 @@ export class RoomService {
   }
 
   changeStatus(id: number): any {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-      })
-    };
-    // @ts-ignore
-    return this.http.put(`${environment.apiUrl}/host/${id}/status`, null, httpOptions);
+    return this.http.put(`${environment.apiUrl}/host/${id}/status`, null, this.httpOptions);
   }
 
   cancelled(id: number, cancelled: boolean): Observable<any> {
-    return this.http.put(`${environment.apiUrl}/rooms/${id}/cancelled`, {cancelled});
+    return this.http.put(`${environment.apiUrl}/rooms/${id}/cancelled`, {cancelled}, this.httpOptions);
   }
 }
