@@ -12,6 +12,10 @@ import {AuthService} from '../../../services/auth.service';
 })
 export class ChangePassComponent implements OnInit {
   userForm: FormGroup;
+  checkDisabled = true;
+  checkHidden = true;
+  passwordValue = '';
+  confirmPasswordValue = '';
 
   constructor(
     private fb: FormBuilder,
@@ -46,8 +50,15 @@ export class ChangePassComponent implements OnInit {
     return this.userForm.get('confirmPassword');
   }
 
-  checkConfirm(): boolean {
-    return this.password.value === this.confirmPassword.value;
+  checkConfirm(): void {
+    if (this.passwordValue == this.confirmPasswordValue && this.passwordValue.length >= 6) {
+      this.checkDisabled = false;
+      this.checkHidden = true;
+    } else {
+      this.checkDisabled = true;
+      this.checkHidden = false;
+    }
+
   }
 
   onSubmit(): void {
