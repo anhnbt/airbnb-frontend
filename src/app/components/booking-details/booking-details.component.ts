@@ -32,7 +32,6 @@ export class BookingDetailsComponent implements OnInit {
       this.booking = res;
       this.room = res.room;
       this.roomImages = res.room.roomImages;
-      console.log(res);
     });
   }
 
@@ -45,7 +44,6 @@ export class BookingDetailsComponent implements OnInit {
   openConfirmDialog(): void {
     const startDate = new Date(this.booking.startDate).getDate();
     const cancelledDate = new Date().getDate();
-    console.log(cancelledDate + ' === ' + startDate);
     if (cancelledDate < startDate) {
       if (this.room.cancelled && cancelledDate === (startDate - 1)) {
         this.openSnackBar('Bạn không thể hủy đặt phòng trước 1 ngày', 'Close');
@@ -63,7 +61,6 @@ export class BookingDetailsComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
             this.bookingService.cancelled(this.booking.id).subscribe(res => {
-              console.log(res);
               this.openSnackBar('Hủy đặt phòng thành công!', 'Close');
               this.ngOnInit();
             });

@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../services/user.service';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogInputComponent} from '../layout/dialog-input/dialog-input.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {AuthService} from '../../services/auth.service';
+import {UserService} from '../../../services/user.service';
+import {DialogInputComponent} from '../../layout/dialog-input/dialog-input.component';
+import {AuthService} from '../../../services/auth.service';
+import {Router} from '@angular/router';
+
 
 
 @Component({
@@ -32,58 +34,59 @@ export class EditProfileComponent implements OnInit {
   gender = '';
   action: 'Chỉnh sửa thành công';
 
-  constructor(private userService: UserService,
-              private dialog: MatDialog,
-              private _snackBar: MatSnackBar,
-              private auService: AuthService) {
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    this.username = this.auService.getLocal().username;
-    this.userService.getOneByUsername(this.username).subscribe(res => {
-      console.log(res.data);
-      this.user = res.data;
-      this.checkGender();
-    });
-
+    if (this.authService.checkAuthenticated()) {
+      const id = this.authService.getLocal().id;
+      this.userService.findById(id).subscribe(res => {
+        this.user = res.data;
+        this.checkGender();
+      });
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   openDialog(title: string): void {
     const dialogRef = this.dialog.open(DialogInputComponent, {
       width: '450px',
-      data: {title: title, name: this.user.name, birthDay: this.user.dateOfBirth, email: this.user.email, phone: this.user.phone}
+      data: {title, name: this.user.name, birthDay: this.user.dateOfBirth, email: this.user.email, phone: this.user.phone}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed +' + result);
       this.user.name = result.name;
       this.user.dateOfBirth = result.birthDay;
       this.user.email = result.email;
       this.user.phone = result.phone;
-      this.updateUserProfile();
-
+      this.update();
     });
   }
 
   checkGender(): void {
-    if (this.user.gender == 1) {
+    if (this.user.gender === 1) {
       this.gender = 'Nam';
     } else {
-      this.gender = 'Nu';
+      this.gender = 'Nữ';
     }
   }
 
-  openSnackBar() {
-    this._snackBar.open('Sửa thành công', this.action, {
+  openSnackBar(): void {
+    this.snackBar.open('Sửa thành công', this.action, {
       duration: 2000,
     });
   }
 
-  updateUserProfile(): void {
-    this.userService.editUser(this.user).subscribe(res => {
+  update(): void {
+    this.userService.update(this.user, this.user.id).subscribe(res => {
       this.openSnackBar();
       this.user = res.data;
-
     });
   }
 }

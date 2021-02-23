@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {RoomService} from '../../services/room.service';
 import {Room} from '../../models/room';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -37,13 +37,13 @@ export class RoomDetailsComponent implements OnInit {
     const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
     const selectedDate = (d || new Date());
     return selectedDate > yesterday;
-  };
+  }
 
   myFilterEnd = (d: Date | null): boolean => {
     const currentDate = new Date();
     const selectedDate = (d || new Date());
     return selectedDate > currentDate && selectedDate > this.startDate.value;
-  };
+  }
 
   constructor(
     public authService: AuthService,
@@ -67,11 +67,6 @@ export class RoomDetailsComponent implements OnInit {
       this.images[0].imageUrl = res.data
         .roomImages[0].imageUrl;
     });
-  }
-
-  addDays(dateObj: Date, numDays: number): Date {
-    dateObj.setDate(dateObj.getDate() + numDays);
-    return dateObj;
   }
 
   openSnackBar(message: string, action: string): void {
@@ -106,7 +101,6 @@ export class RoomDetailsComponent implements OnInit {
 
   onChangeStartDate(): void {
     this.endDate.setValue(null);
-    console.log(this.startDate.value + ' - Changed...' + this.endDate.value);
   }
 
   increment(input: AbstractControl): void {
@@ -118,8 +112,7 @@ export class RoomDetailsComponent implements OnInit {
   }
 
   convertUTCDateToLocalDate(date): Date {
-    const newDate = new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
-    return newDate;
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
   }
 
   onSubmit(): void {

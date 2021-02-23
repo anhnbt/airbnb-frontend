@@ -1,21 +1,31 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment.prod';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProvinceService {
-  private URL = 'http://localhost:8080/api/city';
 
-  constructor(private http: HttpClient) {
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.authService.getToken()}`
+    })
+  };
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService) {
   }
 
-  getAll(): Observable<any> {
-    return this.http.get(this.URL);
+  findAll(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/province`, this.httpOptions);
   }
 
-  getOne(id: number): Observable<any> {
-    return this.http.get(this.URL + '/' + id);
+  findById(id: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/province/${id}`);
   }
 }

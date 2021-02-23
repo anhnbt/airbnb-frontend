@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment.prod';
 import {AuthService} from "./auth.service";
 
 @Injectable({
@@ -21,7 +22,7 @@ export class ReviewService {
       })
     };
     // @ts-ignore
-    return this.http.get(this.url + '/room/' + id, httpOptions);
+    return this.http.get(`${environment.apiUrl}/review/room/${id}`, httpOptions);
   }
 
   save(reviewBody: string, rating: number, booking: any): Observable<any> {
@@ -31,6 +32,6 @@ export class ReviewService {
         Authorization: `Bearer ${this.authService.getLocal().accessToken}`
       })
     };
-    return this.http.post(this.url, {reviewBody, rating, booking}, httpOptions);
+    return this.http.post(`${environment.apiUrl}/review`, {reviewBody, rating, booking}, httpOptions);
   }
 }

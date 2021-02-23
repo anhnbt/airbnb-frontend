@@ -6,6 +6,7 @@ import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
 import firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {environment} from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +24,8 @@ export class AuthService {
   }
 
   async login(username: string, password: string): Promise<any> {
-    const resp = await this.http.post('http://localhost:8080/api/v1/users/login', {username, password})
+    const resp = await this.http.post(`${environment.apiUrl}/auth/login`, {username, password})
       .toPromise() as any;
-    console.log(resp);
     this.isAuthenticated.next(true);
     if (resp.status !== 'OK') {
       throw Error('We cannot handle the ' + resp.status + ' status');
@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   async loginWithGoogle(name: string, email: string): Promise<any> {
-    const resp = await this.http.post('http://localhost:8080/api/v1/users/login-with-google', {email, name})
+    const resp = await this.http.post(`${environment.apiUrl}/auth/login-with-google`, {email, name})
       .toPromise() as any;
     console.log(resp);
     this.isAuthenticated.next(true);
@@ -61,7 +61,7 @@ export class AuthService {
     const user = this.localStorageService.get('airbnb_account');
     let authenticated = false;
     if (user && typeof user === 'object') {
-      authenticated = (user.id && user.username && user.accessToken);
+      authenticated = true;
     }
     this.isAuthenticated.next(authenticated);
     return authenticated;
@@ -74,6 +74,14 @@ export class AuthService {
 
   getLocal(): Account {
     return this.localStorageService.get('airbnb_account');
+  }
+
+  getToken(): string {
+    if (this.getLocal()) {
+      return this.getLocal().accessToken;
+    } else {
+      return null;
+    }
   }
 
 }

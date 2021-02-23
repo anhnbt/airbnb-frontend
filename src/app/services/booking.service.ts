@@ -2,32 +2,31 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
+import {environment} from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
-  private URL = 'http://localhost:8080/api/v1/bookings';
 
   constructor(private http: HttpClient,
               private authService: AuthService) {
   }
 
-  getAll(): any {
-    return this.http.get(this.URL);
+  getAll(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/bookings`, this.httpOptions);
   }
 
-  getOne(id: any): any {
-    return this.http.get(this.URL + '/' + id);
+  getOne(id: any): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/bookings/${id}`, this.httpOptions);
   }
 
   cancelled(id: number): Observable<any> {
-    // @ts-ignore
-    return this.http.put(this.URL + '/' + id + '/cancelled');
+    return this.http.put(`${environment.apiUrl}/bookings/${id}/cancelled`, null, this.httpOptions);
   }
 
   booking(roomId: number, userId: number, data: any): Observable<any> {
-    return this.http.post(this.URL + '/' + roomId + '/' + userId, data);
+    return this.http.post(`${environment.apiUrl}/bookings/${roomId}/${userId}`, data, this.httpOptions);
   }
 
   getBookingByRoomAndByUser(roomId: number, userId: number): Observable<any> {
@@ -37,9 +36,8 @@ export class BookingService {
         Authorization: `Bearer ${this.authService.getLocal().accessToken}`
       })
     };
-    return this.http.get(this.URL + `/${roomId}/${userId}`, httpOptions);
+    return this.http.get(`${environment.apiUrl}/bookings/${roomId}/${userId}`, this.httpOptions);
   }
-
 
   bookingsOfCus(userId: number): any {
     const httpOptions = {
@@ -48,6 +46,5 @@ export class BookingService {
         Authorization: `Bearer ${this.authService.getLocal().accessToken}`
       })
     };
-    return this.http.get(this.URL + '/user/' + userId, httpOptions);
-  }
+    return this.http.get(`${environment.apiUrl}/bookings/user/${userId}`, this.httpOptions);  }
 }

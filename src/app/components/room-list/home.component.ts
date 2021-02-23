@@ -5,6 +5,19 @@ import {ListCityService} from '../../services/list-city.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {Observable} from 'rxjs';
+import {ProvinceService} from '../../services/province.service';
+
+interface Country {
+  id: number;
+  name: string;
+  city: any;
+
+}
+
+interface City {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-list-home',
@@ -42,9 +55,8 @@ export class HomeComponent implements OnInit {
 
     });
 
-    this.serviceCity.getAllCity().subscribe((res: any) => {
+    this.serviceCity.findAll().subscribe((res: any) => {
       this.places = res.data;
-      console.log(this.places);
     });
   }
 
@@ -80,5 +92,6 @@ export class HomeComponent implements OnInit {
     });
 
   }
+
 
 }
