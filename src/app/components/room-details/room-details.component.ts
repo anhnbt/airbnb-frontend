@@ -37,13 +37,13 @@ export class RoomDetailsComponent implements OnInit {
     const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
     const selectedDate = (d || new Date());
     return selectedDate > yesterday;
-  };
+  }
 
   myFilterEnd = (d: Date | null): boolean => {
     const currentDate = new Date();
     const selectedDate = (d || new Date());
     return selectedDate > currentDate && selectedDate > this.startDate.value;
-  };
+  }
 
   constructor(
     public authService: AuthService,
@@ -75,7 +75,7 @@ export class RoomDetailsComponent implements OnInit {
 
   openSnackBar(message: string, action: string): void {
     this.snackBar.open(message, action, {
-      duration: 3000
+      duration: 4000
     });
   }
 
@@ -137,19 +137,24 @@ export class RoomDetailsComponent implements OnInit {
         }
       });
     } else {
-      const localStartDate = this.convertUTCDateToLocalDate(this.startDate.value);
-      const localEndDate = this.convertUTCDateToLocalDate(this.endDate.value);
-      this.startDate.setValue(new Date(localStartDate));
-      this.endDate.setValue(new Date(localEndDate));
-      const userId = this.authService.getLocal().id;
-      this.bookingService.booking(this.roomData.id, userId, this.myForm.value).subscribe(res => {
-        if (res.status === 'OK') {
-          this.openSnackBar('Đặt phòng thành công!', 'Đóng');
-          this.myForm.reset();
-        } else {
-          this.openSnackBar('Đã xảy ra lỗi!', 'Đóng');
-        }
-      });
+      if (this.roomData.status) {
+        const localStartDate = this.convertUTCDateToLocalDate(this.startDate.value);
+        const localEndDate = this.convertUTCDateToLocalDate(this.endDate.value);
+        this.startDate.setValue(new Date(localStartDate));
+        this.endDate.setValue(new Date(localEndDate));
+        const userId = this.authService.getLocal().id;
+        this.bookingService.booking(this.roomData.id, userId, this.myForm.value).subscribe(res => {
+          console.log(res);
+          if (res.status === 'OK') {
+            this.openSnackBar('Đặt phòng thành công!', 'Đóng');
+            this.myForm.reset();
+          } else {
+            this.openSnackBar('Đã xảy ra lỗi: ' + res.message, 'Đóng');
+          }
+        });
+      } else {
+        this.openSnackBar('Phòng này đã có người đang ở! Vui lòng chọn phòng khác.', 'Đóng');
+      }
     }
   }
 
