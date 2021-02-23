@@ -20,7 +20,7 @@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner" *ngFor="let img of roomImages; let first = first">
             <div class="carousel-item" [class.active]="first">
-              <img [src]=img.imageUrl class="d-block w-100" alt="">
+              <img [src]="img.imageUrl" class="d-block w-100" alt="">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -50,6 +50,7 @@
             color="primary">Hủy đặt phòng
     </button>
     <mat-error *ngIf="booking.status === 'CANCELED'" class="mt-2"><strong>*Bạn đã hủy đặt phòng</strong></mat-error>
+    <a routerLink="/users/profile" mat-raised-button>Quay lại</a>
   </mat-card-actions>
 </mat-card>
 <ng-template #nodata>
