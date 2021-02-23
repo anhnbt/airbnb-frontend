@@ -48,19 +48,13 @@ export class ReviewComponent implements OnInit {
   }
 
   send(): void {
-    console.log(this.myForm.get('reviewBody').value);
-    console.log(this.myForm.get('rating').value);
-
     this.bookingService.getBookingByRoomAndByUser(this.childId, this.local.get(localStorage.key(0)).id)
       .subscribe(res => {
         this.booking = res.data;
-        console.log(this.booking);
         this.reviewService.save(this.myForm.get('reviewBody').value, this.myForm.get('rating').value, this.booking).subscribe(res => {
-          console.log(res.data);
           this.loadData();
           this.myForm.reset();
         });
-        // console.log(this.local.get(localStorage.key(0)).id);
       });
   }
 

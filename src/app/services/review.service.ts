@@ -18,7 +18,7 @@ export class ReviewService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
+        Authorization: `Bearer ${this.authService.getToken()}`
       })
     };
     // @ts-ignore

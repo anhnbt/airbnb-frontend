@@ -63,7 +63,8 @@ export class ProfileComponent implements OnInit {
       this.userService.findRoomByUserId(this.user.id, this.page, this.size).subscribe((res: any) => {
         this.pagingRooms = res.data;
         this.roomsOfHost = res.data.content;
-        if (this.roomsOfHost.length !== 0) {
+        if (this.roomsOfHost.length !== 0 && this.roomsOfHost[0].roomImages.length > 0) {
+          console.log(this.roomsOfHost[0]);
           this.imagesRoom = this.roomsOfHost[0].roomImages;
         }
         this.userService.findBookingByUserId(this.user.id).subscribe((res: any) => {

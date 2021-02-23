@@ -8,7 +8,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {BookingService} from 'src/app/services/booking.service';
 import {AuthService} from '../../services/auth.service';
 import {DialogContentComponent} from '../layout/dialog-content/dialog-content.component';
-import {RoomImages} from "../../models/roomImages";
+import {RoomImages} from '../../models/roomImages';
 
 @Component({
   selector: 'app-room-details',
@@ -37,13 +37,13 @@ export class RoomDetailsComponent implements OnInit {
     const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
     const selectedDate = (d || new Date());
     return selectedDate > yesterday;
-  }
+  };
 
   myFilterEnd = (d: Date | null): boolean => {
     const currentDate = new Date();
     const selectedDate = (d || new Date());
     return selectedDate > currentDate && selectedDate > this.startDate.value;
-  }
+  };
 
   constructor(
     public authService: AuthService,
@@ -64,8 +64,12 @@ export class RoomDetailsComponent implements OnInit {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.roomService.getRoom(this.id).subscribe((res: any) => {
       this.roomData = res.data;
-      this.images[0].imageUrl = res.data
-        .roomImages[0].imageUrl;
+      if (res.data.roomImages.length > 0) {
+        this.images[0].imageUrl = res.data
+          .roomImages[0].imageUrl;
+      } else {
+        this.images[0].imageUrl = 'https://via.placeholder.com/350x150';
+      }
     });
   }
 
