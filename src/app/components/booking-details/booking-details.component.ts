@@ -31,7 +31,11 @@ export class BookingDetailsComponent implements OnInit {
     this.bookingService.getOne(id).subscribe((res: any) => {
       this.booking = res;
       this.room = res.room;
-      this.roomImages = res.room.roomImages;
+      if (res.room.roomImages.length > 0) {
+        this.roomImages = res.room.roomImages;
+      } else {
+        this.roomImages.push({imageUrl: 'https://via.placeholder.com/350x150'});
+      }
     });
   }
 
