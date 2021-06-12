@@ -8,17 +8,10 @@ import {AuthService} from './auth.service';
 export class SalesMonthService {
   private URL = 'http://localhost:8080';
 
-  constructor(private http: HttpClient,
-              private authService: AuthService) {
+  constructor(private http: HttpClient) {
   }
 
   getSalesMonth(id: number, year: number): any {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-      })
-    };
-    return this.http.get(this.URL + '/api/sales/' + id + '/' + year, httpOptions);
+    return this.http.get(this.URL + '/api/sales/' + id + '/' + year);
   }
 }

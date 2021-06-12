@@ -3,7 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {User} from '../../../models/user';
-import {AuthService} from '../../../services/auth.service';
+import {Response} from '../../../models/response';
+import {NotificationService} from '../../shared/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -11,12 +12,10 @@ import {AuthService} from '../../../services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
   myForm: FormGroup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
-    // age: new FormControl(''),
     phone: new FormControl(''),
     email: new FormControl(''),
     gender: new FormControl(''),
@@ -24,13 +23,13 @@ export class RegisterComponent implements OnInit {
   });
 
   list?: any[];
-  user?: User;
+  user: User;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private userService: UserService,
-    private authService: AuthService
+    private notificationService: NotificationService
   ) {
   }
 
@@ -39,7 +38,7 @@ export class RegisterComponent implements OnInit {
         username: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z]*[0-9]*$')]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
-        phone: ['',[Validators.minLength(9), Validators.maxLength(10)]],
+        phone: ['', [Validators.minLength(9), Validators.maxLength(10)]],
         email: ['', [Validators.required, Validators.email]],
         gender: [''],
         dateOfBirth: ['']
@@ -57,7 +56,7 @@ export class RegisterComponent implements OnInit {
     return function(formGroup: FormGroup) {
       const {value: firstControlValue} = formGroup.get(firstControlName);
       const {value: secondControlValue} = formGroup.get(secondControlName);
-      return firstControlValue == secondControlValue
+      return firstControlValue === secondControlValue
         ? ''
         : {
           valueNotMatch: {
@@ -70,11 +69,19 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     this.user = this.myForm.value;
-    // @ts-ignore
-    this.user?.roles = [{name: 'ROLE_USER'}];
-    this.userService.create(this.myForm.value).subscribe(() => {
-      this.myForm.reset();
-      this.router.navigate(['/login']);
+    this.user.roles = [{name: 'ROLE_USER'}];
+    console.log(this.user);
+    this.userService.create(this.user).subscribe((resp: Response) => {
+      if (resp.status === 'CREATED') {
+        this.notificationService.createNotification('success', 'AirBnb', resp.message);
+        this.myForm.reset();
+        // this.router.navigate(['/login']);
+      } else {
+        this.notificationService.createNotification('error', 'AirBnb Error', resp.message);
+      }
+    }, error => {
+      console.log(error);
+      this.notificationService.createNotification('error', 'Lỗi hệ thống', error)
     });
   }
 

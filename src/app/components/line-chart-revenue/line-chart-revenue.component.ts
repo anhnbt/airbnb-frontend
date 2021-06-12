@@ -23,7 +23,7 @@ export class LineChartRevenueComponent implements OnInit {
   }
 
   getData(): any {
-    const userLocal = this.authService.getLocal();
+    const userLocal = this.authService.getUserFromLocalStorage();
     this.salesMonthService.getSalesMonth(userLocal.id, this.year).subscribe(resF => {
       this.salesMonthService.getSalesMonth(userLocal.id, this.year - 1).subscribe(res => {
         this.chart = new Chart('canvas', {

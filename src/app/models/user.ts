@@ -14,4 +14,5 @@ export interface User {
   roles?: [{
     name: string
   }];
+  token?: string;
 }

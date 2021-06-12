@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit {
     private dialog: MatDialog,
     private userService: UserService,
     private roomService: RoomService,
-    private authService: AuthService
+    public auth: AuthService,
   ) {
   }
 
@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getData(): void {
-    const userLocal = this.authService.getLocal();
+    const userLocal = this.auth.getUserFromLocalStorage();
     this.userService.findById(userLocal.id).subscribe((res: any) => {
       this.user = res.data;
       this.userService.findRoomByUserId(this.user.id, this.page, this.size).subscribe((res: any) => {

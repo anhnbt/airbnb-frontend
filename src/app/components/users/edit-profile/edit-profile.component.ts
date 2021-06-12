@@ -44,7 +44,7 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.checkAuthenticated()) {
-      const id = this.authService.getLocal().id;
+      const id = this.authService.getUserFromLocalStorage().id;
       this.userService.findById(id).subscribe(res => {
         this.user = res.data;
         this.checkGender();

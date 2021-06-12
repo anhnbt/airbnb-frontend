@@ -12,6 +12,7 @@ import {
 } from 'firebaseui-angular';
 import {AuthService} from '../../../services/auth.service';
 import {ShareService} from '../../../services/share.service';
+import {NotificationService} from '../../shared/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -29,10 +30,11 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private authService: AuthService,
+    private auth: AuthService,
     private shareService: ShareService,
     private localService: LocalStorageService,
-    public auth: AngularFireAuth,
+    private notificationService: NotificationService,
+    public fireAuth: AngularFireAuth,
     private firebaseuiAngularLibraryService: FirebaseuiAngularLibraryService) {
     firebaseuiAngularLibraryService.firebaseUiInstance.disableAutoSignIn();
   }
@@ -45,7 +47,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
-    if (this.authService.checkAuthenticated()) {
+    if (this.auth.checkAuthenticated()) {
       this.router.navigate([this.returnUrl]);
     }
   }
@@ -57,9 +59,10 @@ export class LoginComponent implements OnInit {
       try {
         const username = this.formLogin.get('username').value;
         const password = this.formLogin.get('password').value;
-        await this.authService.login(username, password);
+        await this.auth.login(username, password);
       } catch (err) {
         this.loginInvalid = true;
+        this.notificationService.createNotification('error', 'AirBnb', err.message);
       }
     } else {
       this.formSubmitAttempt = true;
@@ -81,7 +84,7 @@ export class LoginComponent implements OnInit {
     console.log(providerId);
     try {
       // @ts-ignore
-      await this.authService.loginWithGoogle(userProfile.name, userProfile.email);
+      await this.auth.loginWithGoogle(userProfile.name, userProfile.email);
     } catch (err) {
       this.loginInvalid = true;
     }

@@ -23,17 +23,14 @@ export class LayoutComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public authService: AuthService) {
-    this.authService.isAuthenticated.subscribe(
-      (isAuthenticated: boolean) => this.isAuthenticated = isAuthenticated
-    );
+    public auth: AuthService) {
   }
 
   async ngOnInit(): Promise<void> {
-    this.isAuthenticated = await this.authService.checkAuthenticated();
+    this.isAuthenticated = await this.auth.checkAuthenticated();
   }
 
   logout(): any {
-    this.authService.logout('login');
+    this.auth.logout('login');
   }
 }

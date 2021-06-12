@@ -8,30 +8,14 @@ import {AuthService} from "./auth.service";
   providedIn: 'root'
 })
 export class ReviewService {
-  private url = 'http://localhost:8080/api/review';
-
-  constructor(private http: HttpClient,
-              private authService: AuthService) {
+  constructor(private http: HttpClient) {
   }
 
   getAll(id: number): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getToken()}`
-      })
-    };
-    // @ts-ignore
-    return this.http.get(`${environment.apiUrl}/review/room/${id}`, httpOptions);
+    return this.http.get(`${environment.apiUrl}/review/room/${id}`);
   }
 
   save(reviewBody: string, rating: number, booking: any): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getLocal().accessToken}`
-      })
-    };
-    return this.http.post(`${environment.apiUrl}/review`, {reviewBody, rating, booking}, httpOptions);
+    return this.http.post(`${environment.apiUrl}/review`, {reviewBody, rating, booking});
   }
 }

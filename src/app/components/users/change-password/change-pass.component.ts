@@ -26,7 +26,7 @@ export class ChangePassComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
-      username: [this.authService.getLocal().username, Validators.required],
+      username: [this.authService.getUserFromLocalStorage().username, Validators.required],
       password: [null, [Validators.required, Validators.min(6)]],
       confirmPassword: [null, [Validators.required, Validators.min(6)]]
     });
@@ -62,7 +62,7 @@ export class ChangePassComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.userService.changePassword(this.userForm.value, this.authService.getLocal().id).subscribe(res => {
+    this.userService.changePassword(this.userForm.value, this.authService.getUserFromLocalStorage().id).subscribe(res => {
       this.openSnackBar('Cập nhật mật khẩu thành công!', 'Close');
     });
   }

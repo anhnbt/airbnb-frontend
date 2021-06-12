@@ -11,9 +11,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {RouterModule} from '@angular/router';
-import {LayoutLoginComponent} from './components/auth/layout-login.component';
-import {LoginComponent} from './components/auth/login/login.component';
-import {RegisterComponent} from './components/auth/register/register.component';
 import {AppRoutingModule} from './app-routing.module';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
@@ -34,7 +31,7 @@ import {DialogContentComponent} from './components/layout/dialog-content/dialog-
 import {RoomDetailsComponent} from './components/room-details/room-details.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ProfileComponent} from './components/users/profile.component';
 import {EditProfileComponent} from './components/users/edit-profile/edit-profile.component';
 import {CreatePostComponent} from './components/users/create-post/create-post.component';
@@ -51,6 +48,7 @@ import {NgImageSliderModule} from 'ng-image-slider';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {NzNotificationModule} from 'ng-zorro-antd/notification';
 
 /**
  * Config cho firebase
@@ -63,6 +61,18 @@ import {AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR} from '@angular
 import {LineChartRevenueComponent} from './components/line-chart-revenue/line-chart-revenue.component';
 import {DialogInputComponent} from './components/layout/dialog-input/dialog-input.component';
 import {DialogUpdateComponent} from './components/booking-details/dialog-update/dialog-update.component';
+import {en_US, NZ_I18N} from 'ng-zorro-antd/i18n';
+import {registerLocaleData} from '@angular/common';
+import en from '@angular/common/locales/en';
+import {AuthInterceptor} from './components/http-interceptors/auth.interceptor';
+import {LayoutLoginComponent} from './components/auth/layout-login.component';
+import {LoadingComponent} from './components/auth/loading/loading.component';
+import {LoginComponent} from './components/auth/login/login.component';
+import {NavBarComponent} from './components/auth/nav-bar/nav-bar.component';
+import {RegisterComponent} from './components/auth/register/register.component';
+import {NzSpinModule} from 'ng-zorro-antd/spin';
+
+registerLocaleData(en);
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -79,15 +89,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
         auth_type: 'reauthenticate'
       },
       provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID
-    },
-    // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-    firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    // {
-    //   requireDisplayName: false,
-    //   provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
-    // },
-    // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-    // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+    }
   ],
   tosUrl: 'https://anhnbt.com/p/dieu-khoan-su-dung.html',
   privacyPolicyUrl: 'https://anhnbt.com/p/chinh-sach-bao-mat.html',
@@ -101,8 +103,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     HomeComponent,
     DialogContentComponent,
     RoomDetailsComponent,
-    LayoutLoginComponent,
-    LoginComponent,
     RoomDetailsComponent,
     CreatePostComponent,
     ProfileComponent,
@@ -112,11 +112,15 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     PageNotFoundComponent,
     LineChartRevenueComponent,
     PageNotFoundComponent,
-    RegisterComponent,
     ChangePassComponent,
     EditProfileComponent,
     DialogInputComponent,
-    DialogUpdateComponent
+    DialogUpdateComponent,
+    LayoutLoginComponent,
+    LoadingComponent,
+    LoginComponent,
+    NavBarComponent,
+    RegisterComponent
   ],
   imports: [
     FormsModule,
@@ -152,7 +156,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatDatepickerModule,
     MatNativeDateModule,
     HttpClientModule,
-    HttpClientModule,
     SliderModule,
     MatTabsModule,
     MatStepperModule,
@@ -160,12 +163,18 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     NgImageSliderModule,
     MatExpansionModule,
     NgbModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NzNotificationModule,
+    NzSpinModule,
   ],
   providers: [
     MatDatepickerModule, {
       provide: USE_AUTH_EMULATOR, useValue: !environment.production ? ['localhost', 9099] : undefined
-    }],
+    },
+    {provide: NZ_I18N, useValue: en_US},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

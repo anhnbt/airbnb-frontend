@@ -142,7 +142,7 @@ export class RoomDetailsComponent implements OnInit {
         const localEndDate = this.convertUTCDateToLocalDate(this.endDate.value);
         this.startDate.setValue(new Date(localStartDate));
         this.endDate.setValue(new Date(localEndDate));
-        const userId = this.authService.getLocal().id;
+        const userId = this.authService.getUserFromLocalStorage().id;
         this.bookingService.booking(this.roomData.id, userId, this.myForm.value).subscribe(res => {
           console.log(res);
           if (res.status === 'OK') {

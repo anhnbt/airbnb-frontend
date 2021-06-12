@@ -28,7 +28,7 @@ export class BookingListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    const userLocal = this.authService.getLocal();
+    const userLocal = this.authService.getUserFromLocalStorage();
     this.bookingService.bookingsOfCus(userLocal.id).subscribe(res => {
       this.bookingsOfCus = res.data;
       this.dataSource = new MatTableDataSource(this.bookingsOfCus);

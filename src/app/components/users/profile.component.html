@@ -1,14 +1,15 @@
-
-<div *ngIf="imagesRoom[0].imageUrl != ''" id="carouselExampleControls" class="carousel slide mb-4" data-ride="carousel"
-     style="width: 100%; height: 350px; text-align:center;margin:0; padding:0;">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img style="max-height: 350px"
-           [src]="imagesRoom[0].imageUrl"
-           class="d-block w-100" alt="...">
-    </div>
-    <ng-container *ngFor="let item of imagesRoom; let first = first let i=index; let odd=odd" [class.odd]="odd">
-      <div class="carousel-item" *ngIf="!first">
+<div *ngIf="auth.user$ | async as user">
+  <div *ngIf="imagesRoom[0].imageUrl != ''" id="carouselExampleControls" class="carousel slide mb-4"
+       data-ride="carousel"
+       style="width: 100%; height: 350px; text-align:center;margin:0; padding:0;">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img style="max-height: 350px"
+             [src]="imagesRoom[0].imageUrl"
+             class="d-block w-100" alt="...">
+      </div>
+      <ng-container *ngFor="let item of imagesRoom; let first = first let i=index; let odd=odd" [class.odd]="odd">
+        <div class="carousel-item" *ngIf="!first">
         <img src="{{ item.imageUrl }}" style="max-height: 350px" class="d-block w-100" alt="...">
       </div>
     </ng-container>
@@ -173,4 +174,5 @@
 
     <app-line-chart-revenue *ngIf="roomsOfHost.length != 0"></app-line-chart-revenue>
   </div>
+</div>
 </div>

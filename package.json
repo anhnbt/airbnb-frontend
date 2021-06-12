@@ -31,6 +31,7 @@
     "firebaseui": "^4.7.3",
     "firebaseui-angular": "^5.1.2",
     "ng-image-slider": "^2.6.4",
+    "ng-zorro-antd": "^11.4.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
