@@ -12,19 +12,20 @@ import {ChangePassComponent} from './components/users/change-password/change-pas
 import {LoginComponent} from './components/auth/login/login.component';
 import {RegisterComponent} from './components/auth/register/register.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import {AuthGuard} from './components/auth/auth.guard';
 
 const routes: Routes = [
-  { path: '',                   component: HomeComponent },
-  { path: 'login',              component: LoginComponent },
-  { path: 'register',           component: RegisterComponent },
-  { path: 'change-password',    component: ChangePassComponent },
-  { path: 'review',             component: ReviewComponent },
-  { path: 'rooms/:id',          component: RoomDetailsComponent },
-  { path: 'booking-detail/:id', component: BookingDetailsComponent },
-  { path: 'users/profile',      component: ProfileComponent },
-  { path: 'users/edit',         component: EditProfileComponent },
-  { path: 'users/create-post',  component: CreatePostComponent },
-  { path: '**',                 component: PageNotFoundComponent }
+  {path: '', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'change-password', component: ChangePassComponent, canActivate: [AuthGuard]},
+  {path: 'review', component: ReviewComponent},
+  {path: 'rooms/:id', component: RoomDetailsComponent},
+  {path: 'booking-detail/:id', component: BookingDetailsComponent},
+  {path: 'users/profile', component: ProfileComponent},
+  {path: 'users/edit', component: EditProfileComponent},
+  {path: 'users/create-post', component: CreatePostComponent},
+  {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({

@@ -40,7 +40,6 @@ export class AuthService {
   async loginWithGoogle(name: string, email: string): Promise<any> {
     const resp = await this.http.post(`${environment.apiUrl}/auth/login-with-google`, {email, name})
       .toPromise() as any;
-    console.log(resp);
     this.isAuthenticated$.next(resp.data);
     if (resp.status !== 'OK') {
       throw Error('We cannot handle the ' + resp.status + ' status');
@@ -61,7 +60,7 @@ export class AuthService {
     this.router.navigate([redirect]);
   }
 
-  checkAuthenticated(): boolean {
+  isAuthenticated(): boolean {
     return this.getUserFromLocalStorage() !== null;
   }
 

@@ -14,13 +14,13 @@
           <li class="nav-item">
             <a routerLink="/" class="nav-link">Home</a>
           </li>
-          <li class="nav-item" *ngIf="auth.checkAuthenticated()">
+          <li class="nav-item" *ngIf="auth.isAuthenticated()">
             <a routerLink="external-api" class="nav-link">External API</a>
           </li>
         </ul>
         <ul class="navbar-nav d-none d-md-block">
           <!-- Login button: show if NOT authenticated -->
-          <li class="nav-item" *ngIf="auth.checkAuthenticated() === false">
+          <li class="nav-item" *ngIf="auth.isAuthenticated() === false">
             <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
           </li>
           <li class="nav-item dropdown" *ngIf="auth.user$ | async as user" ngbDropdown>

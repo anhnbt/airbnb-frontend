@@ -63,7 +63,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authService.checkAuthenticated()) {
+    if (this.authService.isAuthenticated()) {
       this.provinceService.findAll().subscribe((res: any) => {
         this.provinceList = res.data;
       });

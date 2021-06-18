@@ -64,7 +64,7 @@ import {DialogUpdateComponent} from './components/booking-details/dialog-update/
 import {en_US, NZ_I18N} from 'ng-zorro-antd/i18n';
 import {registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
-import {AuthInterceptor} from './components/http-interceptors/auth.interceptor';
+import {AuthInterceptor} from './components/auth/auth.interceptor';
 import {LayoutLoginComponent} from './components/auth/layout-login.component';
 import {LoadingComponent} from './components/auth/loading/loading.component';
 import {LoginComponent} from './components/auth/login/login.component';

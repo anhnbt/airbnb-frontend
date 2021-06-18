@@ -120,7 +120,7 @@ export class RoomDetailsComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!this.authService.checkAuthenticated()) {
+    if (!this.authService.isAuthenticated()) {
       const dialogRef = this.dialog.open(DialogContentComponent, {
         width: '300px',
         data: {

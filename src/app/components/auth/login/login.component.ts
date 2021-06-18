@@ -13,6 +13,7 @@ import {
 import {AuthService} from '../../../services/auth.service';
 import {ShareService} from '../../../services/share.service';
 import {NotificationService} from '../../shared/notification.service';
+import {User} from '../../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -47,9 +48,11 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
-    if (this.auth.checkAuthenticated()) {
-      this.router.navigate([this.returnUrl]);
-    }
+    this.auth.isAuthenticated$.subscribe((user: User) => {
+      if (user) {
+        this.router.navigate([this.returnUrl]);
+      }
+    });
   }
 
   async onSubmit(): Promise<void> {

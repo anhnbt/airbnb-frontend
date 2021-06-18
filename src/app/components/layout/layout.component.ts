@@ -27,7 +27,7 @@ export class LayoutComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.isAuthenticated = await this.auth.checkAuthenticated();
+    this.isAuthenticated = await this.auth.isAuthenticated();
   }
 
   logout(): any {
