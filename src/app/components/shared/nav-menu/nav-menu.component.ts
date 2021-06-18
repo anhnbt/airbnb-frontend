@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
-import {Observable} from 'rxjs';
-import {User} from '../../../models/user';
 
 @Component({
-  selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  selector: 'app-nav-menu',
+  templateUrl: './nav-menu.component.html',
+  styleUrls: ['./nav-menu.component.css']
 })
-export class NavBarComponent implements OnInit {
+export class NavMenuComponent implements OnInit {
   isCollapsed = true;
   isAuthenticated: boolean;
 
@@ -23,4 +21,5 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 }

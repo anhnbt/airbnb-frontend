@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
+import {Account} from '../../../models/account';
 import {Observable} from 'rxjs';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map, shareReplay} from 'rxjs/operators';
-import {AuthService} from '../../services/auth.service';
-import {Account} from '../../models/account';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  selector: 'app-main-layout',
+  templateUrl: './main-layout.component.html',
+  styleUrls: ['./main-layout.component.css']
 })
-export class LayoutComponent implements OnInit {
+export class MainLayoutComponent implements OnInit {
 
   account: Account;
   isAuthenticated: boolean;
@@ -33,4 +33,5 @@ export class LayoutComponent implements OnInit {
   logout(): any {
     this.auth.logout('login');
   }
+
 }
